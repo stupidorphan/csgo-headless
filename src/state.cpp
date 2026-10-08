@@ -359,7 +359,10 @@ struct State::Impl {
             const auto& entry = strings.entries[index];
             std::size_t end = 0;
             const int id = std::stoi(entry.name, &end);
-            require(end == entry.name.size() && classes.contains(id), "Invalid class baseline identifier");
+            // Bootstrap can decode string tables before a demo provides the
+            // client-created class schema. Cache bounded IDs now; entity decode
+            // checks class existence before interpreting a baseline payload.
+            require(end == entry.name.size() && id >= 0 && id < 1024, "Invalid class baseline identifier");
             class_baselines[id] = entry.data;
         } else if (strings.name == "userinfo") {
             const auto& data = strings.entries[index].data;
@@ -737,6 +740,15 @@ std::vector<Json> State::take_events() {
     std::vector<Json> result;
     while (!impl_->events.empty()) { result.push_back(std::move(impl_->events.front())); impl_->events.pop_front(); }
     return result;
+}
+std::optional<Bytes> State::string_table_userdata(std::string_view table, std::string_view entry) const {
+    const auto found = std::find_if(impl_->string_tables.begin(), impl_->string_tables.end(),
+        [&](const Impl::Strings& value) { return value.name == table; });
+    if (found == impl_->string_tables.end()) return std::nullopt;
+    const auto item = std::find_if(found->entries.begin(), found->entries.end(),
+        [&](const Impl::StringEntry& value) { return value.name == entry; });
+    if (item == found->entries.end()) return std::nullopt;
+    return item->data;
 }
 std::vector<std::pair<std::uint32_t, Proto>> State::take_outgoing() { auto result = std::move(impl_->outgoing); impl_->outgoing.clear(); return result; }
 bool State::needs_full_update() const { return impl_->full_update; }

@@ -1,6 +1,8 @@
 #include "hc/state.hpp"
 #include "hc/usercmd.hpp"
+#include "hc/netchannel.hpp"
 #include <cmath>
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 
@@ -65,11 +67,21 @@ Proto health_delta(int from, unsigned health) {
     return Proto(out.data());
 }
 void state_tests() {
+    State bootstrap;
+    BitWriter bootstrap_baseline;
+    field_start(bootstrap_baseline, 0);
+    check(bootstrap.consume(12, strings("instancebaseline", "0", bootstrap_baseline.data()), 0),
+          "bootstrap string table decoding does not require entity schema");
+    check(bootstrap.string_table_userdata("instancebaseline", "0") == std::optional<Bytes>(bootstrap_baseline.data()),
+          "bootstrap keeps bounded baseline userdata before class metadata is available");
     State state;
     state.load_profile(profile());
     state.set_server_info("de_dust2", 0, 16, 1.0f / 64);
     const auto baseline = values(0, 0, 0, 0, 0, 0);
     check(state.consume(12, strings("instancebaseline", "0", baseline), 50), "baseline strings");
+    check(state.string_table_userdata("instancebaseline", "0") == std::optional<Bytes>(baseline), "userdata accessor preserves exact bytes");
+    check(!state.string_table_userdata("instancebaseline", "missing") && !state.string_table_userdata("missing", "0"),
+          "userdata accessor distinguishes absent table and absent entry");
     check(state.consume(26, full_packet(100, true), 100), "full snapshot");
     auto status = state.status();
     check(status["local"]["health"] == 100 && status["local"]["money"] == 800, "decoded integer properties");
@@ -135,6 +147,8 @@ void state_tests() {
     ProtoWriter table;
     table.string(1, "modelprecache").u32(2, 64).u32(3, 2).bytes(8, data.data());
     check(state.consume(12, Proto(table.data()), 0), "substring table entries");
+    check(state.string_table_userdata("modelprecache", "hello_two") == std::optional<Bytes>(Bytes{}),
+          "userdata accessor distinguishes present empty data");
     ProtoWriter descriptor_key, descriptor, event_list;
     descriptor_key.u32(1, 3).string(2, "winner");
     descriptor.u32(1, 7).string(2, "round_end").message(3, descriptor_key);
@@ -243,8 +257,109 @@ void usercmd_tests() {
     controller.reset();
     check(controller.next(105).command_number == 1, "reset starts clean command sequence");
 }
+Bytes unhex(const std::string& value) {
+    check(value.size() % 2 == 0, "capture contains odd-length hex");
+    auto nibble = [](char character) -> unsigned {
+        if (character >= '0' && character <= '9') return character - '0';
+        if (character >= 'a' && character <= 'f') return character - 'a' + 10;
+        if (character >= 'A' && character <= 'F') return character - 'A' + 10;
+        throw std::runtime_error("capture contains invalid hex");
+    };
+    Bytes result;
+    result.reserve(value.size() / 2);
+    for (std::size_t i = 0; i < value.size(); i += 2)
+        result.push_back(static_cast<std::uint8_t>((nibble(value[i]) << 4) | nibble(value[i + 1])));
+    return result;
 }
-int main() {
-    try { state_tests(); metadata_tests(); usercmd_tests(); std::cout << "state/usercmd tests passed\n"; return 0; }
+int replay(const char* profile_path, const char* capture_path) {
+    std::ifstream profile_file(profile_path), capture_file(capture_path);
+    check(bool(profile_file) && bool(capture_file), "cannot open replay profile or capture");
+    Json metadata;
+    profile_file >> metadata;
+    State state;
+    state.load_profile(metadata);
+    ChannelConfig config;
+    config.passive = true;
+    config.host_version = metadata.value("host_version", 13881u);
+    config.encryption_key = default_ice_key(config.host_version);
+    Netchannel channel(config), client_channel(config);
+    int tick = 0;
+    std::size_t line_number = 0, packets = 0, messages = 0, snapshots = 0, recoveries = 0, stale = 0, errors = 0;
+    std::size_t captured_moves = 0, captured_commands = 0, move_errors = 0;
+    Json reasons = Json::array();
+    std::string line;
+    auto failure = [&](const std::string& reason, int type = -1) {
+        ++errors;
+        if (reasons.size() < 16) reasons.push_back({{"line", line_number}, {"message_type", type}, {"reason", reason}});
+    };
+    while (std::getline(capture_file, line)) {
+        ++line_number;
+        if (line.empty()) continue;
+        try {
+            const auto record = Json::parse(line);
+            const auto direction = record.at("direction").get<std::string>();
+            if (direction != "server_to_client" && direction != "client_to_server") continue;
+            const bool outbound = direction == "client_to_server";
+            const auto bytes = unhex(record.at("hex").get<std::string>());
+            auto packet = (outbound ? client_channel : channel).receive(bytes);
+            if (packet.pending || packet.connectionless) continue;
+            if (!packet.valid) {
+                if (packet.error == "stale_packet") ++stale;
+                else failure(packet.error);
+                continue;
+            }
+            ++packets;
+            for (const auto& message : packet.messages) {
+                if (outbound) {
+                    if (message.type != 9) continue;
+                    try {
+                        const Proto body(message.bytes);
+                        const auto backups = body.get_u32(1), fresh = body.get_u32(2);
+                        check(backups <= 7 && fresh <= 15 && backups + fresh > 0, "invalid captured move counts");
+                        const auto data = body.get_bytes(3);
+                        BitReader commands(data);
+                        UserCmd previous;
+                        for (unsigned i = 0; i < backups + fresh; ++i) previous = read_usercmd_delta(commands, previous);
+                        check(commands.remaining() <= 7, "captured move has undecoded nonpadding bits");
+                        ++captured_moves;
+                        captured_commands += backups + fresh;
+                    } catch (const std::exception& error) {
+                        ++move_errors;
+                        failure(error.what(), static_cast<int>(message.type));
+                    }
+                    continue;
+                }
+                ++messages;
+                try {
+                    const Proto body(message.bytes);
+                    if (message.type == 4) tick = body.get_i32(1);
+                    const auto handled = state.consume(message.type, body, tick);
+                    if (message.type == 26) { if (handled) ++snapshots; else ++recoveries; }
+                    state.take_outgoing();
+                    state.take_events();
+                } catch (const std::exception& error) { failure(error.what(), static_cast<int>(message.type)); }
+            }
+        } catch (const std::exception& error) { failure(error.what()); }
+    }
+    const auto status = state.status();
+    const auto pure = state.string_table_userdata("server_query_info", "PureServerWhitelist");
+    Json result{{"type", "state_replay_summary"}, {"packets", packets}, {"messages", messages},
+        {"snapshots", snapshots}, {"recoveries", recoveries}, {"errors", errors}, {"first_errors", reasons},
+        {"stale_packets", stale},
+        {"captured_moves", captured_moves}, {"captured_user_commands", captured_commands}, {"move_errors", move_errors},
+        {"map", status.at("map")}, {"tick", status.at("tick")}, {"entity_tick", state.entity_tick()},
+        {"entity_count", status.at("entity_count")}, {"players", status.at("players").size()},
+        {"has_local_player", !status.at("local").is_null()}, {"has_pure_whitelist", pure.has_value()},
+        {"pure_whitelist_bytes", pure ? pure->size() : 0}};
+    std::cout << result.dump(2) << '\n';
+    return errors || !snapshots ? 1 : 0;
+}
+}
+int main(int argc, char** argv) {
+    try {
+        if (argc == 3) return replay(argv[1], argv[2]);
+        check(argc == 1, "usage: state-tests [PROFILE_JSON CAPTURE_JSONL]");
+        state_tests(); metadata_tests(); usercmd_tests(); std::cout << "state/usercmd tests passed\n"; return 0;
+    }
     catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
 }

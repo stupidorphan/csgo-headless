@@ -4,8 +4,10 @@
 #include <cstdint>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include <optional>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -30,6 +32,8 @@ public:
     // Malformed packets throw StateError without committing a partial snapshot.
     bool consume(std::uint32_t message_type, const Proto&, std::int32_t tick);
     nlohmann::json status() const;
+    // Exact decoded userdata, including an empty payload; nullopt means absent.
+    std::optional<Bytes> string_table_userdata(std::string_view table, std::string_view entry) const;
     std::vector<nlohmann::json> take_events();
     std::vector<std::pair<std::uint32_t, Proto>> take_outgoing();
     bool needs_full_update() const;
