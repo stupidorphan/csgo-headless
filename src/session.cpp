@@ -115,6 +115,7 @@ struct Session::Impl {
         if(value==4){auto whitelist=state.string_table_userdata("server_query_info","PureServerWhitelist");auto expected=profile.value("integrity",Json::object()).value("whitelist_sha256",std::string{});if(expected.empty()||!whitelist||sha256(*whitelist)!=expected)throw std::runtime_error("Unsupported integrity requirements: server whitelist differs from verified metadata");}
         if(value==6){integrity_cursor=0;next_integrity=Clock::now();}
         confirm(value);emit("signon",{{"state",signon},{"name",signon_names[signon]}});
+        if(value==6)stringcmd("joingame");
     }
     void consume(const Message&m){
         Proto p(m.bytes);if(config.trace)std::cerr<<"rx type="<<m.type<<" bytes="<<m.bytes.size()<<" tick="<<tick<<'\n';
@@ -149,10 +150,13 @@ struct Session::Impl {
                 ProtoWriter ack;ack.i32(1,state.entity_tick());unreliable.push_back({4,ack.take()});
                 if(signon==6&&!paused){
                     int32_t estimated=tick;if(last_tick_time!=Clock::time_point{})estimated+=int32_t(std::chrono::duration<double>(now-last_tick_time).count()/interval);
-                    auto cmd=input.next(estimated);std::vector<UserCmd> backup(backups.begin(),backups.end());std::array<UserCmd,1> fresh{cmd};auto move=make_move(backup,fresh);unreliable.push_back({9,move.data()});
-                    backups.push_back(cmd);while(backups.size()>2)backups.pop_front();
+                    const auto due=unsigned(std::min(15.0,std::floor(std::chrono::duration<double>(now-next_send).count()/interval)+1));
+                    std::vector<UserCmd> backup(backups.begin(),backups.end()),fresh;
+                    for(unsigned index=0;index<due;++index){auto cmd=input.next(estimated-int32_t(due-1-index));fresh.push_back(cmd);backups.push_back(cmd);while(backups.size()>2)backups.pop_front();}
+                    auto move=make_move(backup,fresh);unreliable.push_back({9,move.data()});
+                    next_send+=std::chrono::duration_cast<Clock::duration>(std::chrono::duration<double>(due*interval));
                 }
-                for(auto&d:channel.send(unreliable))send_bytes(d);next_send=now+std::chrono::duration_cast<Clock::duration>(std::chrono::duration<double>(signon==6?interval:0.2));
+                for(auto&d:channel.send(unreliable))send_bytes(d);if(signon!=6||paused)next_send=now+std::chrono::duration_cast<Clock::duration>(std::chrono::duration<double>(signon==6?interval:0.2));
             }
         }catch(const std::exception&e){last_error=e.what();emit("error",{{"message",last_error}});close(last_error);}
     }
