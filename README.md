@@ -10,6 +10,8 @@ Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.25 or ne
 
 The validated toolchain is CMake 3.31.6-msvc6, MSVC 19.44.35228.0 (v143, tools directory 14.44.35207), and Windows SDK 10.0.26100.0. `dependencies.lock.json` pins the JSON header/license, Steam SDK headers/import library, and generic Steam runtime by SHA256. Configuration rejects changed dependency contents. MSVC compilation and linking use `/Brepro`, with incremental linking disabled; binary reproducibility was checked by clean rebuilds in the same source/build location.
 
+Git attributes fix source line endings and preserve the exact verified profile and pinned dependency bytes. The source archive therefore retains the same profile SHA256 as the tested runtime package.
+
 ```powershell
 cmake --preset windows -DSTEAM_SDK_DIR="E:/archives/csgo/csgo_partner/src" -DSTEAM_API_DLL="D:/SteamLibrary/steamapps/common/Counter-Strike Global Offensive/bin/steam_api.dll"
 cmake --build --preset debug
