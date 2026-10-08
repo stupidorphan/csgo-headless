@@ -23,11 +23,13 @@ JSON for Modern C++ 3.12.0 is vendored with its exact SHA256 in `THIRD_PARTY_NOT
 
 ## Interactive control
 
-From the project or packaged directory:
+From an extracted package directory:
 
 ```powershell
 .\headless-csgo.exe --interactive --profile profiles/legacy_13881.json
 ```
+
+From the source checkout, use `.\build\Release\headless-csgo.exe --interactive --profile profiles/legacy_13881.json` instead.
 
 ```text
 connect
@@ -55,6 +57,8 @@ quit
 .\headless-csgo.exe --json --profile profiles/legacy_13881.json
 python examples/control.py .\headless-csgo.exe
 ```
+
+From the source checkout, the corresponding executable is `.\build\Release\headless-csgo.exe`.
 
 One request per line:
 
@@ -108,6 +112,14 @@ python tools/validate_live.py build/Release/headless-csgo.exe --seconds 1800
 ```
 
 `tests/fixtures` retains sanitized stock user commands; `validation` contains derived reports. Build outputs, raw captures, demos, and credentials are excluded from Git.
+
+`tools/audit_runtime_files.py` uses an existing x86 Windows SDK CDB debugger to follow native file opens and DLLs in the client and helper. It retains paths and verification counters, with no packet or ticket contents. Run it separately from other live clients. Supply absolute executable/profile paths because its working directory is the audit output folder:
+
+```powershell
+python tools/audit_runtime_files.py --output artifacts/file-audit --game-root "D:/SteamLibrary/steamapps/common/Counter-Strike Global Offensive" --require-full -- C:/absolute/package/headless-csgo.exe --json --connect --run-seconds 45 --profile C:/absolute/package/profiles/legacy_13881.json
+```
+
+The `file-audit-fixture` build target supplies an offline parent/child positive control for that auditor; it opens only a supplied synthetic fixture file. The auditor report states its coverage limits, including file opens before the debugger's initial breakpoint.
 
 ```powershell
 python tools/package_release.py --configuration Release
