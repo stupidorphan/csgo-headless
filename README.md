@@ -6,7 +6,7 @@ The supplied metadata profile covers `151.243.93.16:27015`, `cs_italy`, and its 
 
 ## Build
 
-Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.24 or newer. The current helper uses the locally available 32-bit Steamworks SDK, so configure Win32.
+Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.25 or newer. The current helper uses the locally available 32-bit Steamworks SDK, so configure Win32.
 
 The validated toolchain is CMake 3.31.6-msvc6, MSVC 19.44.35228.0 (v143, tools directory 14.44.35207), and Windows SDK 10.0.26100.0. `dependencies.lock.json` pins the JSON header/license, Steam SDK headers/import library, and generic Steam runtime by SHA256. Configuration rejects changed dependency contents. MSVC compilation and linking use `/Brepro`, with incremental linking disabled; binary reproducibility was checked by clean rebuilds in the same source/build location.
 

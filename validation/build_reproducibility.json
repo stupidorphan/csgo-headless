@@ -12,6 +12,19 @@
     "identical": true
   },
   "debug": {
+    "debug_information_format": "Embedded (/Z7)",
+    "before_clean_rebuild": {
+      "headless-csgo.exe": "fe21cb389bcdb8a236bc40d711988554c03ec8a7d22d71fc4a4065919c1f0e51",
+      "steam_auth_helper.exe": "e1daabce0ab538c7b534a0d2e61980173a8d49c414993f5052a56096ad41d1b3"
+    },
+    "after_clean_rebuild": {
+      "headless-csgo.exe": "fe21cb389bcdb8a236bc40d711988554c03ec8a7d22d71fc4a4065919c1f0e51",
+      "steam_auth_helper.exe": "e1daabce0ab538c7b534a0d2e61980173a8d49c414993f5052a56096ad41d1b3"
+    },
+    "identical": true
+  },
+  "comparison_scope": "Same source checkout/build directory and pinned toolchain; debug PDB files are not part of this binary comparison.",
+  "debug_prior_zi_comparison": {
     "before_clean_rebuild": {
       "headless-csgo.exe": "fa3e6ffa767f6df4530d1fa966ac79a3f2a937bf8ee1f48059d50b018d313c34",
       "steam_auth_helper.exe": "6abec402021f152d7bac9f2f88fd7771e1543860c70e38417b012e0ae2eb07a9"
@@ -21,6 +34,5 @@
       "steam_auth_helper.exe": "e1daabce0ab538c7b534a0d2e61980173a8d49c414993f5052a56096ad41d1b3"
     },
     "identical": false
-  },
-  "comparison_scope": "Same source checkout/build directory and pinned toolchain; debug PDB files are not part of this binary comparison."
+  }
 }
