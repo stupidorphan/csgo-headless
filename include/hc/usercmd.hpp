@@ -36,6 +36,9 @@ public:
     // forward/side/up in [-1,1], pitch in [-89,89], yaw in degrees;
     // buttons is an array of names; duration_ticks is the nonzero duration.
     void set(const nlohmann::json& args);
+    // Server angle corrections preserve held input and its original deadline.
+    // Relative corrections add yaw only; absolute corrections replace the view.
+    void fix_angles(const std::array<float, 3>& angles, bool relative);
     void select_weapon(std::uint16_t entity_index, std::uint8_t subtype = 0);
     UserCmd next(std::int32_t server_tick);
     void reset();

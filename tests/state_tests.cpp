@@ -391,6 +391,37 @@ void usercmd_tests() {
     check(controller.next(500).forwardmove == 450 && controller.next(20).forwardmove == 0,
           "backward server tick reset neutralizes pending input");
 }
+void angle_fix_tests() {
+    InputController controller;
+    controller.set({{"forward", 1}, {"side", -0.5}, {"up", 0.25},
+                    {"buttons", Json::array({"fire", "duck"})}, {"duration_ticks", 4}});
+    controller.select_weapon(888, 6);
+    controller.fix_angles({350, 170, 355}, false);
+    auto command = controller.next(100);
+    check(command.viewangles == std::array<float, 3>{-10, 170, -5}, "absolute server correction replaces all view angles");
+    check(command.forwardmove == 450 && command.sidemove == -225 && command.upmove == 80 &&
+          (command.buttons & 5u) == 5u && command.weaponselect == 888 && command.weaponsubtype == 6,
+          "absolute correction preserves held axes, buttons and pending weapon before duration begins");
+    controller.fix_angles({60, 30, 60}, true);
+    command = controller.next(102);
+    check(command.viewangles == std::array<float, 3>{-10, -160, -5} && command.forwardmove == 450 && (command.buttons & 5u) == 5u,
+          "relative correction adds wrapped yaw only and preserves active input");
+    rejects([&] { controller.fix_angles({0, std::numeric_limits<float>::quiet_NaN(), 0}, true); },
+            "nonfinite relative correction rejected");
+    rejects([&] { controller.fix_angles({0, 20, std::numeric_limits<float>::infinity()}, false); },
+            "nonfinite absolute correction rejected before any view changes");
+    command = controller.next(103);
+    check(command.viewangles == std::array<float, 3>{-10, -160, -5} && command.forwardmove == 450,
+          "rejected corrections preserve both view and original input deadline");
+    command = controller.next(104);
+    check(command.forwardmove == 0 && command.sidemove == 0 && command.upmove == 0 && command.buttons == 0 &&
+          command.viewangles == std::array<float, 3>{-10, -160, -5}, "server corrections do not restart or shorten input duration");
+    controller.fix_angles({90, 270, 25}, false);
+    controller.set({{"buttons", Json::array({"reload"})}, {"duration_ticks", 1}});
+    command = controller.next(200);
+    check(command.viewangles == std::array<float, 3>{90, -90, 25} && (command.buttons & (1u << 13)),
+          "action-only input preserves a server view outside manual pitch limits and its roll");
+}
 Bytes unhex(const std::string& value) {
     check(value.size() % 2 == 0, "capture contains odd-length hex");
     auto nibble = [](char character) -> unsigned {
@@ -505,7 +536,7 @@ int main(int argc, char** argv) {
     try {
         if (argc == 3) return replay(argv[1], argv[2]);
         check(argc == 1, "usage: state-tests [PROFILE_JSON CAPTURE_JSONL]");
-        state_tests(); metadata_tests(); inventory_tests(); usercmd_tests(); user_message_tests(); std::cout << "state/usercmd tests passed\n"; return 0;
+        state_tests(); metadata_tests(); inventory_tests(); usercmd_tests(); angle_fix_tests(); user_message_tests(); std::cout << "state/usercmd tests passed\n"; return 0;
     }
     catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
 }

@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 
 using namespace hc;
@@ -254,6 +255,39 @@ void lifecycle_tests(const std::filesystem::path& path) {
           status["connection"]["last_error"].get<std::string>().find("synthetic server rejection") != std::string::npos,
           "server disconnect uses production error path and clears authoritative state");
 }
+void angle_fix_tests(const std::filesystem::path& path) {
+    ClientConfig config;
+    config.profile = path;
+    config.replay_only = true;
+    Session session(config);
+    complete_signon(session);
+    Netchannel peer(passive_config());
+    session.command("input", {{"forward", 1}, {"side", -0.5}, {"up", 0.25},
+                              {"buttons", Json::array({"attack", "duck"})}, {"duration_ticks", 4}});
+    session.command("weapon", {{"entity", 10}});
+    auto fix = [&](float pitch, float yaw, float roll, bool relative) {
+        ProtoWriter angles, message;
+        angles.float32(1, pitch).float32(2, yaw).float32(3, roll);
+        message.u32(1, relative).message(2, angles);
+        session.replay_message(19, Proto(message.data()));
+    };
+    fix(350, 170, 355, false);
+    auto command = last_usercmd(decode_step(session, peer, 100));
+    check(command.viewangles == std::array<float, 3>{-10, 170, -5} && command.forwardmove == 450 &&
+          command.sidemove == -225 && command.upmove == 80 && (command.buttons & 5u) == 5u && command.weaponselect == 10,
+          "absolute FixAngle uses server view without discarding pending movement, buttons or weapon selection");
+    fix(60, 30, 60, true);
+    command = last_usercmd(decode_step(session, peer, 102));
+    check(command.viewangles == std::array<float, 3>{-10, -160, -5} && command.forwardmove == 450 && (command.buttons & 5u) == 5u,
+          "relative FixAngle adds yaw only while the original timed input remains active");
+    command = last_usercmd(decode_step(session, peer, 104));
+    check(command.forwardmove == 0 && command.sidemove == 0 && command.upmove == 0 && command.buttons == 0 &&
+          command.viewangles == std::array<float, 3>{-10, -160, -5}, "FixAngle preserves the original input expiry and persistent view");
+    fix(0, std::numeric_limits<float>::infinity(), 0, false);
+    check(session.status()["connection"]["signon"] == 0 &&
+          session.status()["connection"]["last_error"].get<std::string>().find("nonfinite") != std::string::npos,
+          "malformed server angle fails explicitly and clears the session");
+}
 void compatibility_rejection_tests(const std::filesystem::path& path) {
     ClientConfig config;
     config.profile = path;
@@ -293,6 +327,7 @@ int main() {
         framing_tests();
         TemporaryProfile metadata;
         lifecycle_tests(metadata.path);
+        angle_fix_tests(metadata.path);
         compatibility_rejection_tests(metadata.path);
         std::cout << "session framing, signon, snapshot recovery, disconnect and map-transition tests passed (offline)\n";
         return 0;

@@ -105,10 +105,9 @@ void InputController::set(const nlohmann::json& args) {
     next.forwardmove = number(args, "forward", 0, -1, 1) * 450.0f;
     next.sidemove = number(args, "side", 0, -1, 1) * 450.0f;
     next.upmove = number(args, "up", 0, -1, 1) * 320.0f;
-    next.viewangles[0] = number(args, "pitch", current_.viewangles[0], -89, 89);
+    if (args.contains("pitch")) next.viewangles[0] = number(args, "pitch", current_.viewangles[0], -89, 89);
     const auto yaw = number(args, "yaw", current_.viewangles[1], -360000, 360000);
     next.viewangles[1] = std::remainder(yaw, 360.0f);
-    next.viewangles[2] = 0;
     const auto duration = args.value("duration_ticks", args.value("ticks", std::int64_t{1}));
     if (duration < 1 || duration > 65536) throw std::invalid_argument("duration_ticks must be between 1 and 65536");
     next.buttons = 0;
@@ -134,6 +133,21 @@ void InputController::set(const nlohmann::json& args) {
     current_ = next;
     duration_ = static_cast<std::uint32_t>(duration);
     start_pending_ = true;
+}
+
+void InputController::fix_angles(const std::array<float, 3>& angles, bool relative) {
+    for (const auto angle : angles)
+        if (!std::isfinite(angle)) throw std::invalid_argument("Server angle correction contains a nonfinite float");
+    if (relative) {
+        // Source's relative FixAngle changes yaw only. Reduce the delta first
+        // so addition remains finite even for a large finite server value.
+        current_.viewangles[1] = std::remainder(current_.viewangles[1] + std::remainder(angles[1], 360.0f), 360.0f);
+    } else {
+        auto corrected = angles;
+        for (auto& angle : corrected) if (angle > 180.0f) angle -= 360.0f;
+        corrected[1] = std::remainder(angles[1], 360.0f);
+        current_.viewangles = corrected;
+    }
 }
 
 void InputController::select_weapon(std::uint16_t entity_index, std::uint8_t subtype) {
