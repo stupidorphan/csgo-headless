@@ -1,0 +1,259 @@
+{
+  "name": "network_connection.proto",
+  "package": "",
+  "dependencies": [
+    "google/protobuf/descriptor.proto"
+  ],
+  "messages": [],
+  "enums": [
+    {
+      "name": "ENetworkDisconnectionReason",
+      "values": [
+        {
+          "name": "NETWORK_DISCONNECT_INVALID",
+          "number": 0
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SHUTDOWN",
+          "number": 1
+        },
+        {
+          "name": "NETWORK_DISCONNECT_DISCONNECT_BY_USER",
+          "number": 2
+        },
+        {
+          "name": "NETWORK_DISCONNECT_DISCONNECT_BY_SERVER",
+          "number": 3
+        },
+        {
+          "name": "NETWORK_DISCONNECT_LOST",
+          "number": 4
+        },
+        {
+          "name": "NETWORK_DISCONNECT_OVERFLOW",
+          "number": 5
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_BANNED",
+          "number": 6
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_INUSE",
+          "number": 7
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_TICKET",
+          "number": 8
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_LOGON",
+          "number": 9
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_AUTHCANCELLED",
+          "number": 10
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_AUTHALREADYUSED",
+          "number": 11
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_AUTHINVALID",
+          "number": 12
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_VACBANSTATE",
+          "number": 13
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_LOGGED_IN_ELSEWHERE",
+          "number": 14
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_VAC_CHECK_TIMEDOUT",
+          "number": 15
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_DROPPED",
+          "number": 16
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STEAM_OWNERSHIP",
+          "number": 17
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SERVERINFO_OVERFLOW",
+          "number": 18
+        },
+        {
+          "name": "NETWORK_DISCONNECT_TICKMSG_OVERFLOW",
+          "number": 19
+        },
+        {
+          "name": "NETWORK_DISCONNECT_STRINGTABLEMSG_OVERFLOW",
+          "number": 20
+        },
+        {
+          "name": "NETWORK_DISCONNECT_DELTAENTMSG_OVERFLOW",
+          "number": 21
+        },
+        {
+          "name": "NETWORK_DISCONNECT_TEMPENTMSG_OVERFLOW",
+          "number": 22
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SOUNDSMSG_OVERFLOW",
+          "number": 23
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SNAPSHOTOVERFLOW",
+          "number": 24
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SNAPSHOTERROR",
+          "number": 25
+        },
+        {
+          "name": "NETWORK_DISCONNECT_RELIABLEOVERFLOW",
+          "number": 26
+        },
+        {
+          "name": "NETWORK_DISCONNECT_BADDELTATICK",
+          "number": 27
+        },
+        {
+          "name": "NETWORK_DISCONNECT_NOMORESPLITS",
+          "number": 28
+        },
+        {
+          "name": "NETWORK_DISCONNECT_TIMEDOUT",
+          "number": 29
+        },
+        {
+          "name": "NETWORK_DISCONNECT_DISCONNECTED",
+          "number": 30
+        },
+        {
+          "name": "NETWORK_DISCONNECT_LEAVINGSPLIT",
+          "number": 31
+        },
+        {
+          "name": "NETWORK_DISCONNECT_DIFFERENTCLASSTABLES",
+          "number": 32
+        },
+        {
+          "name": "NETWORK_DISCONNECT_BADRELAYPASSWORD",
+          "number": 33
+        },
+        {
+          "name": "NETWORK_DISCONNECT_BADSPECTATORPASSWORD",
+          "number": 34
+        },
+        {
+          "name": "NETWORK_DISCONNECT_HLTVRESTRICTED",
+          "number": 35
+        },
+        {
+          "name": "NETWORK_DISCONNECT_NOSPECTATORS",
+          "number": 36
+        },
+        {
+          "name": "NETWORK_DISCONNECT_HLTVUNAVAILABLE",
+          "number": 37
+        },
+        {
+          "name": "NETWORK_DISCONNECT_HLTVSTOP",
+          "number": 38
+        },
+        {
+          "name": "NETWORK_DISCONNECT_KICKED",
+          "number": 39
+        },
+        {
+          "name": "NETWORK_DISCONNECT_BANADDED",
+          "number": 40
+        },
+        {
+          "name": "NETWORK_DISCONNECT_KICKBANADDED",
+          "number": 41
+        },
+        {
+          "name": "NETWORK_DISCONNECT_HLTVDIRECT",
+          "number": 42
+        },
+        {
+          "name": "NETWORK_DISCONNECT_PURESERVER_CLIENTEXTRA",
+          "number": 43
+        },
+        {
+          "name": "NETWORK_DISCONNECT_PURESERVER_MISMATCH",
+          "number": 44
+        },
+        {
+          "name": "NETWORK_DISCONNECT_USERCMD",
+          "number": 45
+        },
+        {
+          "name": "NETWORK_DISCONNECT_REJECTED_BY_GAME",
+          "number": 46
+        },
+        {
+          "name": "NETWORK_DISCONNECT_MESSAGE_PARSE_ERROR",
+          "number": 47
+        },
+        {
+          "name": "NETWORK_DISCONNECT_INVALID_MESSAGE_ERROR",
+          "number": 48
+        },
+        {
+          "name": "NETWORK_DISCONNECT_BAD_SERVER_PASSWORD",
+          "number": 49
+        },
+        {
+          "name": "NETWORK_DISCONNECT_DIRECT_CONNECT_RESERVATION",
+          "number": 50
+        },
+        {
+          "name": "NETWORK_DISCONNECT_CONNECTION_FAILURE",
+          "number": 51
+        },
+        {
+          "name": "NETWORK_DISCONNECT_NO_PEER_GROUP_HANDLERS",
+          "number": 52
+        },
+        {
+          "name": "NETWORK_DISCONNECT_RECONNECTION",
+          "number": 53
+        },
+        {
+          "name": "NETWORK_DISCONNECT_CONNECTION_CLOSING",
+          "number": 54
+        },
+        {
+          "name": "NETWORK_DISCONNECT_NO_GOTV_RELAYS_AVAILABLE",
+          "number": 55
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SESSION_MIGRATED",
+          "number": 56
+        },
+        {
+          "name": "NETWORK_DISCONNECT_VERYLARGETRANSFEROVERFLOW",
+          "number": 57
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SENDNETOVERFLOW",
+          "number": 58
+        },
+        {
+          "name": "NETWORK_DISCONNECT_PLAYER_REMOVED_FROM_HOST_SESSION",
+          "number": 59
+        },
+        {
+          "name": "NETWORK_DISCONNECT_SERVER_DOS",
+          "number": 61
+        }
+      ]
+    }
+  ]
+}

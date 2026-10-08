@@ -1,0 +1,6355 @@
+{
+  "name": "cstrike15_gcmessages.proto",
+  "package": "",
+  "dependencies": [
+    "steammessages.proto",
+    "engine_gcmessages.proto"
+  ],
+  "messages": [
+    {
+      "name": "GameServerPing",
+      "fields": [
+        {
+          "name": "ping",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "ip",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "instances",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "DataCenterPing",
+      "fields": [
+        {
+          "name": "data_center_id",
+          "number": 1,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "ping",
+          "number": 2,
+          "label": 1,
+          "type": 17
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "DetailedSearchStatistic",
+      "fields": [
+        {
+          "name": "game_type",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "search_time_avg",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "players_searching",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "TournamentPlayer",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "player_nick",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "player_name",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "player_dob",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "player_flag",
+          "number": 5,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "player_location",
+          "number": 6,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "player_desc",
+          "number": 7,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "TournamentTeam",
+      "fields": [
+        {
+          "name": "team_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_tag",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "team_flag",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "team_name",
+          "number": 4,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "players",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".TournamentPlayer"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "TournamentEvent",
+      "fields": [
+        {
+          "name": "event_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "event_tag",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "event_name",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "event_time_start",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "event_time_end",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "event_public",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "event_stage_id",
+          "number": 7,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "event_stage_name",
+          "number": 8,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "active_section_id",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "GlobalStatistics",
+      "fields": [
+        {
+          "name": "players_online",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "servers_online",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "players_searching",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "servers_available",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ongoing_matches",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "search_time_avg",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "search_statistics",
+          "number": 7,
+          "label": 3,
+          "type": 11,
+          "type_name": ".DetailedSearchStatistic"
+        },
+        {
+          "name": "main_post_url",
+          "number": 8,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "required_appid_version",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "pricesheet_version",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "twitch_streams_version",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "active_tournament_eventid",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "active_survey_id",
+          "number": 13,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rtime32_cur",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rtime32_event_start",
+          "number": 15,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "required_appid_version2",
+          "number": 16,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "OperationalStatisticDescription",
+      "fields": [
+        {
+          "name": "name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "idkey",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "OperationalStatisticElement",
+      "fields": [
+        {
+          "name": "idkey",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "values",
+          "number": 2,
+          "label": 3,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "OperationalStatisticsPacket",
+      "fields": [
+        {
+          "name": "packetid",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "mstimestamp",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "values",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".OperationalStatisticElement"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "OperationalVarValue",
+      "fields": [
+        {
+          "name": "name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "ivalue",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "fvalue",
+          "number": 3,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "svalue",
+          "number": 4,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "PlayerRankingInfo",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rank_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "wins",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rank_change",
+          "number": 4,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "rank_type_id",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_control",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rank_window_stats",
+          "number": 8,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "leaderboard_name",
+          "number": 9,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "rank_if_win",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rank_if_lose",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rank_if_tie",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "per_map_rank",
+          "number": 13,
+          "label": 3,
+          "type": 11,
+          "type_name": ".PlayerRankingInfo.PerMapRank"
+        },
+        {
+          "name": "leaderboard_name_status",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [
+        {
+          "name": "PerMapRank",
+          "fields": [
+            {
+              "name": "map_id",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "rank_id",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "wins",
+              "number": 3,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "PlayerCommendationInfo",
+      "fields": [
+        {
+          "name": "cmd_friendly",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "cmd_teaching",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "cmd_leader",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "PlayerMedalsInfo",
+      "fields": [
+        {
+          "name": "display_items_defidx",
+          "number": 7,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "featured_display_item_defidx",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "AccountActivity",
+      "fields": [
+        {
+          "name": "activity",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "mode",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "map",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "matchid",
+          "number": 4,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "TournamentMatchSetup",
+      "fields": [
+        {
+          "name": "event_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_id_ct",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_id_t",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "event_stage_id",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "ServerHltvInfo",
+      "fields": [
+        {
+          "name": "tv_udp_port",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_watch_key",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "tv_slots",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_clients",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_proxies",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_time",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_type",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_mapgroup",
+          "number": 9,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "game_map",
+          "number": 10,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "tv_master_steamid",
+          "number": 11,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "tv_local_slots",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_local_clients",
+          "number": 13,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_local_proxies",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_relay_slots",
+          "number": 15,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_relay_clients",
+          "number": 16,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_relay_proxies",
+          "number": 17,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_relay_address",
+          "number": 18,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_relay_port",
+          "number": 19,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_relay_steamid",
+          "number": 20,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "flags",
+          "number": 21,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "IpAddressMask",
+      "fields": [
+        {
+          "name": "a",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "b",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "c",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "d",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "bits",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "token",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgCsgoSteamUserStatChange",
+      "fields": [
+        {
+          "name": "ecsgosteamuserstat",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "delta",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "absolute",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "XpProgressData",
+      "fields": [
+        {
+          "name": "xp_points",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "xp_category",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MatchEndItemUpdates",
+      "fields": [
+        {
+          "name": "item_id",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "item_attr_defidx",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "item_attr_delta_value",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "ScoreLeaderboardData",
+      "fields": [
+        {
+          "name": "quest_id",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "score",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "accountentries",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".ScoreLeaderboardData.AccountEntries"
+        },
+        {
+          "name": "matchentries",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".ScoreLeaderboardData.Entry"
+        },
+        {
+          "name": "leaderboard_name",
+          "number": 6,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [
+        {
+          "name": "Entry",
+          "fields": [
+            {
+              "name": "tag",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "val",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "AccountEntries",
+          "fields": [
+            {
+              "name": "accountid",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "entries",
+              "number": 2,
+              "label": 3,
+              "type": 11,
+              "type_name": ".ScoreLeaderboardData.Entry"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "PlayerQuestData",
+      "fields": [
+        {
+          "name": "quester_account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "quest_item_data",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".PlayerQuestData.QuestItemData"
+        },
+        {
+          "name": "xp_progress_data",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".XpProgressData"
+        },
+        {
+          "name": "time_played",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "mm_game_mode",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "item_updates",
+          "number": 6,
+          "label": 3,
+          "type": 11,
+          "type_name": ".MatchEndItemUpdates"
+        },
+        {
+          "name": "operation_points_eligible",
+          "number": 7,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "userstatchanges",
+          "number": 8,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgCsgoSteamUserStatChange"
+        }
+      ],
+      "messages": [
+        {
+          "name": "QuestItemData",
+          "fields": [
+            {
+              "name": "quest_id",
+              "number": 1,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "quest_normal_points_earned",
+              "number": 2,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "quest_bonus_points_earned",
+              "number": 3,
+              "label": 1,
+              "type": 5
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "DeepPlayerStatsEntry",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "match_id",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "mm_game_mode",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "mapid",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "b_starting_ct",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "match_outcome",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rounds_won",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rounds_lost",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "stat_score",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "stat_deaths",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "stat_mvps",
+          "number": 13,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "enemy_kills",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "enemy_headshots",
+          "number": 15,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "enemy_2ks",
+          "number": 16,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "enemy_3ks",
+          "number": 17,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "enemy_4ks",
+          "number": 18,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "total_damage",
+          "number": 19,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "engagements_entry_count",
+          "number": 23,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "engagements_entry_wins",
+          "number": 24,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "engagements_1v1_count",
+          "number": 25,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "engagements_1v1_wins",
+          "number": 26,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "engagements_1v2_count",
+          "number": 27,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "engagements_1v2_wins",
+          "number": 28,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "utility_count",
+          "number": 29,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "utility_success",
+          "number": 30,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "flash_count",
+          "number": 32,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "flash_success",
+          "number": 33,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "mates",
+          "number": 34,
+          "label": 3,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "DeepPlayerMatchEvent",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "match_id",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "event_id",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "event_type",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "b_playing_ct",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "user_pos_x",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "user_pos_y",
+          "number": 7,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "user_pos_z",
+          "number": 12,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "user_defidx",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "other_pos_x",
+          "number": 9,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "other_pos_y",
+          "number": 10,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "other_pos_z",
+          "number": 13,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "other_defidx",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "event_data",
+          "number": 14,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGC_ServerQuestUpdateData",
+      "fields": [
+        {
+          "name": "player_quest_data",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".PlayerQuestData"
+        },
+        {
+          "name": "binary_data",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "mm_game_mode",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "missionlbsdata",
+          "number": 4,
+          "label": 1,
+          "type": 11,
+          "type_name": ".ScoreLeaderboardData"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingGC2ServerConfirm",
+      "fields": [
+        {
+          "name": "token",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "stamp",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "exchange",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "retry",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GC2ServerReservationUpdate",
+      "fields": [
+        {
+          "name": "viewers_external_total",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "viewers_external_steam",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingStart",
+      "fields": [
+        {
+          "name": "account_ids",
+          "number": 1,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "game_type",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ticket_data",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "client_version",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tournament_match",
+          "number": 5,
+          "label": 1,
+          "type": 11,
+          "type_name": ".TournamentMatchSetup"
+        },
+        {
+          "name": "prime_only",
+          "number": 6,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "tv_control",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "lobby_id",
+          "number": 8,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingStop",
+      "fields": [
+        {
+          "name": "abandon",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingGC2ClientUpdate_Note",
+      "fields": [
+        {
+          "name": "type",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "region_id",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "region_r",
+          "number": 3,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "distance",
+          "number": 4,
+          "label": 1,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingClient2ServerPing",
+      "fields": [
+        {
+          "name": "gameserverpings",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".GameServerPing"
+        },
+        {
+          "name": "offset_index",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "final_batch",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "data_center_pings",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".DataCenterPing"
+        },
+        {
+          "name": "max_ping",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "test_token",
+          "number": 6,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "search_key",
+          "number": 7,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "notes",
+          "number": 8,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ClientUpdate_Note"
+        },
+        {
+          "name": "debug_message",
+          "number": 9,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingGC2ClientUpdate",
+      "fields": [
+        {
+          "name": "matchmaking",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "waiting_account_id_sessions",
+          "number": 2,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "error",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "ongoingmatch_account_id_sessions",
+          "number": 6,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "global_stats",
+          "number": 7,
+          "label": 1,
+          "type": 11,
+          "type_name": ".GlobalStatistics"
+        },
+        {
+          "name": "failping_account_id_sessions",
+          "number": 8,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "penalty_account_id_sessions",
+          "number": 9,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "failready_account_id_sessions",
+          "number": 10,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "vacbanned_account_id_sessions",
+          "number": 11,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "server_ipaddress_mask",
+          "number": 12,
+          "label": 1,
+          "type": 11,
+          "type_name": ".IpAddressMask"
+        },
+        {
+          "name": "notes",
+          "number": 13,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ClientUpdate_Note"
+        },
+        {
+          "name": "penalty_account_id_sessions_green",
+          "number": 14,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "insufficientlevel_sessions",
+          "number": 15,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "vsncheck_account_id_sessions",
+          "number": 16,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "launcher_mismatch_sessions",
+          "number": 17,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "insecure_account_id_sessions",
+          "number": 18,
+          "label": 3,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CDataGCCStrike15_v2_TournamentMatchDraft",
+      "fields": [
+        {
+          "name": "event_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "event_stage_id",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_id_0",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_id_1",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "maps_count",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "maps_current",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_id_start",
+          "number": 7,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_id_veto1",
+          "number": 8,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_id_pickn",
+          "number": 9,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "drafts",
+          "number": 10,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_TournamentMatchDraft.Entry"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Entry",
+          "fields": [
+            {
+              "name": "mapid",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "team_id_ct",
+              "number": 2,
+              "label": 1,
+              "type": 5
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CPreMatchInfoData",
+      "fields": [
+        {
+          "name": "predictions_pct",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "draft",
+          "number": 4,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_TournamentMatchDraft"
+        },
+        {
+          "name": "stats",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CPreMatchInfoData.TeamStats"
+        },
+        {
+          "name": "wins",
+          "number": 6,
+          "label": 3,
+          "type": 5
+        }
+      ],
+      "messages": [
+        {
+          "name": "TeamStats",
+          "fields": [
+            {
+              "name": "match_info_idxtxt",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "match_info_txt",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "match_info_teams",
+              "number": 3,
+              "label": 3,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve",
+      "fields": [
+        {
+          "name": "account_ids",
+          "number": 1,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "game_type",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "match_id",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "server_version",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "flags",
+          "number": 18,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rankings",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".PlayerRankingInfo"
+        },
+        {
+          "name": "encryption_key",
+          "number": 6,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "encryption_key_pub",
+          "number": 7,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "party_ids",
+          "number": 8,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "whitelist",
+          "number": 9,
+          "label": 3,
+          "type": 11,
+          "type_name": ".IpAddressMask"
+        },
+        {
+          "name": "tv_master_steamid",
+          "number": 10,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "tournament_event",
+          "number": 11,
+          "label": 1,
+          "type": 11,
+          "type_name": ".TournamentEvent"
+        },
+        {
+          "name": "tournament_teams",
+          "number": 12,
+          "label": 3,
+          "type": 11,
+          "type_name": ".TournamentTeam"
+        },
+        {
+          "name": "tournament_casters_account_ids",
+          "number": 13,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "tv_relay_steamid",
+          "number": 14,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "pre_match_data",
+          "number": 15,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CPreMatchInfoData"
+        },
+        {
+          "name": "rtime32_event_start",
+          "number": 16,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_control",
+          "number": 17,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "op_var_values",
+          "number": 19,
+          "label": 3,
+          "type": 11,
+          "type_name": ".OperationalVarValue"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingServerReservationResponse",
+      "fields": [
+        {
+          "name": "reservationid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "reservation",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve"
+        },
+        {
+          "name": "map",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "gc_reservation_sent",
+          "number": 4,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "server_version",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_info",
+          "number": 6,
+          "label": 1,
+          "type": 11,
+          "type_name": ".ServerHltvInfo"
+        },
+        {
+          "name": "reward_player_accounts",
+          "number": 7,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "idle_player_accounts",
+          "number": 8,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "reward_item_attr_def_idx",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "reward_item_attr_value",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "reward_item_attr_reward_idx",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "reward_drop_list",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tournament_tag",
+          "number": 13,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "legacy_steamdatagram_port",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "steamdatagram_routing",
+          "number": 17,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "test_token",
+          "number": 15,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "flags",
+          "number": 16,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve",
+      "fields": [
+        {
+          "name": "serverid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "direct_udp_ip",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "direct_udp_port",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "reservationid",
+          "number": 4,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "reservation",
+          "number": 5,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve"
+        },
+        {
+          "name": "map",
+          "number": 6,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "server_address",
+          "number": 7,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingServerRoundStats",
+      "fields": [
+        {
+          "name": "reservationid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "reservation",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve"
+        },
+        {
+          "name": "map",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "round",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "kills",
+          "number": 5,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "assists",
+          "number": 6,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "deaths",
+          "number": 7,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "scores",
+          "number": 8,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "pings",
+          "number": 9,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "round_result",
+          "number": 10,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "match_result",
+          "number": 11,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "team_scores",
+          "number": 12,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "confirm",
+          "number": 13,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ServerConfirm"
+        },
+        {
+          "name": "reservation_stage",
+          "number": 14,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "match_duration",
+          "number": 15,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "enemy_kills",
+          "number": 16,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "enemy_headshots",
+          "number": 17,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "enemy_3ks",
+          "number": 18,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "enemy_4ks",
+          "number": 19,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "enemy_5ks",
+          "number": 20,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "mvps",
+          "number": 21,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "spectators_count",
+          "number": 22,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "spectators_count_tv",
+          "number": 23,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "spectators_count_lnk",
+          "number": 24,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "enemy_kills_agg",
+          "number": 25,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "drop_info",
+          "number": 26,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingServerRoundStats.DropInfo"
+        },
+        {
+          "name": "b_switched_teams",
+          "number": 27,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "enemy_2ks",
+          "number": 28,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "player_spawned",
+          "number": 29,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "team_spawn_count",
+          "number": 30,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "max_rounds",
+          "number": 31,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [
+        {
+          "name": "DropInfo",
+          "fields": [
+            {
+              "name": "account_mvp",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingClient2GCHello",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingGC2ClientHello",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ongoingmatch",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve"
+        },
+        {
+          "name": "global_stats",
+          "number": 3,
+          "label": 1,
+          "type": 11,
+          "type_name": ".GlobalStatistics"
+        },
+        {
+          "name": "penalty_seconds",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "penalty_reason",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "vac_banned",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "ranking",
+          "number": 7,
+          "label": 1,
+          "type": 11,
+          "type_name": ".PlayerRankingInfo"
+        },
+        {
+          "name": "commendation",
+          "number": 8,
+          "label": 1,
+          "type": 11,
+          "type_name": ".PlayerCommendationInfo"
+        },
+        {
+          "name": "medals",
+          "number": 9,
+          "label": 1,
+          "type": 11,
+          "type_name": ".PlayerMedalsInfo"
+        },
+        {
+          "name": "my_current_event",
+          "number": 10,
+          "label": 1,
+          "type": 11,
+          "type_name": ".TournamentEvent"
+        },
+        {
+          "name": "my_current_event_teams",
+          "number": 11,
+          "label": 3,
+          "type": 11,
+          "type_name": ".TournamentTeam"
+        },
+        {
+          "name": "my_current_team",
+          "number": 12,
+          "label": 1,
+          "type": 11,
+          "type_name": ".TournamentTeam"
+        },
+        {
+          "name": "my_current_event_stages",
+          "number": 13,
+          "label": 3,
+          "type": 11,
+          "type_name": ".TournamentEvent"
+        },
+        {
+          "name": "survey_vote",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "activity",
+          "number": 15,
+          "label": 1,
+          "type": 11,
+          "type_name": ".AccountActivity"
+        },
+        {
+          "name": "player_level",
+          "number": 17,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "player_cur_xp",
+          "number": 18,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "player_xp_bonus_flags",
+          "number": 19,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "rankings",
+          "number": 20,
+          "label": 3,
+          "type": 11,
+          "type_name": ".PlayerRankingInfo"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_AccountPrivacySettings",
+      "fields": [
+        {
+          "name": "settings",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_AccountPrivacySettings.Setting"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Setting",
+          "fields": [
+            {
+              "name": "setting_type",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "setting_value",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingGC2ClientAbandon",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "abandoned_match",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve"
+        },
+        {
+          "name": "penalty_seconds",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "penalty_reason",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientGCRankUpdate",
+      "fields": [
+        {
+          "name": "rankings",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".PlayerRankingInfo"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchmakingOperator2GCBlogUpdate",
+      "fields": [
+        {
+          "name": "main_post_url",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ServerNotificationForUserPenalty",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "reason",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "seconds",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "communication_cooldown",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientReportPlayer",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_aimbot",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_wallhack",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_speedhack",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_teamharm",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_textabuse",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_voiceabuse",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "match_id",
+          "number": 8,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "report_from_demo",
+          "number": 9,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientCommendPlayer",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "match_id",
+          "number": 8,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "commendation",
+          "number": 9,
+          "label": 1,
+          "type": 11,
+          "type_name": ".PlayerCommendationInfo"
+        },
+        {
+          "name": "tokens",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientReportServer",
+      "fields": [
+        {
+          "name": "rpt_poorperf",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_abusivemodels",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_badmotd",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_listingabuse",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_inventoryabuse",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "match_id",
+          "number": 8,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientReportResponse",
+      "fields": [
+        {
+          "name": "confirmation_id",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "account_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "server_ip",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "response_type",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "response_result",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tokens",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientRequestWatchInfoFriends",
+      "fields": [
+        {
+          "name": "request_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "account_ids",
+          "number": 2,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "serverid",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "matchid",
+          "number": 4,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "client_launcher",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "data_center_pings",
+          "number": 6,
+          "label": 3,
+          "type": 11,
+          "type_name": ".DataCenterPing"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "WatchableMatchInfo",
+      "fields": [
+        {
+          "name": "server_ip",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_port",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_spectators",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_time",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tv_watch_password",
+          "number": 5,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "cl_decryptdata_key",
+          "number": 6,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "cl_decryptdata_key_pub",
+          "number": 7,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "game_type",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_mapgroup",
+          "number": 9,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "game_map",
+          "number": 10,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "server_id",
+          "number": 11,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "match_id",
+          "number": 12,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "reservation_id",
+          "number": 13,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientRequestJoinFriendData",
+      "fields": [
+        {
+          "name": "version",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "account_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "join_token",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "join_ipp",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "res",
+          "number": 5,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve"
+        },
+        {
+          "name": "errormsg",
+          "number": 6,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientRequestJoinServerData",
+      "fields": [
+        {
+          "name": "version",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "account_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "serverid",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "server_ip",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "server_port",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "res",
+          "number": 6,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve"
+        },
+        {
+          "name": "errormsg",
+          "number": 7,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCstrike15_v2_ClientRequestNewMission",
+      "fields": [
+        {
+          "name": "mission_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "campaign_id",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCstrike15_v2_ClientRedeemMissionReward",
+      "fields": [
+        {
+          "name": "campaign_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "redeem_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "redeemable_balance",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "expected_cost",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCstrike15_v2_ClientRedeemFreeReward",
+      "fields": [
+        {
+          "name": "generation_time",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "redeemable_balance",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "items",
+          "number": 3,
+          "label": 3,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCstrike15_v2_GC2ServerNotifyXPRewarded",
+      "fields": [
+        {
+          "name": "xp_progress_data",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".XpProgressData"
+        },
+        {
+          "name": "account_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "current_xp",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "current_level",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "upgraded_defidx",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "operation_points_awarded",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "free_rewards",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_ClientDeepStats",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "range",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_ClientDeepStats.DeepStatsRange"
+        },
+        {
+          "name": "matches",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_ClientDeepStats.DeepStatsMatch"
+        }
+      ],
+      "messages": [
+        {
+          "name": "DeepStatsRange",
+          "fields": [
+            {
+              "name": "begin",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "end",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "frozen",
+              "number": 3,
+              "label": 1,
+              "type": 8
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "DeepStatsMatch",
+          "fields": [
+            {
+              "name": "player",
+              "number": 1,
+              "label": 1,
+              "type": 11,
+              "type_name": ".DeepPlayerStatsEntry"
+            },
+            {
+              "name": "events",
+              "number": 2,
+              "label": 3,
+              "type": 11,
+              "type_name": ".DeepPlayerMatchEvent"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_WatchInfoUsers",
+      "fields": [
+        {
+          "name": "request_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "account_ids",
+          "number": 2,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "watchable_match_infos",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".WatchableMatchInfo"
+        },
+        {
+          "name": "extended_timeout",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientRequestPlayersProfile",
+      "fields": [
+        {
+          "name": "request_id__deprecated",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "account_ids__deprecated",
+          "number": 2,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "account_id",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "request_level",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_PlayersProfile",
+      "fields": [
+        {
+          "name": "request_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "account_profiles",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingGC2ClientHello"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_PlayerOverwatchCaseUpdate",
+      "fields": [
+        {
+          "name": "caseid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "suspectid",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "fractionid",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_aimbot",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_wallhack",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_speedhack",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rpt_teamharm",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "reason",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_PlayerOverwatchCaseAssignment",
+      "fields": [
+        {
+          "name": "caseid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "caseurl",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "verdict",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "timestamp",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "throttleseconds",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "suspectid",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "fractionid",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "numrounds",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "fractionrounds",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "streakconvictions",
+          "number": 10,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "reason",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_PlayerOverwatchCaseStatus",
+      "fields": [
+        {
+          "name": "caseid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "statusid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CClientHeaderOverwatchEvidence",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "caseid",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GC2ClientTextMsg",
+      "fields": [
+        {
+          "name": "id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "type",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "payload",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Client2GCTextMsg",
+      "fields": [
+        {
+          "name": "id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "args",
+          "number": 2,
+          "label": 3,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchEndRunRewardDrops",
+      "fields": [
+        {
+          "name": "serverinfo",
+          "number": 3,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingServerReservationResponse"
+        },
+        {
+          "name": "match_end_quest_data",
+          "number": 4,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGC_ServerQuestUpdateData"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CEconItemPreviewDataBlock",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "itemid",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "defindex",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "paintindex",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rarity",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "quality",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "paintwear",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "paintseed",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "killeaterscoretype",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "killeatervalue",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "customname",
+          "number": 11,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "stickers",
+          "number": 12,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CEconItemPreviewDataBlock.Sticker"
+        },
+        {
+          "name": "inventory",
+          "number": 13,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "origin",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "questid",
+          "number": 15,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "dropreason",
+          "number": 16,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "musicindex",
+          "number": 17,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "entindex",
+          "number": 18,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [
+        {
+          "name": "Sticker",
+          "fields": [
+            {
+              "name": "slot",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "sticker_id",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "wear",
+              "number": 3,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "scale",
+              "number": 4,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "rotation",
+              "number": 5,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "tint_id",
+              "number": 6,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchEndRewardDropsNotification",
+      "fields": [
+        {
+          "name": "iteminfo",
+          "number": 6,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CEconItemPreviewDataBlock"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgItemAcknowledged",
+      "fields": [
+        {
+          "name": "iteminfo",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CEconItemPreviewDataBlock"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockRequest",
+      "fields": [
+        {
+          "name": "param_s",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "param_a",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "param_d",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "param_m",
+          "number": 4,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockResponse",
+      "fields": [
+        {
+          "name": "iteminfo",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CEconItemPreviewDataBlock"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchListRequestCurrentLiveGames",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchListRequestLiveGameForUser",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchListRequestRecentUserGames",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchListRequestTournamentGames",
+      "fields": [
+        {
+          "name": "eventid",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchListRequestFullGameInfo",
+      "fields": [
+        {
+          "name": "matchid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "outcomeid",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "token",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CDataGCCStrike15_v2_MatchInfo",
+      "fields": [
+        {
+          "name": "matchid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "matchtime",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "watchablematchinfo",
+          "number": 3,
+          "label": 1,
+          "type": 11,
+          "type_name": ".WatchableMatchInfo"
+        },
+        {
+          "name": "roundstats_legacy",
+          "number": 4,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingServerRoundStats"
+        },
+        {
+          "name": "roundstatsall",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_MatchmakingServerRoundStats"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CDataGCCStrike15_v2_TournamentGroupTeam",
+      "fields": [
+        {
+          "name": "team_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "score",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "correctpick",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CDataGCCStrike15_v2_TournamentGroup",
+      "fields": [
+        {
+          "name": "groupid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "desc",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "picks__deprecated",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "teams",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_TournamentGroupTeam"
+        },
+        {
+          "name": "stage_ids",
+          "number": 6,
+          "label": 3,
+          "type": 5
+        },
+        {
+          "name": "picklockuntiltime",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "pickableteams",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "points_per_pick",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "picks",
+          "number": 10,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_TournamentGroup.Picks"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Picks",
+          "fields": [
+            {
+              "name": "pickids",
+              "number": 1,
+              "label": 3,
+              "type": 5
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CDataGCCStrike15_v2_TournamentSection",
+      "fields": [
+        {
+          "name": "sectionid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "desc",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "groups",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_TournamentGroup"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CDataGCCStrike15_v2_TournamentInfo",
+      "fields": [
+        {
+          "name": "sections",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_TournamentSection"
+        },
+        {
+          "name": "tournament_event",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".TournamentEvent"
+        },
+        {
+          "name": "tournament_teams",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".TournamentTeam"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchList",
+      "fields": [
+        {
+          "name": "msgrequestid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "accountid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "servertime",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "matches",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_MatchInfo"
+        },
+        {
+          "name": "streams",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".TournamentTeam"
+        },
+        {
+          "name": "tournamentinfo",
+          "number": 6,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_TournamentInfo"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_MatchListTournamentOperatorMgmt",
+      "fields": [
+        {
+          "name": "eventid",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "matches",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CDataGCCStrike15_v2_MatchInfo"
+        },
+        {
+          "name": "accountid",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Predictions",
+      "fields": [
+        {
+          "name": "event_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "group_match_team_picks",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_Predictions.GroupMatchTeamPick"
+        }
+      ],
+      "messages": [
+        {
+          "name": "GroupMatchTeamPick",
+          "fields": [
+            {
+              "name": "sectionid",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "groupid",
+              "number": 2,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "index",
+              "number": 3,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "teamid",
+              "number": 4,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "itemid",
+              "number": 5,
+              "label": 1,
+              "type": 4
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Fantasy",
+      "fields": [
+        {
+          "name": "event_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "teams",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_Fantasy.FantasyTeam"
+        }
+      ],
+      "messages": [
+        {
+          "name": "FantasySlot",
+          "fields": [
+            {
+              "name": "type",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "pick",
+              "number": 2,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "itemid",
+              "number": 3,
+              "label": 1,
+              "type": 4
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "FantasyTeam",
+          "fields": [
+            {
+              "name": "sectionid",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "slots",
+              "number": 2,
+              "label": 3,
+              "type": 11,
+              "type_name": ".CMsgGCCStrike15_v2_Fantasy.FantasySlot"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CAttribute_String",
+      "fields": [
+        {
+          "name": "value",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgCStrike15Welcome",
+      "fields": [
+        {
+          "name": "store_item_hash",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "timeplayedconsecutively",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "time_first_played",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "last_time_played",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "last_ip_address",
+          "number": 13,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "gscookieid",
+          "number": 18,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "uniqueid",
+          "number": 19,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientVarValueNotificationInfo",
+      "fields": [
+        {
+          "name": "value_name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "value_int",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "server_addr",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "server_port",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "choked_blocks",
+          "number": 5,
+          "label": 3,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ServerVarValueNotificationInfo",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "viewangles",
+          "number": 2,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "type",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "userdata",
+          "number": 4,
+          "label": 3,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GiftsLeaderboardRequest",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GiftsLeaderboardResponse",
+      "fields": [
+        {
+          "name": "servertime",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "time_period_seconds",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "total_gifts_given",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "total_givers",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "entries",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_GiftsLeaderboardResponse.GiftLeaderboardEntry"
+        }
+      ],
+      "messages": [
+        {
+          "name": "GiftLeaderboardEntry",
+          "fields": [
+            {
+              "name": "accountid",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "gifts",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientSubmitSurveyVote",
+      "fields": [
+        {
+          "name": "survey_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "vote",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Server2GCClientValidate",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GC2ClientTournamentInfo",
+      "fields": [
+        {
+          "name": "eventid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "stageid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_type",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "teamids",
+          "number": 4,
+          "label": 3,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSOEconCoupon",
+      "fields": [
+        {
+          "name": "entryid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "defidx",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "expiration_date",
+          "number": 3,
+          "label": 1,
+          "type": 7
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSOAccountItemPersonalStore",
+      "fields": [
+        {
+          "name": "generation_time",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "redeemable_balance",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "items",
+          "number": 3,
+          "label": 3,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSOQuestProgress",
+      "fields": [
+        {
+          "name": "questid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "points_remaining",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "bonus_points",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSOAccountSeasonalOperation",
+      "fields": [
+        {
+          "name": "season_value",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tier_unlocked",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "premium_tiers",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "mission_id",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "missions_completed",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "redeemable_balance",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "season_pass_time",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSOAccountRecurringSubscription",
+      "fields": [
+        {
+          "name": "time_next_cycle",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "time_initiated",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSOPersonaDataPublic",
+      "fields": [
+        {
+          "name": "player_level",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "commendation",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".PlayerCommendationInfo"
+        },
+        {
+          "name": "elevated_state",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGC_GlobalGame_Subscribe",
+      "fields": [
+        {
+          "name": "ticket",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGC_GlobalGame_Unsubscribe",
+      "fields": [
+        {
+          "name": "timeleft",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGC_GlobalGame_Play",
+      "fields": [
+        {
+          "name": "ticket",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "gametimems",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "msperpoint",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_AcknowledgePenalty",
+      "fields": [
+        {
+          "name": "acknowledged",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Client2GCRequestPrestigeCoin",
+      "fields": [
+        {
+          "name": "defindex",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "upgradeid",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "hours",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "prestigetime",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Client2GCStreamUnlock",
+      "fields": [
+        {
+          "name": "ticket",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "os",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientToGCRequestElevate",
+      "fields": [
+        {
+          "name": "stage",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientToGCChat",
+      "fields": [
+        {
+          "name": "match_id",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "text",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GCToClientChat",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "text",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientAuthKeyCode",
+      "fields": [
+        {
+          "name": "eventid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "code",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_GotvSyncPacket",
+      "fields": [
+        {
+          "name": "data",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CEngineGotvSyncPacket"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "PlayerDecalDigitalSignature",
+      "fields": [
+        {
+          "name": "signature",
+          "number": 1,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "accountid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rtime",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "endpos",
+          "number": 4,
+          "label": 3,
+          "type": 2
+        },
+        {
+          "name": "startpos",
+          "number": 5,
+          "label": 3,
+          "type": 2
+        },
+        {
+          "name": "right",
+          "number": 6,
+          "label": 3,
+          "type": 2
+        },
+        {
+          "name": "tx_defidx",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "entindex",
+          "number": 8,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "hitbox",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "creationtime",
+          "number": 10,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "equipslot",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "trace_id",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "normal",
+          "number": 13,
+          "label": 3,
+          "type": 2
+        },
+        {
+          "name": "tint_id",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientPlayerDecalSign",
+      "fields": [
+        {
+          "name": "data",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".PlayerDecalDigitalSignature"
+        },
+        {
+          "name": "itemid",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_BetaEnrollment",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientLogonFatalError",
+      "fields": [
+        {
+          "name": "errorcode",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "message",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "country",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientPollState",
+      "fields": [
+        {
+          "name": "pollid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "names",
+          "number": 2,
+          "label": 3,
+          "type": 9
+        },
+        {
+          "name": "values",
+          "number": 3,
+          "label": 3,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Party_Register",
+      "fields": [
+        {
+          "name": "id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ver",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "apr",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ark",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "nby",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "grp",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "slots",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "launcher",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_type",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Party_Search",
+      "fields": [
+        {
+          "name": "ver",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "apr",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ark",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "grps",
+          "number": 4,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "launcher",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_type",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Party_SearchResults",
+      "fields": [
+        {
+          "name": "entries",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_Party_SearchResults.Entry"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Entry",
+          "fields": [
+            {
+              "name": "id",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "grp",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "game_type",
+              "number": 3,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "apr",
+              "number": 4,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "ark",
+              "number": 5,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "loc",
+              "number": 6,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "accountid",
+              "number": 7,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Party_Invite",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "lobbyid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_Account_RequestCoPlays",
+      "fields": [
+        {
+          "name": "players",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_Account_RequestCoPlays.Player"
+        },
+        {
+          "name": "servertime",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [
+        {
+          "name": "Player",
+          "fields": [
+            {
+              "name": "accountid",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "rtcoplay",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "online",
+              "number": 3,
+              "label": 1,
+              "type": 8
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientToGCRequestTicket",
+      "fields": [
+        {
+          "name": "authorized_steam_id",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "authorized_public_ip",
+          "number": 2,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "gameserver_steam_id",
+          "number": 3,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "gameserver_sdr_routing",
+          "number": 5,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCToClientSteamDatagramTicket",
+      "fields": [
+        {
+          "name": "serialized_ticket",
+          "number": 16,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientRequestOffers",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientRequestSouvenir",
+      "fields": [
+        {
+          "name": "itemid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "matchid",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "eventid",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientAccountBalance",
+      "fields": [
+        {
+          "name": "amount",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "url",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientPartyJoinRelay",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "lobbyid",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientPartyWarning",
+      "fields": [
+        {
+          "name": "entries",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_ClientPartyWarning.Entry"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Entry",
+          "fields": [
+            {
+              "name": "accountid",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "warntype",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_SetEventFavorite",
+      "fields": [
+        {
+          "name": "eventid",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "is_favorite",
+          "number": 2,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GetEventFavorites_Request",
+      "fields": [
+        {
+          "name": "all_events",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GetEventFavorites_Response",
+      "fields": [
+        {
+          "name": "all_events",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "json_favorites",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "json_featured",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientPerfReport",
+      "fields": [
+        {
+          "name": "entries",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCCStrike15_v2_ClientPerfReport.Entry"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Entry",
+          "fields": [
+            {
+              "name": "perfcounter",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "length",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "reference",
+              "number": 3,
+              "label": 1,
+              "type": 12
+            },
+            {
+              "name": "actual",
+              "number": 4,
+              "label": 1,
+              "type": 12
+            },
+            {
+              "name": "sourceid",
+              "number": 5,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "status",
+              "number": 6,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CVDiagnostic",
+      "fields": [
+        {
+          "name": "id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "extended",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "value",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "string_value",
+          "number": 4,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_ClientReportValidation",
+      "fields": [
+        {
+          "name": "file_report",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "command_line",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "total_files",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "internal_error",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "trust_time",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "count_pending",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "count_completed",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "process_id",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "osversion",
+          "number": 9,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "clientreportversion",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "status_id",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "diagnostic1",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "diagnostic2",
+          "number": 13,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "diagnostic3",
+          "number": 14,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "last_launch_data",
+          "number": 15,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "report_count",
+          "number": 16,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "client_time",
+          "number": 17,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "diagnostic4",
+          "number": 18,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "diagnostic5",
+          "number": 19,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "diagnostics",
+          "number": 20,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CVDiagnostic"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GC2ClientRefuseSecureMode",
+      "fields": [
+        {
+          "name": "file_report",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "offer_insecure_mode",
+          "number": 2,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "offer_secure_mode",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "show_unsigned_ui",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "kick_user",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "show_trusted_ui",
+          "number": 6,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "show_warning_not_trusted",
+          "number": 7,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "show_warning_not_trusted_2",
+          "number": 8,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "files_prevented_trusted",
+          "number": 9,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GC2ClientRequestValidation",
+      "fields": [
+        {
+          "name": "full_report",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "module",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GC2ClientInitSystem",
+      "fields": [
+        {
+          "name": "load",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "outputname",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "key_data",
+          "number": 4,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "sha_hash",
+          "number": 5,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "cookie",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "manifest",
+          "number": 7,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "system_package",
+          "number": 8,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "load_system",
+          "number": 9,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_GC2ClientInitSystem_Response",
+      "fields": [
+        {
+          "name": "success",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "diagnostic",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "sha_hash",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "response",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "error_code1",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "error_code2",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "handle",
+          "number": 7,
+          "label": 1,
+          "type": 3
+        },
+        {
+          "name": "einit_result",
+          "number": 8,
+          "label": 1,
+          "type": 14,
+          "type_name": ".EInitSystemResult"
+        },
+        {
+          "name": "aux_system1",
+          "number": 9,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "aux_system2",
+          "number": 10,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCStrike15_v2_SetPlayerLeaderboardSafeName",
+      "fields": [
+        {
+          "name": "leaderboard_safe_name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    }
+  ],
+  "enums": [
+    {
+      "name": "ECsgoGCMsg",
+      "values": [
+        {
+          "name": "k_EMsgGCCStrike15_v2_Base",
+          "number": 9100
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingStart",
+          "number": 9101
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingStop",
+          "number": 9102
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingClient2ServerPing",
+          "number": 9103
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingGC2ClientUpdate",
+          "number": 9104
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingServerReservationResponse",
+          "number": 9106
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingGC2ClientReserve",
+          "number": 9107
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingClient2GCHello",
+          "number": 9109
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingGC2ClientHello",
+          "number": 9110
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingGC2ClientAbandon",
+          "number": 9112
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchmakingOperator2GCBlogUpdate",
+          "number": 9117
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ServerNotificationForUserPenalty",
+          "number": 9118
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientReportPlayer",
+          "number": 9119
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientReportServer",
+          "number": 9120
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientCommendPlayer",
+          "number": 9121
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientReportResponse",
+          "number": 9122
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientCommendPlayerQuery",
+          "number": 9123
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientCommendPlayerQueryResponse",
+          "number": 9124
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_WatchInfoUsers",
+          "number": 9126
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRequestPlayersProfile",
+          "number": 9127
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_PlayersProfile",
+          "number": 9128
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_PlayerOverwatchCaseUpdate",
+          "number": 9131
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_PlayerOverwatchCaseAssignment",
+          "number": 9132
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_PlayerOverwatchCaseStatus",
+          "number": 9133
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ClientTextMsg",
+          "number": 9134
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Client2GCTextMsg",
+          "number": 9135
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchEndRunRewardDrops",
+          "number": 9136
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchEndRewardDropsNotification",
+          "number": 9137
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRequestWatchInfoFriends2",
+          "number": 9138
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchList",
+          "number": 9139
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListRequestCurrentLiveGames",
+          "number": 9140
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListRequestRecentUserGames",
+          "number": 9141
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ServerReservationUpdate",
+          "number": 9142
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientVarValueNotificationInfo",
+          "number": 9144
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListRequestTournamentGames",
+          "number": 9146
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListRequestFullGameInfo",
+          "number": 9147
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GiftsLeaderboardRequest",
+          "number": 9148
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GiftsLeaderboardResponse",
+          "number": 9149
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ServerVarValueNotificationInfo",
+          "number": 9150
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientSubmitSurveyVote",
+          "number": 9152
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Server2GCClientValidate",
+          "number": 9153
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListRequestLiveGameForUser",
+          "number": 9154
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockRequest",
+          "number": 9156
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockResponse",
+          "number": 9157
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_AccountPrivacySettings",
+          "number": 9158
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_SetMyActivityInfo",
+          "number": 9159
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListRequestTournamentPredictions",
+          "number": 9160
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListUploadTournamentPredictions",
+          "number": 9161
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_DraftSummary",
+          "number": 9162
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRequestJoinFriendData",
+          "number": 9163
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRequestJoinServerData",
+          "number": 9164
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRequestNewMission",
+          "number": 9165
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ClientTournamentInfo",
+          "number": 9167
+        },
+        {
+          "name": "k_EMsgGC_GlobalGame_Subscribe",
+          "number": 9168
+        },
+        {
+          "name": "k_EMsgGC_GlobalGame_Unsubscribe",
+          "number": 9169
+        },
+        {
+          "name": "k_EMsgGC_GlobalGame_Play",
+          "number": 9170
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_AcknowledgePenalty",
+          "number": 9171
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Client2GCRequestPrestigeCoin",
+          "number": 9172
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ClientGlobalStats",
+          "number": 9173
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Client2GCStreamUnlock",
+          "number": 9174
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_FantasyRequestClientData",
+          "number": 9175
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_FantasyUpdateClientData",
+          "number": 9176
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GCToClientSteamdatagramTicket",
+          "number": 9177
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientToGCRequestTicket",
+          "number": 9178
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientToGCRequestElevate",
+          "number": 9179
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GlobalChat",
+          "number": 9180
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GlobalChat_Subscribe",
+          "number": 9181
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GlobalChat_Unsubscribe",
+          "number": 9182
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientAuthKeyCode",
+          "number": 9183
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GotvSyncPacket",
+          "number": 9184
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientPlayerDecalSign",
+          "number": 9185
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientLogonFatalError",
+          "number": 9187
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientPollState",
+          "number": 9188
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Party_Register",
+          "number": 9189
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Party_Unregister",
+          "number": 9190
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Party_Search",
+          "number": 9191
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Party_Invite",
+          "number": 9192
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_Account_RequestCoPlays",
+          "number": 9193
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientGCRankUpdate",
+          "number": 9194
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRequestOffers",
+          "number": 9195
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientAccountBalance",
+          "number": 9196
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientPartyJoinRelay",
+          "number": 9197
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientPartyWarning",
+          "number": 9198
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_SetEventFavorite",
+          "number": 9200
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GetEventFavorites_Request",
+          "number": 9201
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientPerfReport",
+          "number": 9202
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GetEventFavorites_Response",
+          "number": 9203
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRequestSouvenir",
+          "number": 9204
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientReportValidation",
+          "number": 9205
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ClientRefuseSecureMode",
+          "number": 9206
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ClientRequestValidation",
+          "number": 9207
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRedeemMissionReward",
+          "number": 9209
+        },
+        {
+          "name": "k_EMsgGCCStrike15_ClientDeepStats",
+          "number": 9210
+        },
+        {
+          "name": "k_EMsgGCCStrike15_StartAgreementSessionInGame",
+          "number": 9211
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ClientInitSystem",
+          "number": 9212
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_GC2ClientInitSystem_Response",
+          "number": 9213
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_PrivateQueues",
+          "number": 9214
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_MatchListTournamentOperatorMgmt",
+          "number": 9215
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_BetaEnrollment",
+          "number": 9217
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_SetPlayerLeaderboardSafeName",
+          "number": 9218
+        },
+        {
+          "name": "k_EMsgGCCStrike15_v2_ClientRedeemFreeReward",
+          "number": 9219
+        }
+      ]
+    },
+    {
+      "name": "ECsgoSteamUserStat",
+      "values": [
+        {
+          "name": "k_ECsgoSteamUserStat_XpEarnedGames",
+          "number": 1
+        },
+        {
+          "name": "k_ECsgoSteamUserStat_MatchWinsCompetitive",
+          "number": 2
+        },
+        {
+          "name": "k_ECsgoSteamUserStat_SurvivedDangerZone",
+          "number": 3
+        }
+      ]
+    },
+    {
+      "name": "EClientReportingVersion",
+      "values": [
+        {
+          "name": "k_EClientReportingVersion_OldVersion",
+          "number": 0
+        },
+        {
+          "name": "k_EClientReportingVersion_BetaVersion",
+          "number": 1
+        },
+        {
+          "name": "k_EClientReportingVersion_SupportsTrustedMode",
+          "number": 2
+        }
+      ]
+    },
+    {
+      "name": "EInitSystemResult",
+      "values": [
+        {
+          "name": "k_EInitSystemResult_Invalid",
+          "number": 0
+        },
+        {
+          "name": "k_EInitSystemResult_Success",
+          "number": 1
+        },
+        {
+          "name": "k_EInitSystemResult_None",
+          "number": 2
+        },
+        {
+          "name": "k_EInitSystemResult_NotFound",
+          "number": 3
+        },
+        {
+          "name": "k_EInitSystemResult_Existing",
+          "number": 4
+        },
+        {
+          "name": "k_EInitSystemResult_FailedOpen",
+          "number": 5
+        },
+        {
+          "name": "k_EInitSystemResult_Mismatch",
+          "number": 6
+        },
+        {
+          "name": "k_EInitSystemResult_FailedInit",
+          "number": 7
+        },
+        {
+          "name": "k_EInitSystemResult_Max",
+          "number": 8
+        }
+      ]
+    }
+  ]
+}

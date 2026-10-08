@@ -1,0 +1,1265 @@
+{
+  "name": "gcsdk_gcmessages.proto",
+  "package": "",
+  "dependencies": [
+    "steammessages.proto"
+  ],
+  "messages": [
+    {
+      "name": "CMsgSOIDOwner",
+      "fields": [
+        {
+          "name": "type",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "id",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOSingleObject",
+      "fields": [
+        {
+          "name": "type_id",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "object_data",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "version",
+          "number": 4,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "owner_soid",
+          "number": 5,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgSOIDOwner"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOMultipleObjects",
+      "fields": [
+        {
+          "name": "objects_modified",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgSOMultipleObjects.SingleObject"
+        },
+        {
+          "name": "version",
+          "number": 3,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "owner_soid",
+          "number": 6,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgSOIDOwner"
+        }
+      ],
+      "messages": [
+        {
+          "name": "SingleObject",
+          "fields": [
+            {
+              "name": "type_id",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "object_data",
+              "number": 2,
+              "label": 1,
+              "type": 12
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOCacheSubscribed",
+      "fields": [
+        {
+          "name": "objects",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgSOCacheSubscribed.SubscribedType"
+        },
+        {
+          "name": "version",
+          "number": 3,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "owner_soid",
+          "number": 4,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgSOIDOwner"
+        }
+      ],
+      "messages": [
+        {
+          "name": "SubscribedType",
+          "fields": [
+            {
+              "name": "type_id",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "object_data",
+              "number": 2,
+              "label": 3,
+              "type": 12
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOCacheUnsubscribed",
+      "fields": [
+        {
+          "name": "owner_soid",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgSOIDOwner"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOCacheSubscriptionCheck",
+      "fields": [
+        {
+          "name": "version",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "owner_soid",
+          "number": 3,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgSOIDOwner"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOCacheSubscriptionRefresh",
+      "fields": [
+        {
+          "name": "owner_soid",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgSOIDOwner"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOCacheVersion",
+      "fields": [
+        {
+          "name": "version",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAccountDetails",
+      "fields": [
+        {
+          "name": "valid",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "account_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "public_profile",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "public_inventory",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "vac_banned",
+          "number": 6,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "cyber_cafe",
+          "number": 7,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "school_account",
+          "number": 8,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "free_trial_account",
+          "number": 9,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "subscribed",
+          "number": 10,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "low_violence",
+          "number": 11,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "limited",
+          "number": 12,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "trusted",
+          "number": 13,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "package",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "time_cached",
+          "number": 15,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "account_locked",
+          "number": 16,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "community_banned",
+          "number": 17,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "trade_banned",
+          "number": 18,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "eligible_for_community_market",
+          "number": 19,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMultiplexMessage",
+      "fields": [
+        {
+          "name": "msgtype",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "payload",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "steamids",
+          "number": 3,
+          "label": 3,
+          "type": 6
+        },
+        {
+          "name": "replytogc",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMultiplexMessage_Response",
+      "fields": [
+        {
+          "name": "msgtype",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCToGCMsgMasterAck",
+      "fields": [
+        {
+          "name": "dir_index",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "gc_type",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCToGCMsgMasterAck_Response",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCToGCMsgMasterStartupComplete",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCToGCMsgRouted",
+      "fields": [
+        {
+          "name": "msg_type",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "sender_id",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "net_message",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "ip",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCToGCMsgRoutedReply",
+      "fields": [
+        {
+          "name": "msg_type",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "net_message",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCUpdateSessionIP",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "ip",
+          "number": 2,
+          "label": 1,
+          "type": 7
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCRequestSessionIP",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCRequestSessionIPResponse",
+      "fields": [
+        {
+          "name": "ip",
+          "number": 1,
+          "label": 1,
+          "type": 7
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgSOCacheHaveVersion",
+      "fields": [
+        {
+          "name": "soid",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgSOIDOwner"
+        },
+        {
+          "name": "version",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgClientHello",
+      "fields": [
+        {
+          "name": "version",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "socache_have_versions",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgSOCacheHaveVersion"
+        },
+        {
+          "name": "client_session_need",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "client_launcher",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "partner_srcid",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "partner_accountid",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "partner_accountflags",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "partner_accountbalance",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "steam_launcher",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgServerHello",
+      "fields": [
+        {
+          "name": "version",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "socache_have_versions",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgSOCacheHaveVersion"
+        },
+        {
+          "name": "legacy_client_session_need",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "client_launcher",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "legacy_steamdatagram_routing",
+          "number": 6,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "required_internal_addr",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "steamdatagram_login",
+          "number": 8,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgClientWelcome",
+      "fields": [
+        {
+          "name": "version",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_data",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "outofdate_subscribed_caches",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgSOCacheSubscribed"
+        },
+        {
+          "name": "uptodate_subscribed_caches",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgSOCacheSubscriptionCheck"
+        },
+        {
+          "name": "location",
+          "number": 5,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgClientWelcome.Location"
+        },
+        {
+          "name": "game_data2",
+          "number": 6,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "rtime32_gc_welcome_timestamp",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "currency",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "balance",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "balance_url",
+          "number": 10,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "txn_country_code",
+          "number": 11,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [
+        {
+          "name": "Location",
+          "fields": [
+            {
+              "name": "latitude",
+              "number": 1,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "longitude",
+              "number": 2,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "country",
+              "number": 3,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgConnectionStatus",
+      "fields": [
+        {
+          "name": "status",
+          "number": 1,
+          "label": 1,
+          "type": 14,
+          "type_name": ".GCConnectionStatus"
+        },
+        {
+          "name": "client_session_need",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "queue_position",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "queue_size",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "wait_seconds",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "estimated_wait_seconds_remaining",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CWorkshop_PopulateItemDescriptions_Request",
+      "fields": [
+        {
+          "name": "appid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "languages",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CWorkshop_PopulateItemDescriptions_Request.ItemDescriptionsLanguageBlock"
+        }
+      ],
+      "messages": [
+        {
+          "name": "SingleItemDescription",
+          "fields": [
+            {
+              "name": "gameitemid",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "item_description",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "one_per_account",
+              "number": 3,
+              "label": 1,
+              "type": 8
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "ItemDescriptionsLanguageBlock",
+          "fields": [
+            {
+              "name": "language",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "descriptions",
+              "number": 2,
+              "label": 3,
+              "type": 11,
+              "type_name": ".CWorkshop_PopulateItemDescriptions_Request.SingleItemDescription"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CWorkshop_GetContributors_Request",
+      "fields": [
+        {
+          "name": "appid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "gameitemid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CWorkshop_GetContributors_Response",
+      "fields": [
+        {
+          "name": "contributors",
+          "number": 1,
+          "label": 3,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CWorkshop_SetItemPaymentRules_Request",
+      "fields": [
+        {
+          "name": "appid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "gameitemid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "associated_workshop_files",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CWorkshop_SetItemPaymentRules_Request.WorkshopItemPaymentRule"
+        },
+        {
+          "name": "partner_accounts",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CWorkshop_SetItemPaymentRules_Request.PartnerItemPaymentRule"
+        },
+        {
+          "name": "validate_only",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "make_workshop_files_subscribable",
+          "number": 6,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "associated_workshop_file_for_direct_payments",
+          "number": 7,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CWorkshop_SetItemPaymentRules_Request.WorkshopDirectPaymentRule"
+        }
+      ],
+      "messages": [
+        {
+          "name": "WorkshopItemPaymentRule",
+          "fields": [
+            {
+              "name": "workshop_file_id",
+              "number": 1,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "revenue_percentage",
+              "number": 2,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "rule_description",
+              "number": 3,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "rule_type",
+              "number": 4,
+              "label": 1,
+              "type": 13,
+              "default_value": "1"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "WorkshopDirectPaymentRule",
+          "fields": [
+            {
+              "name": "workshop_file_id",
+              "number": 1,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "rule_description",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "PartnerItemPaymentRule",
+          "fields": [
+            {
+              "name": "account_id",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "revenue_percentage",
+              "number": 2,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "rule_description",
+              "number": 3,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CWorkshop_SetItemPaymentRules_Response",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGameServers_AggregationQuery_Request",
+      "fields": [
+        {
+          "name": "filter",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "group_fields",
+          "number": 3,
+          "label": 3,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGameServers_AggregationQuery_Response",
+      "fields": [
+        {
+          "name": "groups",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CGameServers_AggregationQuery_Response.Group"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Group",
+          "fields": [
+            {
+              "name": "group_values",
+              "number": 1,
+              "label": 3,
+              "type": 9
+            },
+            {
+              "name": "servers_empty",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "servers_full",
+              "number": 3,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "servers_total",
+              "number": 4,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "players_humans",
+              "number": 5,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "players_bots",
+              "number": 6,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "player_capacity",
+              "number": 7,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CWorkshop_AddSpecialPayment_Request",
+      "fields": [
+        {
+          "name": "appid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "gameitemid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "date",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "payment_us_usd",
+          "number": 4,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "payment_row_usd",
+          "number": 5,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CWorkshop_AddSpecialPayment_Response",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CProductInfo_SetRichPresenceLocalization_Request",
+      "fields": [
+        {
+          "name": "appid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "languages",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CProductInfo_SetRichPresenceLocalization_Request.LanguageSection"
+        },
+        {
+          "name": "steamid",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [
+        {
+          "name": "Token",
+          "fields": [
+            {
+              "name": "token",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "LanguageSection",
+          "fields": [
+            {
+              "name": "language",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "tokens",
+              "number": 2,
+              "label": 3,
+              "type": 11,
+              "type_name": ".CProductInfo_SetRichPresenceLocalization_Request.Token"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CProductInfo_SetRichPresenceLocalization_Response",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    }
+  ],
+  "enums": [
+    {
+      "name": "GCClientLauncherType",
+      "values": [
+        {
+          "name": "GCClientLauncherType_DEFAULT",
+          "number": 0
+        },
+        {
+          "name": "GCClientLauncherType_PERFECTWORLD",
+          "number": 1
+        },
+        {
+          "name": "GCClientLauncherType_STEAMCHINA",
+          "number": 2
+        },
+        {
+          "name": "GCClientLauncherType_SOURCE2",
+          "number": 3
+        }
+      ]
+    },
+    {
+      "name": "GCConnectionStatus",
+      "values": [
+        {
+          "name": "GCConnectionStatus_HAVE_SESSION",
+          "number": 0
+        },
+        {
+          "name": "GCConnectionStatus_GC_GOING_DOWN",
+          "number": 1
+        },
+        {
+          "name": "GCConnectionStatus_NO_SESSION",
+          "number": 2
+        },
+        {
+          "name": "GCConnectionStatus_NO_SESSION_IN_LOGON_QUEUE",
+          "number": 3
+        },
+        {
+          "name": "GCConnectionStatus_NO_STEAM",
+          "number": 4
+        }
+      ]
+    }
+  ]
+}

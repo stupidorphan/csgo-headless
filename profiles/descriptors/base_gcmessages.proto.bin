@@ -1,0 +1,405 @@
+
+base_gcmessages.protosteammessages.proto"}
+CGCStorePurchaseInit_LineItem
+item_def_id (
+quantity (
+cost_in_local_currency (
+purchase_type ("Ç
+CMsgGCStorePurchaseInit
+country (	
+language (
+currency (2
+
+line_items (2.CGCStorePurchaseInit_LineItem"`
+CMsgGCStorePurchaseInitResponse
+result (
+txn_id (
+url (	
+item_ids ("P
+CSOPartyInvite
+group_id (BÄ¶
+	sender_id (
+sender_name (	"P
+CSOLobbyInvite
+group_id (BÄ¶
+	sender_id (
+sender_name (	"&
+CMsgSystemBroadcast
+message (	"R
+CMsgInviteToParty
+steam_id (
+client_version (
+team_invite (";
+CMsgInvitationCreated
+group_id (
+steam_id ("h
+CMsgPartyInviteResponse
+party_id (
+accept (
+client_version (
+team_invite ("%
+CMsgKickFromParty
+steam_id ("
+CMsgLeaveParty"
+CMsgServerAvailable"*
+CMsgLANServerAvailable
+lobby_id ("¥
+CSOEconGameAccountClient$
+additional_backpack_slots (:0"
+bonus_xp_timestamp_refresh (
+bonus_xp_usedflags (
+elevated_state (
+elevated_timestamp ("r
+CSOItemCriteriaCondition
+
+op (
+field (	
+required (
+float_value (
+string_value (	"±
+CSOItemCriteria
+
+item_level (
+item_quality (
+item_level_set (
+item_quality_set (
+initial_inventory (
+initial_quantity (
+ignore_enabled_flag (-
+
+conditions	 (2.CSOItemCriteriaCondition
+item_rarity
+ (
+item_rarity_set (
+recent_only ("’
+CSOItemRecipe
+	def_index (
+name (	
+n_a (	
+desc_inputs (	
+desc_outputs (	
+di_a (	
+di_b (	
+di_c (	
+do_a	 (	
+do_b
+ (	
+do_c (	
+requires_all_same_class (
+requires_all_same_slot (
+class_usage_for_output (
+slot_usage_for_output (
+set_for_output (.
+input_items_criteria (2.CSOItemCriteria/
+output_items_criteria (2.CSOItemCriteria
+input_item_dupe_counts ("M
+CMsgDevNewItemRequest
+receiver ("
+criteria (2.CSOItemCriteria"å
+CMsgIncrementKillCountAttribute
+killer_account_id (
+victim_account_id (
+item_id (
+
+event_type (
+amount ("Ü
+CMsgApplySticker
+sticker_item_id (
+item_item_id (
+sticker_slot (
+baseitem_defidx (
+sticker_wear ("S
+CMsgModifyItemAttribute
+item_id (
+attr_defidx (
+
+attr_value ("]
+CMsgApplyStatTrakSwap
+tool_item_id (
+item_1_item_id (
+item_2_item_id ("J
+CMsgApplyStrangePart
+strange_part_item_id (
+item_item_id ("K
+CMsgApplyPennantUpgrade
+upgrade_item_id (
+pennant_item_id ("C
+CMsgApplyEggEssence
+essence_item_id (
+egg_item_id ("M
+CSOEconItemAttribute
+	def_index (
+value (
+value_bytes (":
+CSOEconItemEquipped
+	new_class (
+new_slot ("ü
+CSOEconItem
+
+id (
+
+account_id (
+	inventory (
+	def_index (
+quantity (
+level (
+quality (
+flags (:0
+origin	 (
+custom_name
+ (	
+custom_desc (	(
+	attribute (2.CSOEconItemAttribute#
+interior_item (2.CSOEconItem
+in_use (:false
+style (:0
+original_id (:0,
+equipped_state (2.CSOEconItemEquipped
+rarity ("a
+CMsgAdjustItemEquippedState
+item_id (
+	new_class (
+new_slot (
+swap ("^
+ CMsgAdjustItemEquippedStateMulti
+t_equips (
+	ct_equips (
+noteam_equips (""
+CMsgSortItems
+	sort_type ("^
+CSOEconClaimCode
+
+account_id (
+	code_type (
+time_acquired (
+code (	"E
+CMsgStoreGetUserData
+price_sheet_version (
+currency ("ô
+CMsgStoreGetUserDataResponse
+result (
+currency_deprecated (
+country_deprecated (	
+price_sheet_version (
+price_sheet ("Ü
+CMsgUpdateItemSchema
+
+items_game (
+item_schema_version (%
+items_game_url_DEPRECATED2013 (	
+items_game_url (	"!
+CMsgGCError
+
+error_text (	"
+CMsgRequestInventoryRefresh".
+CMsgConVarValue
+name (	
+value (	"9
+CMsgReplicateConVars!
+convars (2.CMsgConVarValue"é
+CMsgUseItem
+item_id (
+target_steam_id (
+gift__potential_targets (
+duel__class_lock (
+initiator_steam_id ("d
+CMsgReplayUploadedToYouTube
+youtube_url (	
+youtube_account_name (	
+
+session_id (".
+CMsgConsumableExhausted
+item_def_id ("û
+ CMsgItemAcknowledged__DEPRECATED
+
+account_id (
+	inventory (
+	def_index (
+quality (
+rarity (
+origin (
+item_id ("ù
+CMsgSetItemPositions:
+item_positions (2".CMsgSetItemPositions.ItemPositionI
+ItemPosition
+legacy_item_id (
+position (
+item_id ("∏
+CMsgGCReportAbuse
+target_steam_id (
+description (	
+gid (
+
+abuse_type (
+content_type (
+target_game_server_ip (
+target_game_server_port ("[
+CMsgGCReportAbuseResponse
+target_steam_id (
+result (
+error_message (	"f
+CMsgGCNameItemNotification
+player_steamid (
+item_def_index (
+item_name_custom (	"∂
+CMsgGCClientDisplayNotification+
+#notification_title_localization_key (	*
+"notification_body_localization_key (	
+body_substring_keys (	
+body_substring_values (	"1
+CMsgGCShowItemsPickedUp
+player_steamid ("|
+ CMsgGCIncrementKillCountResponse
+killer_account_id (BÄ¶
+	num_kills (
+item_def (
+
+level_type ("è
+CSOEconItemDropRateBonus
+
+account_id (
+expiration_date (
+bonus (
+bonus_count (
+item_id (
+	def_index ("p
+CSOEconItemLeagueViewPass
+
+account_id (BÄ¶
+	league_id (BÄ¶
+admin (
+	itemindex ("O
+CSOEconItemEventTicket
+
+account_id (
+event_id (
+item_id ("A
+'CMsgGCItemPreviewItemBoughtNotification
+item_def_index ("+
+CMsgGCStorePurchaseCancel
+txn_id ("3
+!CMsgGCStorePurchaseCancelResponse
+result ("-
+CMsgGCStorePurchaseFinalize
+txn_id ("G
+#CMsgGCStorePurchaseFinalizeResponse
+result (
+item_ids ("I
+CMsgGCBannedWordListRequest
+ban_list_group_id (
+word_id ("
+CMsgGCRequestAnnouncements"Ç
+"CMsgGCRequestAnnouncementsResponse
+announcement_title (	
+announcement (	
+nextmatch_title (	
+	nextmatch (	"X
+CMsgGCBannedWord
+word_id (%
+	word_type (2.GC_BannedWordType
+word (	"_
+CMsgGCBannedWordListResponse
+ban_list_group_id ($
+	word_list (2.CMsgGCBannedWord"U
+!CMsgGCToGCBannedWordListBroadcast0
+	broadcast (2.CMsgGCBannedWordListResponse"3
+CMsgGCToGCBannedWordListUpdated
+group_id ("í
+.CSOEconDefaultEquippedDefinitionInstanceClient
+
+account_id (BÄ¶
+item_definition (
+class_id (BÄ¶
+slot_id (BÄ¶"?
+CMsgGCToGCDirtySDOCache
+sdo_type (
+
+key_uint64 ("G
+CMsgGCToGCDirtyMultipleSDOCache
+sdo_type (
+
+key_uint64 ("H
+CMsgGCCollectItem
+collection_item_id (
+subject_item_id ("
+CMsgSDONoMemcached"/
+CMsgGCToGCUpdateSQLKeyValue
+key_name (	"-
+CMsgGCToGCIsTrustedServer
+steam_id ("7
+!CMsgGCToGCIsTrustedServerResponse
+
+is_trusted ("8
+!CMsgGCToGCBroadcastConsoleCommand
+con_command (	"4
+CMsgGCServerVersionUpdated
+server_version ("4
+CMsgGCClientVersionUpdated
+client_version (" 
+CMsgGCToGCWebAPIAccountChanged"^
+"CMsgGCToGCRequestPassportItemGrant
+steam_id (
+	league_id (
+reward_flag ("Ë
+CMsgGameServerInfo
+server_public_ip_addr (
+server_private_ip_addr (
+server_port (
+server_tv_port (
+
+server_key (	
+server_hibernation (@
+server_type (2.CMsgGameServerInfo.ServerType:UNSPECIFIED
+server_region (
+server_loadavg	 ( 
+server_tv_broadcast_time
+ (
+server_game_time ('
+server_relay_connected_steam_id (
+relay_slots_max (
+relays_connected (
+relay_clients_connected ($
+relayed_game_server_steam_id (
+parent_relay_count (
+tv_secret_code ("2
+
+ServerType
+UNSPECIFIED 
+GAME	
+PROXY"Ö
+CSOEconEquipSlot
+
+account_id (BÄ¶
+class_id (BÄ¶
+slot_id (BÄ¶
+item_id (
+item_definition ("I
+CMsgAdjustEquipSlot
+class_id (
+slot_id (
+item_id (";
+CMsgAdjustEquipSlots#
+slots (2.CMsgAdjustEquipSlot*«
+
+EGCBaseMsg
+k_EMsgGCSystemMessage°
+k_EMsgGCReplicateConVars¢
+k_EMsgGCConVarUpdated£
+k_EMsgGCInQueue®
+k_EMsgGCInviteToPartyï#
+k_EMsgGCInvitationCreatedñ# 
+k_EMsgGCPartyInviteResponseó#
+k_EMsgGCKickFromPartyò#
+k_EMsgGCLeavePartyô#
+k_EMsgGCServerAvailableö#"
+k_EMsgGCClientConnectToServerõ#
+k_EMsgGCGameServerInfoú#
+k_EMsgGCErrorù#%
+ k_EMsgGCReplay_UploadedToYouTubeû#
+k_EMsgGCLANServerAvailableü#*Y
+EGCBaseProtoObjectTypes
+k_EProtoObjectPartyInviteÈ
+k_EProtoObjectLobbyInviteÍ*T
+GC_BannedWordType
+GC_BANNED_WORD_DISABLE_WORD 
+GC_BANNED_WORD_ENABLE_WORDBHÄ 

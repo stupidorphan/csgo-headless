@@ -1,0 +1,2194 @@
+{
+  "name": "netmessages.proto",
+  "package": "",
+  "dependencies": [
+    "google/protobuf/descriptor.proto"
+  ],
+  "messages": [
+    {
+      "name": "CMsgVector",
+      "fields": [
+        {
+          "name": "x",
+          "number": 1,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "y",
+          "number": 2,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "z",
+          "number": 3,
+          "label": 1,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgVector2D",
+      "fields": [
+        {
+          "name": "x",
+          "number": 1,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "y",
+          "number": 2,
+          "label": 1,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgQAngle",
+      "fields": [
+        {
+          "name": "x",
+          "number": 1,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "y",
+          "number": 2,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "z",
+          "number": 3,
+          "label": 1,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgRGBA",
+      "fields": [
+        {
+          "name": "r",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "g",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "b",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "a",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_Tick",
+      "fields": [
+        {
+          "name": "tick",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "host_computationtime",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "host_computationtime_std_deviation",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "host_framestarttime_std_deviation",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "hltv_replay_flags",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_StringCmd",
+      "fields": [
+        {
+          "name": "command",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_SignonState",
+      "fields": [
+        {
+          "name": "signon_state",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "spawn_count",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "num_server_players",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "players_networkids",
+          "number": 4,
+          "label": 3,
+          "type": 9
+        },
+        {
+          "name": "map_name",
+          "number": 5,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsg_CVars",
+      "fields": [
+        {
+          "name": "cvars",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsg_CVars.CVar"
+        }
+      ],
+      "messages": [
+        {
+          "name": "CVar",
+          "fields": [
+            {
+              "name": "name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "dictionary_name",
+              "number": 3,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_SetConVar",
+      "fields": [
+        {
+          "name": "convars",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsg_CVars"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_NOP",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_Disconnect",
+      "fields": [
+        {
+          "name": "text",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_File",
+      "fields": [
+        {
+          "name": "transfer_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "file_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "is_replay_demo_file",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "deny",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_SplitScreenUser",
+      "fields": [
+        {
+          "name": "slot",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CNETMsg_PlayerAvatarData",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rgb",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_ClientInfo",
+      "fields": [
+        {
+          "name": "send_table_crc",
+          "number": 1,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "server_count",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "is_hltv",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_replay",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "friends_id",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "friends_name",
+          "number": 6,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "custom_files",
+          "number": 7,
+          "label": 3,
+          "type": 7
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_Move",
+      "fields": [
+        {
+          "name": "num_backup_commands",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "num_new_commands",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "data",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_VoiceData",
+      "fields": [
+        {
+          "name": "data",
+          "number": 1,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "xuid",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "format",
+          "number": 3,
+          "label": 1,
+          "type": 14,
+          "type_name": ".VoiceDataFormat_t",
+          "default_value": "VOICEDATA_FORMAT_ENGINE"
+        },
+        {
+          "name": "sequence_bytes",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "section_number",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "uncompressed_sample_offset",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_BaselineAck",
+      "fields": [
+        {
+          "name": "baseline_tick",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "baseline_nr",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_ListenEvents",
+      "fields": [
+        {
+          "name": "event_mask",
+          "number": 1,
+          "label": 3,
+          "type": 7
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_RespondCvarValue",
+      "fields": [
+        {
+          "name": "cookie",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "status_code",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "name",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "value",
+          "number": 4,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_FileCRCCheck",
+      "fields": [
+        {
+          "name": "code_path",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "path",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "code_filename",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "filename",
+          "number": 4,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "file_fraction",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "md5",
+          "number": 6,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "crc",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "file_hash_type",
+          "number": 8,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "file_len",
+          "number": 9,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "pack_file_id",
+          "number": 10,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "pack_file_number",
+          "number": 11,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_LoadingProgress",
+      "fields": [
+        {
+          "name": "progress",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_SplitPlayerConnect",
+      "fields": [
+        {
+          "name": "convars",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsg_CVars"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_CmdKeyValues",
+      "fields": [
+        {
+          "name": "keyvalues",
+          "number": 1,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_ServerInfo",
+      "fields": [
+        {
+          "name": "protocol",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "server_count",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "is_dedicated",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_official_valve_server",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_hltv",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_replay",
+          "number": 6,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_redirecting_to_proxy_relay",
+          "number": 21,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "c_os",
+          "number": 7,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "map_crc",
+          "number": 8,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "client_crc",
+          "number": 9,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "string_table_crc",
+          "number": 10,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "max_clients",
+          "number": 11,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "max_classes",
+          "number": 12,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "player_slot",
+          "number": 13,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "tick_interval",
+          "number": 14,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "game_dir",
+          "number": 15,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "map_name",
+          "number": 16,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "map_group_name",
+          "number": 17,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "sky_name",
+          "number": 18,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "host_name",
+          "number": 19,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "public_ip",
+          "number": 20,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ugc_map_id",
+          "number": 22,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "allow_loose_file_loads",
+          "number": 23,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_ClassInfo",
+      "fields": [
+        {
+          "name": "create_on_client",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "classes",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CSVCMsg_ClassInfo.class_t"
+        }
+      ],
+      "messages": [
+        {
+          "name": "class_t",
+          "fields": [
+            {
+              "name": "class_id",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "data_table_name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "class_name",
+              "number": 3,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_SendTable",
+      "fields": [
+        {
+          "name": "is_end",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "net_table_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "needs_decoder",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "props",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CSVCMsg_SendTable.sendprop_t"
+        }
+      ],
+      "messages": [
+        {
+          "name": "sendprop_t",
+          "fields": [
+            {
+              "name": "type",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "var_name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "flags",
+              "number": 3,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "priority",
+              "number": 4,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "dt_name",
+              "number": 5,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "num_elements",
+              "number": 6,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "low_value",
+              "number": 7,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "high_value",
+              "number": 8,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "num_bits",
+              "number": 9,
+              "label": 1,
+              "type": 5
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_Print",
+      "fields": [
+        {
+          "name": "text",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_SetPause",
+      "fields": [
+        {
+          "name": "paused",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_SetView",
+      "fields": [
+        {
+          "name": "entity_index",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_CreateStringTable",
+      "fields": [
+        {
+          "name": "name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "max_entries",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "num_entries",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "user_data_fixed_size",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "user_data_size",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "user_data_size_bits",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "flags",
+          "number": 7,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "string_data",
+          "number": 8,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_UpdateStringTable",
+      "fields": [
+        {
+          "name": "table_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "num_changed_entries",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "string_data",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_VoiceInit",
+      "fields": [
+        {
+          "name": "quality",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "codec",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "version",
+          "number": 3,
+          "label": 1,
+          "type": 5,
+          "default_value": "0"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_VoiceData",
+      "fields": [
+        {
+          "name": "client",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "proximity",
+          "number": 2,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "xuid",
+          "number": 3,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "audible_mask",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "voice_data",
+          "number": 5,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "caster",
+          "number": 6,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "format",
+          "number": 7,
+          "label": 1,
+          "type": 14,
+          "type_name": ".VoiceDataFormat_t",
+          "default_value": "VOICEDATA_FORMAT_ENGINE"
+        },
+        {
+          "name": "sequence_bytes",
+          "number": 8,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "section_number",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "uncompressed_sample_offset",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_FixAngle",
+      "fields": [
+        {
+          "name": "relative",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "angle",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgQAngle"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_CrosshairAngle",
+      "fields": [
+        {
+          "name": "angle",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgQAngle"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_Prefetch",
+      "fields": [
+        {
+          "name": "sound_index",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_BSPDecal",
+      "fields": [
+        {
+          "name": "pos",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgVector"
+        },
+        {
+          "name": "decal_texture_index",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "entity_index",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "model_index",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "low_priority",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_SplitScreen",
+      "fields": [
+        {
+          "name": "type",
+          "number": 1,
+          "label": 1,
+          "type": 14,
+          "type_name": ".ESplitScreenMessageType"
+        },
+        {
+          "name": "slot",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "player_index",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_GetCvarValue",
+      "fields": [
+        {
+          "name": "cookie",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "cvar_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_Menu",
+      "fields": [
+        {
+          "name": "dialog_type",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "menu_key_values",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_UserMessage",
+      "fields": [
+        {
+          "name": "msg_type",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "msg_data",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "passthrough",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_PaintmapData",
+      "fields": [
+        {
+          "name": "paintmap",
+          "number": 1,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_GameEvent",
+      "fields": [
+        {
+          "name": "event_name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "eventid",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "keys",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CSVCMsg_GameEvent.key_t"
+        },
+        {
+          "name": "passthrough",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [
+        {
+          "name": "key_t",
+          "fields": [
+            {
+              "name": "type",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "val_string",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "val_float",
+              "number": 3,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "val_long",
+              "number": 4,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "val_short",
+              "number": 5,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "val_byte",
+              "number": 6,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "val_bool",
+              "number": 7,
+              "label": 1,
+              "type": 8
+            },
+            {
+              "name": "val_uint64",
+              "number": 8,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "val_wstring",
+              "number": 9,
+              "label": 1,
+              "type": 12
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_GameEventList",
+      "fields": [
+        {
+          "name": "descriptors",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CSVCMsg_GameEventList.descriptor_t"
+        }
+      ],
+      "messages": [
+        {
+          "name": "key_t",
+          "fields": [
+            {
+              "name": "type",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "descriptor_t",
+          "fields": [
+            {
+              "name": "eventid",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "keys",
+              "number": 3,
+              "label": 3,
+              "type": 11,
+              "type_name": ".CSVCMsg_GameEventList.key_t"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_TempEntities",
+      "fields": [
+        {
+          "name": "reliable",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "num_entries",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "entity_data",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_PacketEntities",
+      "fields": [
+        {
+          "name": "max_entries",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "updated_entries",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "is_delta",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "update_baseline",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "baseline",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "delta_from",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "entity_data",
+          "number": 7,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_Sounds",
+      "fields": [
+        {
+          "name": "reliable_sound",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "sounds",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CSVCMsg_Sounds.sounddata_t"
+        }
+      ],
+      "messages": [
+        {
+          "name": "sounddata_t",
+          "fields": [
+            {
+              "name": "origin_x",
+              "number": 1,
+              "label": 1,
+              "type": 17
+            },
+            {
+              "name": "origin_y",
+              "number": 2,
+              "label": 1,
+              "type": 17
+            },
+            {
+              "name": "origin_z",
+              "number": 3,
+              "label": 1,
+              "type": 17
+            },
+            {
+              "name": "volume",
+              "number": 4,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "delay_value",
+              "number": 5,
+              "label": 1,
+              "type": 2
+            },
+            {
+              "name": "sequence_number",
+              "number": 6,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "entity_index",
+              "number": 7,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "channel",
+              "number": 8,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "pitch",
+              "number": 9,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "flags",
+              "number": 10,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "sound_num",
+              "number": 11,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "sound_num_handle",
+              "number": 12,
+              "label": 1,
+              "type": 7
+            },
+            {
+              "name": "speaker_entity",
+              "number": 13,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "random_seed",
+              "number": 14,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "sound_level",
+              "number": 15,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "is_sentence",
+              "number": 16,
+              "label": 1,
+              "type": 8
+            },
+            {
+              "name": "is_ambient",
+              "number": 17,
+              "label": 1,
+              "type": 8
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_EntityMsg",
+      "fields": [
+        {
+          "name": "ent_index",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "class_id",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "ent_data",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_CmdKeyValues",
+      "fields": [
+        {
+          "name": "keyvalues",
+          "number": 1,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_EncryptedData",
+      "fields": [
+        {
+          "name": "encrypted",
+          "number": 1,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "key_type",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_HltvReplay",
+      "fields": [
+        {
+          "name": "delay",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "primary_target",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "replay_stop_at",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "replay_start_at",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "replay_slowdown_begin",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "replay_slowdown_end",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "replay_slowdown_rate",
+          "number": 7,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "reason",
+          "number": 8,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_HltvReplay",
+      "fields": [
+        {
+          "name": "request",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "slowdown_length",
+          "number": 2,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "slowdown_rate",
+          "number": 3,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "primary_target_ent_index",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "event_time",
+          "number": 5,
+          "label": 1,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_Broadcast_Command",
+      "fields": [
+        {
+          "name": "cmd",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CCLCMsg_HltvFixupOperatorTick",
+      "fields": [
+        {
+          "name": "tick",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "props_data",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "origin",
+          "number": 3,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgVector"
+        },
+        {
+          "name": "eye_angles",
+          "number": 4,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgQAngle"
+        },
+        {
+          "name": "observer_mode",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "cameraman_scoreboard",
+          "number": 6,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "observer_target",
+          "number": 7,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "view_offset",
+          "number": 8,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgVector"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CSVCMsg_HltvFixupOperatorStatus",
+      "fields": [
+        {
+          "name": "mode",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "override_operator_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    }
+  ],
+  "enums": [
+    {
+      "name": "NET_Messages",
+      "values": [
+        {
+          "name": "net_NOP",
+          "number": 0
+        },
+        {
+          "name": "net_Disconnect",
+          "number": 1
+        },
+        {
+          "name": "net_File",
+          "number": 2
+        },
+        {
+          "name": "net_SplitScreenUser",
+          "number": 3
+        },
+        {
+          "name": "net_Tick",
+          "number": 4
+        },
+        {
+          "name": "net_StringCmd",
+          "number": 5
+        },
+        {
+          "name": "net_SetConVar",
+          "number": 6
+        },
+        {
+          "name": "net_SignonState",
+          "number": 7
+        },
+        {
+          "name": "net_PlayerAvatarData",
+          "number": 100
+        }
+      ]
+    },
+    {
+      "name": "CLC_Messages",
+      "values": [
+        {
+          "name": "clc_ClientInfo",
+          "number": 8
+        },
+        {
+          "name": "clc_Move",
+          "number": 9
+        },
+        {
+          "name": "clc_VoiceData",
+          "number": 10
+        },
+        {
+          "name": "clc_BaselineAck",
+          "number": 11
+        },
+        {
+          "name": "clc_ListenEvents",
+          "number": 12
+        },
+        {
+          "name": "clc_RespondCvarValue",
+          "number": 13
+        },
+        {
+          "name": "clc_FileCRCCheck",
+          "number": 14
+        },
+        {
+          "name": "clc_LoadingProgress",
+          "number": 15
+        },
+        {
+          "name": "clc_SplitPlayerConnect",
+          "number": 16
+        },
+        {
+          "name": "clc_ClientMessage",
+          "number": 17
+        },
+        {
+          "name": "clc_CmdKeyValues",
+          "number": 18
+        },
+        {
+          "name": "clc_HltvReplay",
+          "number": 20
+        },
+        {
+          "name": "clc_HltvFixupOperatorTick",
+          "number": 21
+        },
+        {
+          "name": "clc_HltvFixupOperatorReceiver",
+          "number": 22
+        }
+      ]
+    },
+    {
+      "name": "VoiceDataFormat_t",
+      "values": [
+        {
+          "name": "VOICEDATA_FORMAT_STEAM",
+          "number": 0
+        },
+        {
+          "name": "VOICEDATA_FORMAT_ENGINE",
+          "number": 1
+        }
+      ]
+    },
+    {
+      "name": "ESplitScreenMessageType",
+      "values": [
+        {
+          "name": "MSG_SPLITSCREEN_ADDUSER",
+          "number": 0
+        },
+        {
+          "name": "MSG_SPLITSCREEN_REMOVEUSER",
+          "number": 1
+        },
+        {
+          "name": "MSG_SPLITSCREEN_TYPE_BITS",
+          "number": 1
+        }
+      ]
+    },
+    {
+      "name": "SVC_Messages",
+      "values": [
+        {
+          "name": "svc_ServerInfo",
+          "number": 8
+        },
+        {
+          "name": "svc_SendTable",
+          "number": 9
+        },
+        {
+          "name": "svc_ClassInfo",
+          "number": 10
+        },
+        {
+          "name": "svc_SetPause",
+          "number": 11
+        },
+        {
+          "name": "svc_CreateStringTable",
+          "number": 12
+        },
+        {
+          "name": "svc_UpdateStringTable",
+          "number": 13
+        },
+        {
+          "name": "svc_VoiceInit",
+          "number": 14
+        },
+        {
+          "name": "svc_VoiceData",
+          "number": 15
+        },
+        {
+          "name": "svc_Print",
+          "number": 16
+        },
+        {
+          "name": "svc_Sounds",
+          "number": 17
+        },
+        {
+          "name": "svc_SetView",
+          "number": 18
+        },
+        {
+          "name": "svc_FixAngle",
+          "number": 19
+        },
+        {
+          "name": "svc_CrosshairAngle",
+          "number": 20
+        },
+        {
+          "name": "svc_BSPDecal",
+          "number": 21
+        },
+        {
+          "name": "svc_SplitScreen",
+          "number": 22
+        },
+        {
+          "name": "svc_UserMessage",
+          "number": 23
+        },
+        {
+          "name": "svc_EntityMessage",
+          "number": 24
+        },
+        {
+          "name": "svc_GameEvent",
+          "number": 25
+        },
+        {
+          "name": "svc_PacketEntities",
+          "number": 26
+        },
+        {
+          "name": "svc_TempEntities",
+          "number": 27
+        },
+        {
+          "name": "svc_Prefetch",
+          "number": 28
+        },
+        {
+          "name": "svc_Menu",
+          "number": 29
+        },
+        {
+          "name": "svc_GameEventList",
+          "number": 30
+        },
+        {
+          "name": "svc_GetCvarValue",
+          "number": 31
+        },
+        {
+          "name": "svc_PaintmapData",
+          "number": 33
+        },
+        {
+          "name": "svc_CmdKeyValues",
+          "number": 34
+        },
+        {
+          "name": "svc_EncryptedData",
+          "number": 35
+        },
+        {
+          "name": "svc_HltvReplay",
+          "number": 36
+        },
+        {
+          "name": "svc_Broadcast_Command",
+          "number": 38
+        },
+        {
+          "name": "svc_HltvFixupOperatorStatus",
+          "number": 39
+        }
+      ]
+    },
+    {
+      "name": "ReplayEventType_t",
+      "values": [
+        {
+          "name": "REPLAY_EVENT_CANCEL",
+          "number": 0
+        },
+        {
+          "name": "REPLAY_EVENT_DEATH",
+          "number": 1
+        },
+        {
+          "name": "REPLAY_EVENT_GENERIC",
+          "number": 2
+        },
+        {
+          "name": "REPLAY_EVENT_STUCK_NEED_FULL_UPDATE",
+          "number": 3
+        },
+        {
+          "name": "REPLAY_EVENT_VICTORY",
+          "number": 4
+        }
+      ]
+    }
+  ]
+}

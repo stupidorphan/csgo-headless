@@ -1,0 +1,855 @@
+{
+  "name": "econ_gcmessages.proto",
+  "package": "",
+  "dependencies": [
+    "steammessages.proto"
+  ],
+  "messages": [
+    {
+      "name": "CMsgGCGiftedItems",
+      "fields": [
+        {
+          "name": "accountid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "giftdefindex",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "max_gifts_possible",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "num_eligible_recipients",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "recipients_accountids",
+          "number": 5,
+          "label": 3,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgCasketItem",
+      "fields": [
+        {
+          "name": "casket_item_id",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "item_item_id",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCUserTrackTimePlayedConsecutively",
+      "fields": [
+        {
+          "name": "state",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCItemCustomizationNotification",
+      "fields": [
+        {
+          "name": "item_id",
+          "number": 1,
+          "label": 3,
+          "type": 4
+        },
+        {
+          "name": "request",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    }
+  ],
+  "enums": [
+    {
+      "name": "EGCItemMsg",
+      "values": [
+        {
+          "name": "k_EMsgGCBase",
+          "number": 1000
+        },
+        {
+          "name": "k_EMsgGCSetItemPosition",
+          "number": 1001
+        },
+        {
+          "name": "k_EMsgGCCraft",
+          "number": 1002
+        },
+        {
+          "name": "k_EMsgGCCraftResponse",
+          "number": 1003
+        },
+        {
+          "name": "k_EMsgGCDelete",
+          "number": 1004
+        },
+        {
+          "name": "k_EMsgGCVerifyCacheSubscription",
+          "number": 1005
+        },
+        {
+          "name": "k_EMsgGCNameItem",
+          "number": 1006
+        },
+        {
+          "name": "k_EMsgGCUnlockCrate",
+          "number": 1007
+        },
+        {
+          "name": "k_EMsgGCUnlockCrateResponse",
+          "number": 1008
+        },
+        {
+          "name": "k_EMsgGCPaintItem",
+          "number": 1009
+        },
+        {
+          "name": "k_EMsgGCPaintItemResponse",
+          "number": 1010
+        },
+        {
+          "name": "k_EMsgGCGoldenWrenchBroadcast",
+          "number": 1011
+        },
+        {
+          "name": "k_EMsgGCMOTDRequest",
+          "number": 1012
+        },
+        {
+          "name": "k_EMsgGCMOTDRequestResponse",
+          "number": 1013
+        },
+        {
+          "name": "k_EMsgGCAddItemToSocket_DEPRECATED",
+          "number": 1014
+        },
+        {
+          "name": "k_EMsgGCAddItemToSocketResponse_DEPRECATED",
+          "number": 1015
+        },
+        {
+          "name": "k_EMsgGCAddSocketToBaseItem_DEPRECATED",
+          "number": 1016
+        },
+        {
+          "name": "k_EMsgGCAddSocketToItem_DEPRECATED",
+          "number": 1017
+        },
+        {
+          "name": "k_EMsgGCAddSocketToItemResponse_DEPRECATED",
+          "number": 1018
+        },
+        {
+          "name": "k_EMsgGCNameBaseItem",
+          "number": 1019
+        },
+        {
+          "name": "k_EMsgGCNameBaseItemResponse",
+          "number": 1020
+        },
+        {
+          "name": "k_EMsgGCRemoveSocketItem_DEPRECATED",
+          "number": 1021
+        },
+        {
+          "name": "k_EMsgGCRemoveSocketItemResponse_DEPRECATED",
+          "number": 1022
+        },
+        {
+          "name": "k_EMsgGCCustomizeItemTexture",
+          "number": 1023
+        },
+        {
+          "name": "k_EMsgGCCustomizeItemTextureResponse",
+          "number": 1024
+        },
+        {
+          "name": "k_EMsgGCUseItemRequest",
+          "number": 1025
+        },
+        {
+          "name": "k_EMsgGCUseItemResponse",
+          "number": 1026
+        },
+        {
+          "name": "k_EMsgGCGiftedItems_DEPRECATED",
+          "number": 1027
+        },
+        {
+          "name": "k_EMsgGCRemoveItemName",
+          "number": 1030
+        },
+        {
+          "name": "k_EMsgGCRemoveItemPaint",
+          "number": 1031
+        },
+        {
+          "name": "k_EMsgGCGiftWrapItem",
+          "number": 1032
+        },
+        {
+          "name": "k_EMsgGCGiftWrapItemResponse",
+          "number": 1033
+        },
+        {
+          "name": "k_EMsgGCDeliverGift",
+          "number": 1034
+        },
+        {
+          "name": "k_EMsgGCDeliverGiftResponseGiver",
+          "number": 1035
+        },
+        {
+          "name": "k_EMsgGCDeliverGiftResponseReceiver",
+          "number": 1036
+        },
+        {
+          "name": "k_EMsgGCUnwrapGiftRequest",
+          "number": 1037
+        },
+        {
+          "name": "k_EMsgGCUnwrapGiftResponse",
+          "number": 1038
+        },
+        {
+          "name": "k_EMsgGCSetItemStyle",
+          "number": 1039
+        },
+        {
+          "name": "k_EMsgGCUsedClaimCodeItem",
+          "number": 1040
+        },
+        {
+          "name": "k_EMsgGCSortItems",
+          "number": 1041
+        },
+        {
+          "name": "k_EMsgGC_RevolvingLootList_DEPRECATED",
+          "number": 1042
+        },
+        {
+          "name": "k_EMsgGCLookupAccount",
+          "number": 1043
+        },
+        {
+          "name": "k_EMsgGCLookupAccountResponse",
+          "number": 1044
+        },
+        {
+          "name": "k_EMsgGCLookupAccountName",
+          "number": 1045
+        },
+        {
+          "name": "k_EMsgGCLookupAccountNameResponse",
+          "number": 1046
+        },
+        {
+          "name": "k_EMsgGCUpdateItemSchema",
+          "number": 1049
+        },
+        {
+          "name": "k_EMsgGCRemoveCustomTexture",
+          "number": 1051
+        },
+        {
+          "name": "k_EMsgGCRemoveCustomTextureResponse",
+          "number": 1052
+        },
+        {
+          "name": "k_EMsgGCRemoveMakersMark",
+          "number": 1053
+        },
+        {
+          "name": "k_EMsgGCRemoveMakersMarkResponse",
+          "number": 1054
+        },
+        {
+          "name": "k_EMsgGCRemoveUniqueCraftIndex",
+          "number": 1055
+        },
+        {
+          "name": "k_EMsgGCRemoveUniqueCraftIndexResponse",
+          "number": 1056
+        },
+        {
+          "name": "k_EMsgGCSaxxyBroadcast",
+          "number": 1057
+        },
+        {
+          "name": "k_EMsgGCBackpackSortFinished",
+          "number": 1058
+        },
+        {
+          "name": "k_EMsgGCAdjustItemEquippedState",
+          "number": 1059
+        },
+        {
+          "name": "k_EMsgGCCollectItem",
+          "number": 1061
+        },
+        {
+          "name": "k_EMsgGCItemAcknowledged__DEPRECATED",
+          "number": 1062
+        },
+        {
+          "name": "k_EMsgGC_ReportAbuse",
+          "number": 1065
+        },
+        {
+          "name": "k_EMsgGC_ReportAbuseResponse",
+          "number": 1066
+        },
+        {
+          "name": "k_EMsgGCNameItemNotification",
+          "number": 1068
+        },
+        {
+          "name": "k_EMsgGCApplyConsumableEffects",
+          "number": 1069
+        },
+        {
+          "name": "k_EMsgGCConsumableExhausted",
+          "number": 1070
+        },
+        {
+          "name": "k_EMsgGCShowItemsPickedUp",
+          "number": 1071
+        },
+        {
+          "name": "k_EMsgGCClientDisplayNotification",
+          "number": 1072
+        },
+        {
+          "name": "k_EMsgGCApplyStrangePart",
+          "number": 1073
+        },
+        {
+          "name": "k_EMsgGC_IncrementKillCountAttribute",
+          "number": 1074
+        },
+        {
+          "name": "k_EMsgGC_IncrementKillCountResponse",
+          "number": 1075
+        },
+        {
+          "name": "k_EMsgGCApplyPennantUpgrade",
+          "number": 1076
+        },
+        {
+          "name": "k_EMsgGCSetItemPositions",
+          "number": 1077
+        },
+        {
+          "name": "k_EMsgGCApplyEggEssence",
+          "number": 1078
+        },
+        {
+          "name": "k_EMsgGCNameEggEssenceResponse",
+          "number": 1079
+        },
+        {
+          "name": "k_EMsgGCPaintKitItem",
+          "number": 1080
+        },
+        {
+          "name": "k_EMsgGCPaintKitBaseItem",
+          "number": 1081
+        },
+        {
+          "name": "k_EMsgGCPaintKitItemResponse",
+          "number": 1082
+        },
+        {
+          "name": "k_EMsgGCGiftedItems",
+          "number": 1083
+        },
+        {
+          "name": "k_EMsgGCUnlockItemStyle",
+          "number": 1084
+        },
+        {
+          "name": "k_EMsgGCUnlockItemStyleResponse",
+          "number": 1085
+        },
+        {
+          "name": "k_EMsgGCApplySticker",
+          "number": 1086
+        },
+        {
+          "name": "k_EMsgGCItemAcknowledged",
+          "number": 1087
+        },
+        {
+          "name": "k_EMsgGCStatTrakSwap",
+          "number": 1088
+        },
+        {
+          "name": "k_EMsgGCUserTrackTimePlayedConsecutively",
+          "number": 1089
+        },
+        {
+          "name": "k_EMsgGCItemCustomizationNotification",
+          "number": 1090
+        },
+        {
+          "name": "k_EMsgGCModifyItemAttribute",
+          "number": 1091
+        },
+        {
+          "name": "k_EMsgGCCasketItemAdd",
+          "number": 1092
+        },
+        {
+          "name": "k_EMsgGCCasketItemExtract",
+          "number": 1093
+        },
+        {
+          "name": "k_EMsgGCCasketItemLoadContents",
+          "number": 1094
+        },
+        {
+          "name": "k_EMsgGCTradingBase",
+          "number": 1500
+        },
+        {
+          "name": "k_EMsgGCTrading_InitiateTradeRequest",
+          "number": 1501
+        },
+        {
+          "name": "k_EMsgGCTrading_InitiateTradeResponse",
+          "number": 1502
+        },
+        {
+          "name": "k_EMsgGCTrading_StartSession",
+          "number": 1503
+        },
+        {
+          "name": "k_EMsgGCTrading_SetItem",
+          "number": 1504
+        },
+        {
+          "name": "k_EMsgGCTrading_RemoveItem",
+          "number": 1505
+        },
+        {
+          "name": "k_EMsgGCTrading_UpdateTradeInfo",
+          "number": 1506
+        },
+        {
+          "name": "k_EMsgGCTrading_SetReadiness",
+          "number": 1507
+        },
+        {
+          "name": "k_EMsgGCTrading_ReadinessResponse",
+          "number": 1508
+        },
+        {
+          "name": "k_EMsgGCTrading_SessionClosed",
+          "number": 1509
+        },
+        {
+          "name": "k_EMsgGCTrading_CancelSession",
+          "number": 1510
+        },
+        {
+          "name": "k_EMsgGCTrading_TradeChatMsg",
+          "number": 1511
+        },
+        {
+          "name": "k_EMsgGCTrading_ConfirmOffer",
+          "number": 1512
+        },
+        {
+          "name": "k_EMsgGCTrading_TradeTypingChatMsg",
+          "number": 1513
+        },
+        {
+          "name": "k_EMsgGCServerBrowser_FavoriteServer",
+          "number": 1601
+        },
+        {
+          "name": "k_EMsgGCServerBrowser_BlacklistServer",
+          "number": 1602
+        },
+        {
+          "name": "k_EMsgGCServerRentalsBase",
+          "number": 1700
+        },
+        {
+          "name": "k_EMsgGCItemPreviewCheckStatus",
+          "number": 1701
+        },
+        {
+          "name": "k_EMsgGCItemPreviewStatusResponse",
+          "number": 1702
+        },
+        {
+          "name": "k_EMsgGCItemPreviewRequest",
+          "number": 1703
+        },
+        {
+          "name": "k_EMsgGCItemPreviewRequestResponse",
+          "number": 1704
+        },
+        {
+          "name": "k_EMsgGCItemPreviewExpire",
+          "number": 1705
+        },
+        {
+          "name": "k_EMsgGCItemPreviewExpireNotification",
+          "number": 1706
+        },
+        {
+          "name": "k_EMsgGCItemPreviewItemBoughtNotification",
+          "number": 1707
+        },
+        {
+          "name": "k_EMsgGCDev_NewItemRequest",
+          "number": 2001
+        },
+        {
+          "name": "k_EMsgGCDev_NewItemRequestResponse",
+          "number": 2002
+        },
+        {
+          "name": "k_EMsgGCDev_PaintKitDropItem",
+          "number": 2003
+        },
+        {
+          "name": "k_EMsgGCStoreGetUserData",
+          "number": 2500
+        },
+        {
+          "name": "k_EMsgGCStoreGetUserDataResponse",
+          "number": 2501
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseInit_DEPRECATED",
+          "number": 2502
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseInitResponse_DEPRECATED",
+          "number": 2503
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseFinalize",
+          "number": 2504
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseFinalizeResponse",
+          "number": 2505
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseCancel",
+          "number": 2506
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseCancelResponse",
+          "number": 2507
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseQueryTxn",
+          "number": 2508
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseQueryTxnResponse",
+          "number": 2509
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseInit",
+          "number": 2510
+        },
+        {
+          "name": "k_EMsgGCStorePurchaseInitResponse",
+          "number": 2511
+        },
+        {
+          "name": "k_EMsgGCBannedWordListRequest",
+          "number": 2512
+        },
+        {
+          "name": "k_EMsgGCBannedWordListResponse",
+          "number": 2513
+        },
+        {
+          "name": "k_EMsgGCToGCBannedWordListBroadcast",
+          "number": 2514
+        },
+        {
+          "name": "k_EMsgGCToGCBannedWordListUpdated",
+          "number": 2515
+        },
+        {
+          "name": "k_EMsgGCToGCDirtySDOCache",
+          "number": 2516
+        },
+        {
+          "name": "k_EMsgGCToGCDirtyMultipleSDOCache",
+          "number": 2517
+        },
+        {
+          "name": "k_EMsgGCToGCUpdateSQLKeyValue",
+          "number": 2518
+        },
+        {
+          "name": "k_EMsgGCToGCIsTrustedServer",
+          "number": 2519
+        },
+        {
+          "name": "k_EMsgGCToGCIsTrustedServerResponse",
+          "number": 2520
+        },
+        {
+          "name": "k_EMsgGCToGCBroadcastConsoleCommand",
+          "number": 2521
+        },
+        {
+          "name": "k_EMsgGCServerVersionUpdated",
+          "number": 2522
+        },
+        {
+          "name": "k_EMsgGCToGCWebAPIAccountChanged",
+          "number": 2524
+        },
+        {
+          "name": "k_EMsgGCRequestAnnouncements",
+          "number": 2525
+        },
+        {
+          "name": "k_EMsgGCRequestAnnouncementsResponse",
+          "number": 2526
+        },
+        {
+          "name": "k_EMsgGCRequestPassportItemGrant",
+          "number": 2527
+        },
+        {
+          "name": "k_EMsgGCClientVersionUpdated",
+          "number": 2528
+        },
+        {
+          "name": "k_EMsgGCAdjustItemEquippedStateMulti",
+          "number": 2529
+        },
+        {
+          "name": "k_EMsgGCRecurringSubscriptionStatus",
+          "number": 2530
+        },
+        {
+          "name": "k_EMsgGCAdjustEquipSlotsManual",
+          "number": 2531
+        },
+        {
+          "name": "k_EMsgGCAdjustEquipSlotsShuffle",
+          "number": 2532
+        }
+      ]
+    },
+    {
+      "name": "EGCMsgResponse",
+      "values": [
+        {
+          "name": "k_EGCMsgResponseOK",
+          "number": 0
+        },
+        {
+          "name": "k_EGCMsgResponseDenied",
+          "number": 1
+        },
+        {
+          "name": "k_EGCMsgResponseServerError",
+          "number": 2
+        },
+        {
+          "name": "k_EGCMsgResponseTimeout",
+          "number": 3
+        },
+        {
+          "name": "k_EGCMsgResponseInvalid",
+          "number": 4
+        },
+        {
+          "name": "k_EGCMsgResponseNoMatch",
+          "number": 5
+        },
+        {
+          "name": "k_EGCMsgResponseUnknownError",
+          "number": 6
+        },
+        {
+          "name": "k_EGCMsgResponseNotLoggedOn",
+          "number": 7
+        },
+        {
+          "name": "k_EGCMsgFailedToCreate",
+          "number": 8
+        },
+        {
+          "name": "k_EGCMsgLimitExceeded",
+          "number": 9
+        },
+        {
+          "name": "k_EGCMsgCommitUnfinalized",
+          "number": 10
+        }
+      ]
+    },
+    {
+      "name": "EUnlockStyle",
+      "values": [
+        {
+          "name": "k_UnlockStyle_Succeeded",
+          "number": 0
+        },
+        {
+          "name": "k_UnlockStyle_Failed_PreReq",
+          "number": 1
+        },
+        {
+          "name": "k_UnlockStyle_Failed_CantAfford",
+          "number": 2
+        },
+        {
+          "name": "k_UnlockStyle_Failed_CantCommit",
+          "number": 3
+        },
+        {
+          "name": "k_UnlockStyle_Failed_CantLockCache",
+          "number": 4
+        },
+        {
+          "name": "k_UnlockStyle_Failed_CantAffordAttrib",
+          "number": 5
+        }
+      ]
+    },
+    {
+      "name": "EGCItemCustomizationNotification",
+      "values": [
+        {
+          "name": "k_EGCItemCustomizationNotification_NameItem",
+          "number": 1006
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_UnlockCrate",
+          "number": 1007
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_XRayItemReveal",
+          "number": 1008
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_XRayItemClaim",
+          "number": 1009
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_CasketTooFull",
+          "number": 1011
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_CasketContents",
+          "number": 1012
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_CasketAdded",
+          "number": 1013
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_CasketRemoved",
+          "number": 1014
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_CasketInvFull",
+          "number": 1015
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_NameBaseItem",
+          "number": 1019
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_RemoveItemName",
+          "number": 1030
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_RemoveSticker",
+          "number": 1053
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_ApplySticker",
+          "number": 1086
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_StatTrakSwap",
+          "number": 1088
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_RemovePatch",
+          "number": 1089
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_ApplyPatch",
+          "number": 1090
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_ActivateFanToken",
+          "number": 9178
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_ActivateOperationCoin",
+          "number": 9179
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_GraffitiUnseal",
+          "number": 9185
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_GenerateSouvenir",
+          "number": 9204
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_ClientRedeemMissionReward",
+          "number": 9209
+        },
+        {
+          "name": "k_EGCItemCustomizationNotification_ClientRedeemFreeReward",
+          "number": 9219
+        }
+      ]
+    }
+  ]
+}

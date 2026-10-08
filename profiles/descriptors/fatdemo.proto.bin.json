@@ -1,0 +1,567 @@
+{
+  "name": "fatdemo.proto",
+  "package": "",
+  "dependencies": [
+    "netmessages.proto"
+  ],
+  "messages": [
+    {
+      "name": "MLDict",
+      "fields": [
+        {
+          "name": "key",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "val_string",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "val_int",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "val_float",
+          "number": 4,
+          "label": 1,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLEvent",
+      "fields": [
+        {
+          "name": "event_name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "data",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".MLDict"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLMatchState",
+      "fields": [
+        {
+          "name": "game_mode",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "phase",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "round",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "score_ct",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "score_t",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLRoundState",
+      "fields": [
+        {
+          "name": "phase",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "win_team",
+          "number": 2,
+          "label": 1,
+          "type": 14,
+          "type_name": ".ETeam"
+        },
+        {
+          "name": "bomb_state",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLWeaponState",
+      "fields": [
+        {
+          "name": "index",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "type",
+          "number": 3,
+          "label": 1,
+          "type": 14,
+          "type_name": ".EWeaponType"
+        },
+        {
+          "name": "ammo_clip",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "ammo_clip_max",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "ammo_reserve",
+          "number": 6,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "state",
+          "number": 7,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "recoil_index",
+          "number": 8,
+          "label": 1,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLPlayerState",
+      "fields": [
+        {
+          "name": "account_id",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "user_id",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "entindex",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "name",
+          "number": 4,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "clan",
+          "number": 5,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "team",
+          "number": 6,
+          "label": 1,
+          "type": 14,
+          "type_name": ".ETeam"
+        },
+        {
+          "name": "abspos",
+          "number": 7,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgVector"
+        },
+        {
+          "name": "eyeangle",
+          "number": 8,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgQAngle"
+        },
+        {
+          "name": "eyeangle_fwd",
+          "number": 9,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgVector"
+        },
+        {
+          "name": "health",
+          "number": 10,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "armor",
+          "number": 11,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "flashed",
+          "number": 12,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "smoked",
+          "number": 13,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "money",
+          "number": 14,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "round_kills",
+          "number": 15,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "round_killhs",
+          "number": 16,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "burning",
+          "number": 17,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "helmet",
+          "number": 18,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "defuse_kit",
+          "number": 19,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "weapons",
+          "number": 20,
+          "label": 3,
+          "type": 11,
+          "type_name": ".MLWeaponState"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLGameState",
+      "fields": [
+        {
+          "name": "match",
+          "number": 1,
+          "label": 1,
+          "type": 11,
+          "type_name": ".MLMatchState"
+        },
+        {
+          "name": "round",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".MLRoundState"
+        },
+        {
+          "name": "players",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".MLPlayerState"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLDemoHeader",
+      "fields": [
+        {
+          "name": "map_name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "tick_rate",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "version",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "steam_universe",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "MLTick",
+      "fields": [
+        {
+          "name": "tick_count",
+          "number": 1,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "state",
+          "number": 2,
+          "label": 1,
+          "type": 11,
+          "type_name": ".MLGameState"
+        },
+        {
+          "name": "events",
+          "number": 3,
+          "label": 3,
+          "type": 11,
+          "type_name": ".MLEvent"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "VacNetShot",
+      "fields": [
+        {
+          "name": "steamid_player",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "round_number",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "hit_type",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "weapon_type",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "distance_to_hurt_target",
+          "number": 5,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "delta_yaw_window",
+          "number": 6,
+          "label": 3,
+          "type": 2
+        },
+        {
+          "name": "delta_pitch_window",
+          "number": 7,
+          "label": 3,
+          "type": 2
+        }
+      ],
+      "messages": [],
+      "enums": []
+    }
+  ],
+  "enums": [
+    {
+      "name": "EHitGroup",
+      "values": [
+        {
+          "name": "EHG_Generic",
+          "number": 0
+        },
+        {
+          "name": "EHG_Head",
+          "number": 1
+        },
+        {
+          "name": "EHG_Chest",
+          "number": 2
+        },
+        {
+          "name": "EHG_Stomach",
+          "number": 3
+        },
+        {
+          "name": "EHG_LeftArm",
+          "number": 4
+        },
+        {
+          "name": "EHG_RightArm",
+          "number": 5
+        },
+        {
+          "name": "EHG_LeftLeg",
+          "number": 6
+        },
+        {
+          "name": "EHG_RightLeg",
+          "number": 7
+        },
+        {
+          "name": "EHG_Gear",
+          "number": 8
+        },
+        {
+          "name": "EHG_Miss",
+          "number": 9
+        }
+      ]
+    },
+    {
+      "name": "ETeam",
+      "values": [
+        {
+          "name": "ET_Unknown",
+          "number": 0
+        },
+        {
+          "name": "ET_Spectator",
+          "number": 1
+        },
+        {
+          "name": "ET_Terrorist",
+          "number": 2
+        },
+        {
+          "name": "ET_CT",
+          "number": 3
+        }
+      ]
+    },
+    {
+      "name": "EWeaponType",
+      "values": [
+        {
+          "name": "EWT_Knife",
+          "number": 0
+        },
+        {
+          "name": "EWT_Pistol",
+          "number": 1
+        },
+        {
+          "name": "EWT_SubMachineGun",
+          "number": 2
+        },
+        {
+          "name": "EWT_Rifle",
+          "number": 3
+        },
+        {
+          "name": "EWT_Shotgun",
+          "number": 4
+        },
+        {
+          "name": "EWT_SniperRifle",
+          "number": 5
+        },
+        {
+          "name": "EWT_MachineGun",
+          "number": 6
+        },
+        {
+          "name": "EWT_C4",
+          "number": 7
+        },
+        {
+          "name": "EWT_Grenade",
+          "number": 8
+        },
+        {
+          "name": "EWT_Equipment",
+          "number": 9
+        },
+        {
+          "name": "EWT_StackableItem",
+          "number": 10
+        },
+        {
+          "name": "EWT_Unknown",
+          "number": 11
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2661 @@
+{
+  "name": "steammessages.proto",
+  "package": "",
+  "dependencies": [
+    "google/protobuf/descriptor.proto"
+  ],
+  "messages": [
+    {
+      "name": "CMsgProtoBufHeader",
+      "fields": [
+        {
+          "name": "client_steam_id",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "client_session_id",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "source_app_id",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "job_id_source",
+          "number": 10,
+          "label": 1,
+          "type": 6,
+          "default_value": "18446744073709551615"
+        },
+        {
+          "name": "job_id_target",
+          "number": 11,
+          "label": 1,
+          "type": 6,
+          "default_value": "18446744073709551615"
+        },
+        {
+          "name": "target_job_name",
+          "number": 12,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "eresult",
+          "number": 13,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        },
+        {
+          "name": "error_message",
+          "number": 14,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "ip",
+          "number": 15,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "gc_msg_src",
+          "number": 200,
+          "label": 1,
+          "type": 14,
+          "type_name": ".GCProtoBufMsgSrc"
+        },
+        {
+          "name": "gc_dir_index_source",
+          "number": 201,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgWebAPIKey",
+      "fields": [
+        {
+          "name": "status",
+          "number": 1,
+          "label": 1,
+          "type": 13,
+          "default_value": "255"
+        },
+        {
+          "name": "account_id",
+          "number": 2,
+          "label": 1,
+          "type": 13,
+          "default_value": "0"
+        },
+        {
+          "name": "publisher_group_id",
+          "number": 3,
+          "label": 1,
+          "type": 13,
+          "default_value": "0"
+        },
+        {
+          "name": "key_id",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "domain",
+          "number": 5,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgHttpRequest",
+      "fields": [
+        {
+          "name": "request_method",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "hostname",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "url",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "headers",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgHttpRequest.RequestHeader"
+        },
+        {
+          "name": "get_params",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgHttpRequest.QueryParam"
+        },
+        {
+          "name": "post_params",
+          "number": 6,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgHttpRequest.QueryParam"
+        },
+        {
+          "name": "body",
+          "number": 7,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "absolute_timeout",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [
+        {
+          "name": "RequestHeader",
+          "fields": [
+            {
+              "name": "name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "QueryParam",
+          "fields": [
+            {
+              "name": "name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 12
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgWebAPIRequest",
+      "fields": [
+        {
+          "name": "UNUSED_job_name",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "interface_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "method_name",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "version",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "api_key",
+          "number": 5,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgWebAPIKey"
+        },
+        {
+          "name": "request",
+          "number": 6,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgHttpRequest"
+        },
+        {
+          "name": "routing_app_id",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgHttpResponse",
+      "fields": [
+        {
+          "name": "status_code",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "headers",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgHttpResponse.ResponseHeader"
+        },
+        {
+          "name": "body",
+          "number": 3,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [
+        {
+          "name": "ResponseHeader",
+          "fields": [
+            {
+              "name": "name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMFindAccounts",
+      "fields": [
+        {
+          "name": "search_type",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "search_string",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMFindAccountsResponse",
+      "fields": [
+        {
+          "name": "steam_id",
+          "number": 1,
+          "label": 3,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgNotifyWatchdog",
+      "fields": [
+        {
+          "name": "source",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "alert_type",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "alert_destination",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "critical",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "time",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "appid",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "text",
+          "number": 7,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMGetLicenses",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgPackageLicense",
+      "fields": [
+        {
+          "name": "package_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "time_created",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "owner_id",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMGetLicensesResponse",
+      "fields": [
+        {
+          "name": "license",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgPackageLicense"
+        },
+        {
+          "name": "result",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMGetUserGameStats",
+      "fields": [
+        {
+          "name": "steam_id",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "game_id",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "stats",
+          "number": 3,
+          "label": 3,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMGetUserGameStatsResponse",
+      "fields": [
+        {
+          "name": "steam_id",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "game_id",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "eresult",
+          "number": 3,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        },
+        {
+          "name": "stats",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgAMGetUserGameStatsResponse.Stats"
+        },
+        {
+          "name": "achievement_blocks",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgAMGetUserGameStatsResponse.Achievement_Blocks"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Stats",
+          "fields": [
+            {
+              "name": "stat_id",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "stat_value",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "Achievement_Blocks",
+          "fields": [
+            {
+              "name": "achievement_id",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "achievement_bit_id",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "unlock_time",
+              "number": 3,
+              "label": 1,
+              "type": 7
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetCommandList",
+      "fields": [
+        {
+          "name": "app_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "command_prefix",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetCommandListResponse",
+      "fields": [
+        {
+          "name": "command_name",
+          "number": 1,
+          "label": 3,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgMemCachedGet",
+      "fields": [
+        {
+          "name": "keys",
+          "number": 1,
+          "label": 3,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgMemCachedGetResponse",
+      "fields": [
+        {
+          "name": "values",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CGCMsgMemCachedGetResponse.ValueTag"
+        }
+      ],
+      "messages": [
+        {
+          "name": "ValueTag",
+          "fields": [
+            {
+              "name": "found",
+              "number": 1,
+              "label": 1,
+              "type": 8
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 12
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgMemCachedSet",
+      "fields": [
+        {
+          "name": "keys",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CGCMsgMemCachedSet.KeyPair"
+        }
+      ],
+      "messages": [
+        {
+          "name": "KeyPair",
+          "fields": [
+            {
+              "name": "name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 12
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgMemCachedDelete",
+      "fields": [
+        {
+          "name": "keys",
+          "number": 1,
+          "label": 3,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgMemCachedStats",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgMemCachedStatsResponse",
+      "fields": [
+        {
+          "name": "curr_connections",
+          "number": 1,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "cmd_get",
+          "number": 2,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "cmd_set",
+          "number": 3,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "cmd_flush",
+          "number": 4,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "get_hits",
+          "number": 5,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "get_misses",
+          "number": 6,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "delete_hits",
+          "number": 7,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "delete_misses",
+          "number": 8,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "bytes_read",
+          "number": 9,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "bytes_written",
+          "number": 10,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "limit_maxbytes",
+          "number": 11,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "curr_items",
+          "number": 12,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "evictions",
+          "number": 13,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "bytes",
+          "number": 14,
+          "label": 1,
+          "type": 4
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgSQLStats",
+      "fields": [
+        {
+          "name": "schema_catalog",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgSQLStatsResponse",
+      "fields": [
+        {
+          "name": "threads",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "threads_connected",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "threads_active",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "operations_submitted",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "prepared_statements_executed",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "non_prepared_statements_executed",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "deadlock_retries",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "operations_timed_out_in_queue",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "errors",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMAddFreeLicense",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "ip_public",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "packageid",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "store_country_code",
+          "number": 4,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMAddFreeLicenseResponse",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        },
+        {
+          "name": "purchase_result_detail",
+          "number": 2,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "transid",
+          "number": 3,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgGetIPLocation",
+      "fields": [
+        {
+          "name": "ips",
+          "number": 1,
+          "label": 3,
+          "type": 7
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CIPLocationInfo",
+      "fields": [
+        {
+          "name": "ip",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "latitude",
+          "number": 2,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "longitude",
+          "number": 3,
+          "label": 1,
+          "type": 2
+        },
+        {
+          "name": "country",
+          "number": 4,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "state",
+          "number": 5,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "city",
+          "number": 6,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgGetIPLocationResponse",
+      "fields": [
+        {
+          "name": "infos",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CIPLocationInfo"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgSystemStatsSchema",
+      "fields": [
+        {
+          "name": "gc_app_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "schema_kv",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgGetSystemStats",
+      "fields": [],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCMsgGetSystemStatsResponse",
+      "fields": [
+        {
+          "name": "gc_app_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "stats_kv",
+          "number": 2,
+          "label": 1,
+          "type": 12
+        },
+        {
+          "name": "active_jobs",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "yielding_jobs",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "user_sessions",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "game_server_sessions",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "socaches",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "socaches_to_unload",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "socaches_loading",
+          "number": 9,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "writeback_queue",
+          "number": 10,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "steamid_locks",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "logon_queue",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "logon_jobs",
+          "number": 13,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMSendEmail",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "email_msg_type",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "email_format",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "persona_name_tokens",
+          "number": 5,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgAMSendEmail.PersonaNameReplacementToken"
+        },
+        {
+          "name": "source_gc",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "tokens",
+          "number": 7,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgAMSendEmail.ReplacementToken"
+        }
+      ],
+      "messages": [
+        {
+          "name": "ReplacementToken",
+          "fields": [
+            {
+              "name": "token_name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "token_value",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "PersonaNameReplacementToken",
+          "fields": [
+            {
+              "name": "steamid",
+              "number": 1,
+              "label": 1,
+              "type": 6
+            },
+            {
+              "name": "token_name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMSendEmailResponse",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 13,
+          "default_value": "2"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetEmailTemplate",
+      "fields": [
+        {
+          "name": "app_id",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "email_msg_type",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "email_lang",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "email_format",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetEmailTemplateResponse",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 13,
+          "default_value": "2"
+        },
+        {
+          "name": "template_exists",
+          "number": 2,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "template",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMGrantGuestPasses2",
+      "fields": [
+        {
+          "name": "steam_id",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "package_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "passes_to_grant",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "days_to_expiration",
+          "number": 4,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "action",
+          "number": 5,
+          "label": 1,
+          "type": 5
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgAMGrantGuestPasses2Response",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        },
+        {
+          "name": "passes_granted",
+          "number": 2,
+          "label": 1,
+          "type": 5,
+          "default_value": "0"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCSystemMsg_GetAccountDetails",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "appid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCSystemMsg_GetAccountDetails_Response",
+      "fields": [
+        {
+          "name": "eresult_deprecated",
+          "number": 1,
+          "label": 1,
+          "type": 13,
+          "default_value": "2"
+        },
+        {
+          "name": "account_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "persona_name",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "is_profile_public",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_inventory_public",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_vac_banned",
+          "number": 7,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_cyber_cafe",
+          "number": 8,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_school_account",
+          "number": 9,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_limited",
+          "number": 10,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_subscribed",
+          "number": 11,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "package",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "is_free_trial_account",
+          "number": 13,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "free_trial_expiration",
+          "number": 14,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "is_low_violence",
+          "number": 15,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_account_locked_down",
+          "number": 16,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_community_banned",
+          "number": 17,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_trade_banned",
+          "number": 18,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "trade_ban_expiration",
+          "number": 19,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "accountid",
+          "number": 20,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "suspension_end_time",
+          "number": 21,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "currency",
+          "number": 22,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "steam_level",
+          "number": 23,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "friend_count",
+          "number": 24,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "account_creation_time",
+          "number": 25,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "is_steamguard_enabled",
+          "number": 27,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_phone_verified",
+          "number": 28,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_two_factor_auth_enabled",
+          "number": 29,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "two_factor_enabled_time",
+          "number": 30,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "phone_verification_time",
+          "number": 31,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "phone_id",
+          "number": 33,
+          "label": 1,
+          "type": 4
+        },
+        {
+          "name": "is_phone_identifying",
+          "number": 34,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "rt_identity_linked",
+          "number": 35,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rt_birth_date",
+          "number": 36,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "txn_country_code",
+          "number": 37,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "has_accepted_china_ssa",
+          "number": 38,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_banned_steam_china",
+          "number": 39,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetPersonaNames",
+      "fields": [
+        {
+          "name": "steamids",
+          "number": 1,
+          "label": 3,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetPersonaNames_Response",
+      "fields": [
+        {
+          "name": "succeeded_lookups",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCGetPersonaNames_Response.PersonaName"
+        },
+        {
+          "name": "failed_lookup_steamids",
+          "number": 2,
+          "label": 3,
+          "type": 6
+        }
+      ],
+      "messages": [
+        {
+          "name": "PersonaName",
+          "fields": [
+            {
+              "name": "steamid",
+              "number": 1,
+              "label": 1,
+              "type": 6
+            },
+            {
+              "name": "persona_name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCheckFriendship",
+      "fields": [
+        {
+          "name": "steamid_left",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "steamid_right",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCCheckFriendship_Response",
+      "fields": [
+        {
+          "name": "success",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "found_friendship",
+          "number": 2,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMsgMasterSetDirectory",
+      "fields": [
+        {
+          "name": "master_dir_index",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "dir",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCMsgMasterSetDirectory.SubGC"
+        }
+      ],
+      "messages": [
+        {
+          "name": "SubGC",
+          "fields": [
+            {
+              "name": "dir_index",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "box",
+              "number": 3,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "command_line",
+              "number": 4,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "gc_binary",
+              "number": 5,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMsgMasterSetDirectory_Response",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        },
+        {
+          "name": "message",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMsgWebAPIJobRequestForwardResponse",
+      "fields": [
+        {
+          "name": "dir_index",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCSystemMsg_GetPurchaseTrust_Request",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CGCSystemMsg_GetPurchaseTrust_Response",
+      "fields": [
+        {
+          "name": "has_prior_purchase_history",
+          "number": 1,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "has_no_recent_password_resets",
+          "number": 2,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_wallet_cash_trusted",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "time_all_trusted",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCHAccountVacStatusChange",
+      "fields": [
+        {
+          "name": "steam_id",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "app_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "rtime_vacban_starts",
+          "number": 3,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "is_banned_now",
+          "number": 4,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "is_banned_future",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetPartnerAccountLink",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCGetPartnerAccountLink_Response",
+      "fields": [
+        {
+          "name": "pwid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "nexonid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "ageclass",
+          "number": 3,
+          "label": 1,
+          "type": 5
+        },
+        {
+          "name": "id_verified",
+          "number": 4,
+          "label": 1,
+          "type": 8,
+          "default_value": "true"
+        },
+        {
+          "name": "is_adult",
+          "number": 5,
+          "label": 1,
+          "type": 8
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCAddressMask",
+      "fields": [
+        {
+          "name": "ipv4",
+          "number": 1,
+          "label": 1,
+          "type": 7
+        },
+        {
+          "name": "maskbits",
+          "number": 2,
+          "label": 1,
+          "type": 13,
+          "default_value": "32"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCAddressMaskGroup",
+      "fields": [
+        {
+          "name": "addrs",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCAddressMask"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCRoutingInfo",
+      "fields": [
+        {
+          "name": "dir_index",
+          "number": 1,
+          "label": 3,
+          "type": 13
+        },
+        {
+          "name": "method",
+          "number": 2,
+          "label": 1,
+          "type": 14,
+          "type_name": ".CMsgGCRoutingInfo.RoutingMethod",
+          "default_value": "RANDOM"
+        },
+        {
+          "name": "fallback",
+          "number": 3,
+          "label": 1,
+          "type": 14,
+          "type_name": ".CMsgGCRoutingInfo.RoutingMethod",
+          "default_value": "DISCARD"
+        },
+        {
+          "name": "protobuf_field",
+          "number": 4,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "webapi_param",
+          "number": 5,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "policy_rules",
+          "number": 6,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCRoutingInfo.PolicyRule"
+        }
+      ],
+      "messages": [
+        {
+          "name": "TokenBucketConfiguration",
+          "fields": [
+            {
+              "name": "tokens_start",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "tokens_grant",
+              "number": 2,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "grant_seconds",
+              "number": 3,
+              "label": 1,
+              "type": 5
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "PolicyRule",
+          "fields": [
+            {
+              "name": "account_type",
+              "number": 1,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "address_mask_group_id",
+              "number": 2,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "token_bucket",
+              "number": 3,
+              "label": 1,
+              "type": 11,
+              "type_name": ".CMsgGCRoutingInfo.TokenBucketConfiguration"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": [
+        {
+          "name": "RoutingMethod",
+          "values": [
+            {
+              "name": "RANDOM",
+              "number": 0
+            },
+            {
+              "name": "DISCARD",
+              "number": 1
+            },
+            {
+              "name": "CLIENT_STEAMID",
+              "number": 2
+            },
+            {
+              "name": "PROTOBUF_FIELD_UINT64",
+              "number": 3
+            },
+            {
+              "name": "WEBAPI_PARAM_UINT64",
+              "number": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CMsgGCMsgMasterSetWebAPIRouting",
+      "fields": [
+        {
+          "name": "entries",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCMsgMasterSetWebAPIRouting.Entry"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Entry",
+          "fields": [
+            {
+              "name": "interface_name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "method_name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "routing",
+              "number": 3,
+              "label": 1,
+              "type": 11,
+              "type_name": ".CMsgGCRoutingInfo"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMsgMasterSetClientMsgRouting",
+      "fields": [
+        {
+          "name": "entries",
+          "number": 1,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCMsgMasterSetClientMsgRouting.Entry"
+        },
+        {
+          "name": "address_mask_groups",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCAddressMaskGroup"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Entry",
+          "fields": [
+            {
+              "name": "msg_type",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "routing",
+              "number": 2,
+              "label": 1,
+              "type": 11,
+              "type_name": ".CMsgGCRoutingInfo"
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMsgMasterSetWebAPIRouting_Response",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMsgMasterSetClientMsgRouting_Response",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 5,
+          "default_value": "2"
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CMsgGCMsgSetOptions",
+      "fields": [
+        {
+          "name": "options",
+          "number": 1,
+          "label": 3,
+          "type": 14,
+          "type_name": ".CMsgGCMsgSetOptions.Option"
+        },
+        {
+          "name": "client_msg_ranges",
+          "number": 2,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCMsgSetOptions.MessageRange"
+        }
+      ],
+      "messages": [
+        {
+          "name": "MessageRange",
+          "fields": [
+            {
+              "name": "low",
+              "number": 1,
+              "label": 2,
+              "type": 13
+            },
+            {
+              "name": "high",
+              "number": 2,
+              "label": 2,
+              "type": 13
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": [
+        {
+          "name": "Option",
+          "values": [
+            {
+              "name": "NOTIFY_USER_SESSIONS",
+              "number": 0
+            },
+            {
+              "name": "NOTIFY_SERVER_SESSIONS",
+              "number": 1
+            },
+            {
+              "name": "NOTIFY_ACHIEVEMENTS",
+              "number": 2
+            },
+            {
+              "name": "NOTIFY_VAC_ACTION",
+              "number": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CMsgGCHUpdateSession",
+      "fields": [
+        {
+          "name": "steam_id",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "app_id",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "online",
+          "number": 3,
+          "label": 1,
+          "type": 8
+        },
+        {
+          "name": "server_steam_id",
+          "number": 4,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "server_addr",
+          "number": 5,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "server_port",
+          "number": 6,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "os_type",
+          "number": 7,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "client_addr",
+          "number": 8,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "extra_fields",
+          "number": 9,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgGCHUpdateSession.ExtraField"
+        },
+        {
+          "name": "owner_id",
+          "number": 10,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "cm_session_sysid",
+          "number": 11,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "cm_session_identifier",
+          "number": 12,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "depot_ids",
+          "number": 13,
+          "label": 3,
+          "type": 13
+        }
+      ],
+      "messages": [
+        {
+          "name": "ExtraField",
+          "fields": [
+            {
+              "name": "name",
+              "number": 1,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "value",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgNotificationOfSuspiciousActivity",
+      "fields": [
+        {
+          "name": "steamid",
+          "number": 1,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "appid",
+          "number": 2,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "multiple_instances",
+          "number": 3,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgNotificationOfSuspiciousActivity.MultipleGameInstances"
+        }
+      ],
+      "messages": [
+        {
+          "name": "MultipleGameInstances",
+          "fields": [
+            {
+              "name": "app_instance_count",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "other_steamids",
+              "number": 2,
+              "label": 3,
+              "type": 6
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgDPPartnerMicroTxns",
+      "fields": [
+        {
+          "name": "appid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "gc_name",
+          "number": 2,
+          "label": 1,
+          "type": 9
+        },
+        {
+          "name": "partner",
+          "number": 3,
+          "label": 1,
+          "type": 11,
+          "type_name": ".CMsgDPPartnerMicroTxns.PartnerInfo"
+        },
+        {
+          "name": "transactions",
+          "number": 4,
+          "label": 3,
+          "type": 11,
+          "type_name": ".CMsgDPPartnerMicroTxns.PartnerMicroTxn"
+        }
+      ],
+      "messages": [
+        {
+          "name": "PartnerMicroTxn",
+          "fields": [
+            {
+              "name": "init_time",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "last_update_time",
+              "number": 2,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "txn_id",
+              "number": 3,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "account_id",
+              "number": 4,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "line_item",
+              "number": 5,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "item_id",
+              "number": 6,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "def_index",
+              "number": 7,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "price",
+              "number": 8,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "tax",
+              "number": 9,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "price_usd",
+              "number": 10,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "tax_usd",
+              "number": 11,
+              "label": 1,
+              "type": 4
+            },
+            {
+              "name": "purchase_type",
+              "number": 12,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "steam_txn_type",
+              "number": 13,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "country_code",
+              "number": 14,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "region_code",
+              "number": 15,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "quantity",
+              "number": 16,
+              "label": 1,
+              "type": 5
+            },
+            {
+              "name": "ref_trans_id",
+              "number": 17,
+              "label": 1,
+              "type": 4
+            }
+          ],
+          "messages": [],
+          "enums": []
+        },
+        {
+          "name": "PartnerInfo",
+          "fields": [
+            {
+              "name": "partner_id",
+              "number": 1,
+              "label": 1,
+              "type": 13
+            },
+            {
+              "name": "partner_name",
+              "number": 2,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "currency_code",
+              "number": 3,
+              "label": 1,
+              "type": 9
+            },
+            {
+              "name": "currency_name",
+              "number": 4,
+              "label": 1,
+              "type": 9
+            }
+          ],
+          "messages": [],
+          "enums": []
+        }
+      ],
+      "enums": []
+    },
+    {
+      "name": "CMsgDPPartnerMicroTxnsResponse",
+      "fields": [
+        {
+          "name": "eresult",
+          "number": 1,
+          "label": 1,
+          "type": 13,
+          "default_value": "2"
+        },
+        {
+          "name": "eerrorcode",
+          "number": 2,
+          "label": 1,
+          "type": 14,
+          "type_name": ".CMsgDPPartnerMicroTxnsResponse.EErrorCode"
+        }
+      ],
+      "messages": [],
+      "enums": [
+        {
+          "name": "EErrorCode",
+          "values": [
+            {
+              "name": "k_MsgValid",
+              "number": 0
+            },
+            {
+              "name": "k_MsgInvalidAppID",
+              "number": 1
+            },
+            {
+              "name": "k_MsgInvalidPartnerInfo",
+              "number": 2
+            },
+            {
+              "name": "k_MsgNoTransactions",
+              "number": 3
+            },
+            {
+              "name": "k_MsgSQLFailure",
+              "number": 4
+            },
+            {
+              "name": "k_MsgPartnerInfoDiscrepancy",
+              "number": 5
+            },
+            {
+              "name": "k_MsgTransactionInsertFailed",
+              "number": 7
+            },
+            {
+              "name": "k_MsgAlreadyRunning",
+              "number": 8
+            },
+            {
+              "name": "k_MsgInvalidTransactionData",
+              "number": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CChinaAgreementSessions_StartAgreementSessionInGame_Request",
+      "fields": [
+        {
+          "name": "appid",
+          "number": 1,
+          "label": 1,
+          "type": 13
+        },
+        {
+          "name": "steamid",
+          "number": 2,
+          "label": 1,
+          "type": 6
+        },
+        {
+          "name": "client_ipaddress",
+          "number": 3,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    },
+    {
+      "name": "CChinaAgreementSessions_StartAgreementSessionInGame_Response",
+      "fields": [
+        {
+          "name": "agreement_url",
+          "number": 1,
+          "label": 1,
+          "type": 9
+        }
+      ],
+      "messages": [],
+      "enums": []
+    }
+  ],
+  "enums": [
+    {
+      "name": "GCProtoBufMsgSrc",
+      "values": [
+        {
+          "name": "GCProtoBufMsgSrc_Unspecified",
+          "number": 0
+        },
+        {
+          "name": "GCProtoBufMsgSrc_FromSystem",
+          "number": 1
+        },
+        {
+          "name": "GCProtoBufMsgSrc_FromSteamID",
+          "number": 2
+        },
+        {
+          "name": "GCProtoBufMsgSrc_FromGC",
+          "number": 3
+        },
+        {
+          "name": "GCProtoBufMsgSrc_ReplySystem",
+          "number": 4
+        }
+      ]
+    }
+  ]
+}
