@@ -100,8 +100,9 @@ def compact(status):
     return {"connection": status.get("connection", {}), "tick": status.get("tick"),
             "entity_tick": status.get("entity_tick"), "map": status.get("map"),
             "entity_count": status.get("entity_count"), "needs_full_update": status.get("needs_full_update"),
-            "local": {key: local.get(key) for key in ("entity_index", "user_id", "team", "health",
+            "local": {**{key: local.get(key) for key in ("entity_index", "user_id", "team", "health",
                      "life_state", "position", "armor", "money", "active_weapon_handle", "inventory")},
+                      "eye_angles": eye_angles(status), "duck_amount": field(status, "m_flDuckAmount")},
             "round": status.get("round", {})}
 
 
