@@ -1,0 +1,5799 @@
+{
+  "format": 1,
+  "host_version": 13881,
+  "server": "151.243.93.16:27015",
+  "executable_sha256": "b42d693bb49cf5b6e2b00b5760b6cd517dafc968fc91fee998da87264997b1d1",
+  "profile_sha256": "3e6b663c5e8e6e7955c4be3f82ba60679f9b4d7b74c9de32c86896da672365c1",
+  "state": "verified",
+  "connect_only": false,
+  "requested_soak_seconds": 1800,
+  "elapsed_seconds": 1823.828,
+  "full_elapsed_seconds": 4.375,
+  "started_at": "2026-10-08T04:42:51.534507+00:00",
+  "finished_at": "2026-10-08T05:13:15.368361+00:00",
+  "full_signon": {
+    "tick": 851866,
+    "entity_tick": 851866,
+    "entity_count": 197,
+    "map": "cs_italy",
+    "needs_full_update": false,
+    "connection": {
+      "signon": 6,
+      "tick": 851866,
+      "received_packets": 123,
+      "sent_packets": 12,
+      "state": "full"
+    },
+    "local": {
+      "entity_index": 1,
+      "team": 0,
+      "health": 0,
+      "life_state": 2,
+      "armor": 0,
+      "money": 800,
+      "active_weapon_handle": 2097151,
+      "duck_amount": 0.0,
+      "position": [
+        369.98199462890625,
+        2099.2900390625,
+        80.0
+      ],
+      "eye_angles": [
+        0.0,
+        0.0
+      ],
+      "inventory": []
+    },
+    "round": {
+      "rounds_played": 0,
+      "freeze": 0,
+      "round_time": 120,
+      "start_time": 13252.1875,
+      "warmup": 0
+    }
+  },
+  "team": {
+    "tick": 851926,
+    "entity_tick": 851926,
+    "entity_count": 201,
+    "map": "cs_italy",
+    "needs_full_update": false,
+    "connection": {
+      "signon": 6,
+      "tick": 851926,
+      "received_packets": 177,
+      "sent_packets": 61,
+      "state": "full"
+    },
+    "local": {
+      "entity_index": 1,
+      "team": 2,
+      "health": 100,
+      "life_state": 0,
+      "armor": 0,
+      "money": 800,
+      "active_weapon_handle": 1564892,
+      "duck_amount": 0.0,
+      "position": [
+        317.0,
+        2216.0,
+        0.031249992549419403
+      ],
+      "eye_angles": [
+        0.0,
+        292.0001220703125
+      ],
+      "inventory": [
+        {
+          "entity_index": 217,
+          "handle": 1390809,
+          "item_definition": 59,
+          "clip": -1,
+          "class": "CKnife"
+        },
+        {
+          "entity_index": 220,
+          "handle": 1564892,
+          "item_definition": 4,
+          "clip": 20,
+          "class": "CWeaponGlock"
+        }
+      ]
+    },
+    "round": {
+      "rounds_played": 0,
+      "freeze": 0,
+      "round_time": 120,
+      "start_time": 13252.1875,
+      "warmup": 1,
+      "phase": "ended"
+    }
+  },
+  "spawn": {
+    "tick": 852380,
+    "entity_tick": 852380,
+    "entity_count": 201,
+    "map": "cs_italy",
+    "needs_full_update": false,
+    "connection": {
+      "signon": 6,
+      "tick": 852380,
+      "received_packets": 634,
+      "sent_packets": 501,
+      "state": "full"
+    },
+    "local": {
+      "entity_index": 1,
+      "team": 2,
+      "health": 100,
+      "life_state": 0,
+      "armor": 0,
+      "money": 800,
+      "active_weapon_handle": 539028,
+      "duck_amount": 0.0,
+      "position": [
+        191.0,
+        2216.0,
+        0.031249992549419403
+      ],
+      "eye_angles": [
+        0.0,
+        2.999267578125
+      ],
+      "inventory": [
+        {
+          "entity_index": 402,
+          "handle": 661906,
+          "item_definition": 59,
+          "clip": -1,
+          "class": "CKnife"
+        },
+        {
+          "entity_index": 404,
+          "handle": 539028,
+          "item_definition": 4,
+          "clip": 20,
+          "class": "CWeaponGlock"
+        }
+      ]
+    },
+    "round": {
+      "rounds_played": 0,
+      "freeze": 0,
+      "round_time": 120,
+      "start_time": 13316.8125,
+      "start_tick": 851955,
+      "freeze_end_tick": 852275,
+      "warmup": 0,
+      "phase": "active"
+    }
+  },
+  "controls": {
+    "inventory": {
+      "state": "verified",
+      "server_inventory": [
+        {
+          "entity_index": 402,
+          "handle": 661906,
+          "item_definition": 59,
+          "clip": -1,
+          "class": "CKnife"
+        },
+        {
+          "entity_index": 404,
+          "handle": 539028,
+          "item_definition": 4,
+          "clip": 20,
+          "class": "CWeaponGlock"
+        }
+      ]
+    },
+    "use": {
+      "state": "verified",
+      "before": {
+        "tick": 852380,
+        "entity_tick": 852380,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852380,
+          "received_packets": 634,
+          "sent_packets": 502,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 0,
+          "money": 800,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852394,
+        "entity_tick": 852394,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852394,
+          "received_packets": 648,
+          "sent_packets": 514,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 0,
+          "money": 800,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "server_event": {
+        "tick": 852388,
+        "type": "server_command",
+        "buy_menu_observed": true
+      }
+    },
+    "buy": {
+      "state": "verified",
+      "before": {
+        "tick": 852409,
+        "entity_tick": 852409,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852409,
+          "received_packets": 663,
+          "sent_packets": 528,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 0,
+          "money": 800,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852421,
+        "entity_tick": 852421,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852421,
+          "received_packets": 675,
+          "sent_packets": 540,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "server_event": {
+        "tick": 852417,
+        "event_id": 105,
+        "type": "game_event",
+        "name": "item_purchase",
+        "values": {
+          "team": 2,
+          "weapon": "item_kevlar"
+        }
+      }
+    },
+    "weapon": {
+      "state": "verified",
+      "before": {
+        "tick": 852423,
+        "entity_tick": 852423,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852423,
+          "received_packets": 677,
+          "sent_packets": 542,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852436,
+        "entity_tick": 852436,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852436,
+          "received_packets": 690,
+          "sent_packets": 552,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      }
+    },
+    "aim": {
+      "state": "verified",
+      "before": {
+        "tick": 852438,
+        "entity_tick": 852438,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852438,
+          "received_packets": 692,
+          "sent_packets": 554,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852449,
+        "entity_tick": 852449,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852449,
+          "received_packets": 703,
+          "sent_packets": 565,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            11.9970703125,
+            39.9957275390625
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      }
+    },
+    "movement": {
+      "state": "verified",
+      "before": {
+        "tick": 852465,
+        "entity_tick": 852465,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852465,
+          "received_packets": 719,
+          "sent_packets": 581,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            11.9970703125,
+            39.9957275390625
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852479,
+        "entity_tick": 852479,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852479,
+          "received_packets": 733,
+          "sent_packets": 592,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            195.019775390625,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      }
+    },
+    "input_expiry": {
+      "state": "verified",
+      "positions": [
+        [
+          313.89520263671875,
+          2216.0,
+          0.03125
+        ],
+        [
+          313.89520263671875,
+          2216.0,
+          0.03125
+        ]
+      ]
+    },
+    "jump": {
+      "state": "verified",
+      "before": {
+        "tick": 852582,
+        "entity_tick": 852582,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852582,
+          "received_packets": 836,
+          "sent_packets": 692,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852595,
+        "entity_tick": 852595,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852595,
+          "received_packets": 849,
+          "sent_packets": 702,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            16.952713012695312
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "server_event": {
+        "tick": 852591,
+        "event_id": 174,
+        "type": "game_event",
+        "name": "player_jump"
+      }
+    },
+    "crouch": {
+      "state": "verified",
+      "before": {
+        "tick": 852661,
+        "entity_tick": 852661,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852661,
+          "received_packets": 915,
+          "sent_packets": 768,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852673,
+        "entity_tick": 852673,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852673,
+          "received_packets": 927,
+          "sent_packets": 780,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 661906,
+          "duck_amount": 0.228515625,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      }
+    },
+    "fire": {
+      "state": "verified",
+      "before": {
+        "tick": 852799,
+        "entity_tick": 852799,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852799,
+          "received_packets": 1053,
+          "sent_packets": 901,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852812,
+        "entity_tick": 852812,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852812,
+          "received_packets": 1066,
+          "sent_packets": 914,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 19,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "server_event": {
+        "tick": 852806,
+        "event_id": 130,
+        "type": "game_event",
+        "name": "weapon_fire",
+        "values": {
+          "weapon": "weapon_glock",
+          "silenced": false
+        }
+      }
+    },
+    "reload": {
+      "state": "verified",
+      "before": {
+        "tick": 852827,
+        "entity_tick": 852827,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852827,
+          "received_packets": 1081,
+          "sent_packets": 928,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 19,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "after": {
+        "tick": 852839,
+        "entity_tick": 852839,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 852839,
+          "received_packets": 1093,
+          "sent_packets": 941,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 19,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      "server_event": {
+        "tick": 852835,
+        "event_id": 134,
+        "type": "game_event",
+        "name": "weapon_reload"
+      }
+    },
+    "say": {
+      "state": "verified",
+      "echo_verified": true
+    },
+    "say_team": {
+      "state": "verified",
+      "echo_verified": true
+    }
+  },
+  "unverified_controls": [],
+  "gun_preparation": {
+    "deployment_wait_seconds": 1.531,
+    "next_attack": 13324.583984375,
+    "state": "verified"
+  },
+  "soak": {
+    "elapsed_seconds": 1800.032,
+    "activity_interval_seconds": 30,
+    "continuous_full": true,
+    "initial": {
+      "tick": 853063,
+      "entity_tick": 853063,
+      "entity_count": 201,
+      "map": "cs_italy",
+      "needs_full_update": false,
+      "connection": {
+        "signon": 6,
+        "tick": 853063,
+        "received_packets": 1317,
+        "sent_packets": 1163,
+        "state": "full"
+      },
+      "local": {
+        "entity_index": 1,
+        "team": 2,
+        "health": 100,
+        "life_state": 0,
+        "armor": 100,
+        "money": 150,
+        "active_weapon_handle": 539028,
+        "duck_amount": 0.0,
+        "position": [
+          313.89520263671875,
+          2216.0,
+          0.03125
+        ],
+        "eye_angles": [
+          0.0,
+          0.0
+        ],
+        "inventory": [
+          {
+            "entity_index": 402,
+            "handle": 661906,
+            "item_definition": 59,
+            "clip": -1,
+            "class": "CKnife"
+          },
+          {
+            "entity_index": 404,
+            "handle": 539028,
+            "item_definition": 4,
+            "clip": 20,
+            "class": "CWeaponGlock"
+          }
+        ]
+      },
+      "round": {
+        "rounds_played": 0,
+        "freeze": 0,
+        "round_time": 120,
+        "start_time": 13316.8125,
+        "start_tick": 851955,
+        "freeze_end_tick": 852275,
+        "warmup": 0,
+        "phase": "active"
+      }
+    },
+    "final": {
+      "tick": 968265,
+      "entity_tick": 968265,
+      "entity_count": 200,
+      "map": "cs_italy",
+      "needs_full_update": false,
+      "connection": {
+        "signon": 6,
+        "tick": 968265,
+        "received_packets": 116517,
+        "sent_packets": 113787,
+        "state": "full"
+      },
+      "local": {
+        "entity_index": 1,
+        "team": 2,
+        "health": 100,
+        "life_state": 0,
+        "armor": 100,
+        "money": 16000,
+        "active_weapon_handle": 539028,
+        "duck_amount": 0.0,
+        "position": [
+          70.8795166015625,
+          2166.922119140625,
+          0.03125
+        ],
+        "eye_angles": [
+          0.0,
+          270.0
+        ],
+        "inventory": [
+          {
+            "entity_index": 402,
+            "handle": 661906,
+            "item_definition": 59,
+            "clip": -1,
+            "class": "CKnife"
+          },
+          {
+            "entity_index": 404,
+            "handle": 539028,
+            "item_definition": 4,
+            "clip": 20,
+            "class": "CWeaponGlock"
+          }
+        ]
+      },
+      "round": {
+        "rounds_played": 13,
+        "freeze": 0,
+        "round_time": 120,
+        "start_time": 15032.8125,
+        "start_tick": 961779,
+        "freeze_end_tick": 962099,
+        "warmup": 0,
+        "phase": "active"
+      }
+    },
+    "measurements": [
+      {
+        "tick": 853064,
+        "entity_tick": 853064,
+        "entity_count": 201,
+        "elapsed_seconds": 0.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 853064,
+          "received_packets": 1318,
+          "sent_packets": 1164,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            313.89520263671875,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 854991,
+        "entity_tick": 854991,
+        "entity_count": 201,
+        "elapsed_seconds": 30.125,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 854991,
+          "received_packets": 3245,
+          "sent_packets": 3054,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            384.88470458984375,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 856907,
+        "entity_tick": 856907,
+        "entity_count": 201,
+        "elapsed_seconds": 60.079,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 856907,
+          "received_packets": 5161,
+          "sent_packets": 4929,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            384.88470458984375,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 858829,
+        "entity_tick": 858829,
+        "entity_count": 201,
+        "elapsed_seconds": 90.094,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 858829,
+          "received_packets": 7083,
+          "sent_packets": 6825,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            299.7643127441406,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 0,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13316.8125,
+          "start_tick": 851955,
+          "freeze_end_tick": 852275,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 860756,
+        "entity_tick": 860756,
+        "entity_count": 200,
+        "elapsed_seconds": 120.204,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 860756,
+          "received_packets": 9010,
+          "sent_packets": 8707,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 1,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13448.8125,
+          "start_tick": 860403,
+          "freeze_end_tick": 860723,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 862675,
+        "entity_tick": 862675,
+        "entity_count": 200,
+        "elapsed_seconds": 150.188,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 862675,
+          "received_packets": 10929,
+          "sent_packets": 10574,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            281.0422668457031,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 1,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13448.8125,
+          "start_tick": 860403,
+          "freeze_end_tick": 860723,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 864594,
+        "entity_tick": 864594,
+        "entity_count": 200,
+        "elapsed_seconds": 180.172,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 864594,
+          "received_packets": 12848,
+          "sent_packets": 12454,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            281.0422668457031,
+            2303.580810546875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 1,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13448.8125,
+          "start_tick": 860403,
+          "freeze_end_tick": 860723,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 866514,
+        "entity_tick": 866514,
+        "entity_count": 200,
+        "elapsed_seconds": 210.188,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 866514,
+          "received_packets": 14768,
+          "sent_packets": 14340,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            193.4607391357422,
+            2303.580810546875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 1,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13448.8125,
+          "start_tick": 860403,
+          "freeze_end_tick": 860723,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 868425,
+        "entity_tick": 868425,
+        "entity_count": 200,
+        "elapsed_seconds": 240.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 868425,
+          "received_packets": 16679,
+          "sent_packets": 16202,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            193.4607391357422,
+            2218.461181640625,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 2,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13448.8125,
+          "start_tick": 860403,
+          "freeze_end_tick": 860723,
+          "warmup": 0,
+          "phase": "ended"
+        }
+      },
+      {
+        "tick": 870343,
+        "entity_tick": 870343,
+        "entity_count": 200,
+        "elapsed_seconds": 270.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 870343,
+          "received_packets": 18597,
+          "sent_packets": 18080,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 2,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13580.8125,
+          "start_tick": 868851,
+          "freeze_end_tick": 869171,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 872275,
+        "entity_tick": 872275,
+        "entity_count": 200,
+        "elapsed_seconds": 300.188,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 872275,
+          "received_packets": 20529,
+          "sent_packets": 19977,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 2,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13580.8125,
+          "start_tick": 868851,
+          "freeze_end_tick": 869171,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 874191,
+        "entity_tick": 874191,
+        "entity_count": 200,
+        "elapsed_seconds": 330.125,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 874191,
+          "received_packets": 22445,
+          "sent_packets": 21859,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            103.4185791015625,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 2,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13580.8125,
+          "start_tick": 868851,
+          "freeze_end_tick": 869171,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 876105,
+        "entity_tick": 876105,
+        "entity_count": 200,
+        "elapsed_seconds": 360.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 876105,
+          "received_packets": 24359,
+          "sent_packets": 23745,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            103.4185791015625,
+            2216.000244140625,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 2,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13580.8125,
+          "start_tick": 868851,
+          "freeze_end_tick": 869171,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 878033,
+        "entity_tick": 878033,
+        "entity_count": 200,
+        "elapsed_seconds": 390.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 878033,
+          "received_packets": 26287,
+          "sent_packets": 25623,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 3,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13712.8125,
+          "start_tick": 877299,
+          "freeze_end_tick": 877619,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 879945,
+        "entity_tick": 879945,
+        "entity_count": 200,
+        "elapsed_seconds": 420.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 879945,
+          "received_packets": 28199,
+          "sent_packets": 27489,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 3,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13712.8125,
+          "start_tick": 877299,
+          "freeze_end_tick": 877619,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 881873,
+        "entity_tick": 881873,
+        "entity_count": 200,
+        "elapsed_seconds": 450.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 881873,
+          "received_packets": 30127,
+          "sent_packets": 29381,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            103.4185791015625,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 3,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13712.8125,
+          "start_tick": 877299,
+          "freeze_end_tick": 877619,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 883794,
+        "entity_tick": 883794,
+        "entity_count": 200,
+        "elapsed_seconds": 480.172,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 883794,
+          "received_packets": 32048,
+          "sent_packets": 31276,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            103.4185791015625,
+            2216.000244140625,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 3,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13712.8125,
+          "start_tick": 877299,
+          "freeze_end_tick": 877619,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 885714,
+        "entity_tick": 885714,
+        "entity_count": 200,
+        "elapsed_seconds": 510.172,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 885714,
+          "received_packets": 33968,
+          "sent_packets": 33137,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            193.46104431152344,
+            2216.000244140625,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 4,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13712.8125,
+          "start_tick": 877299,
+          "freeze_end_tick": 877619,
+          "warmup": 0,
+          "phase": "ended"
+        }
+      },
+      {
+        "tick": 887623,
+        "entity_tick": 887623,
+        "entity_count": 200,
+        "elapsed_seconds": 540.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 887623,
+          "received_packets": 35877,
+          "sent_packets": 35003,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            317.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            292.0001220703125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 4,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13844.8125,
+          "start_tick": 885747,
+          "freeze_end_tick": 886067,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 889544,
+        "entity_tick": 889544,
+        "entity_count": 200,
+        "elapsed_seconds": 570.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 889544,
+          "received_packets": 37798,
+          "sent_packets": 36864,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            226.95753479003906,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 4,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13844.8125,
+          "start_tick": 885747,
+          "freeze_end_tick": 886067,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 891472,
+        "entity_tick": 891472,
+        "entity_count": 200,
+        "elapsed_seconds": 600.141,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 891472,
+          "received_packets": 39726,
+          "sent_packets": 38716,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            226.95753479003906,
+            2130.880126953125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 4,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13844.8125,
+          "start_tick": 885747,
+          "freeze_end_tick": 886067,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 893387,
+        "entity_tick": 893387,
+        "entity_count": 200,
+        "elapsed_seconds": 630.063,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 893387,
+          "received_packets": 41641,
+          "sent_packets": 40553,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            314.5388488769531,
+            2130.880126953125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 4,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13844.8125,
+          "start_tick": 885747,
+          "freeze_end_tick": 886067,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 895307,
+        "entity_tick": 895307,
+        "entity_count": 200,
+        "elapsed_seconds": 660.063,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 895307,
+          "received_packets": 43561,
+          "sent_packets": 42354,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            252.0,
+            2251.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            313.5003662109375
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 5,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13976.8125,
+          "start_tick": 894195,
+          "freeze_end_tick": 894515,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 897225,
+        "entity_tick": 897225,
+        "entity_count": 200,
+        "elapsed_seconds": 690.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 897225,
+          "received_packets": 45479,
+          "sent_packets": 44162,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            164.41847229003906,
+            2251.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 5,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13976.8125,
+          "start_tick": 894195,
+          "freeze_end_tick": 894515,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 899144,
+        "entity_tick": 899144,
+        "entity_count": 200,
+        "elapsed_seconds": 720.016,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 899144,
+          "received_packets": 47398,
+          "sent_packets": 45987,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            164.41847229003906,
+            2163.419189453125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 5,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13976.8125,
+          "start_tick": 894195,
+          "freeze_end_tick": 894515,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 901063,
+        "entity_tick": 901063,
+        "entity_count": 200,
+        "elapsed_seconds": 750.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 901063,
+          "received_packets": 49317,
+          "sent_packets": 47832,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            252.0,
+            2163.419189453125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 5,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 13976.8125,
+          "start_tick": 894195,
+          "freeze_end_tick": 894515,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 902992,
+        "entity_tick": 902992,
+        "entity_count": 200,
+        "elapsed_seconds": 780.125,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 902992,
+          "received_packets": 51246,
+          "sent_packets": 49702,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            317.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            292.0001220703125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 6,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14108.8125,
+          "start_tick": 902643,
+          "freeze_end_tick": 902963,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 904907,
+        "entity_tick": 904907,
+        "entity_count": 200,
+        "elapsed_seconds": 810.047,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 904907,
+          "received_packets": 53161,
+          "sent_packets": 51560,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            229.41847229003906,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 6,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14108.8125,
+          "start_tick": 902643,
+          "freeze_end_tick": 902963,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 906830,
+        "entity_tick": 906830,
+        "entity_count": 200,
+        "elapsed_seconds": 840.11,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 906830,
+          "received_packets": 55084,
+          "sent_packets": 53447,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            229.41847229003906,
+            2128.419189453125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 6,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14108.8125,
+          "start_tick": 902643,
+          "freeze_end_tick": 902963,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 908751,
+        "entity_tick": 908751,
+        "entity_count": 200,
+        "elapsed_seconds": 870.11,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 908751,
+          "received_packets": 57005,
+          "sent_packets": 55320,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            316.9997863769531,
+            2128.419189453125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 6,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14108.8125,
+          "start_tick": 902643,
+          "freeze_end_tick": 902963,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 910669,
+        "entity_tick": 910669,
+        "entity_count": 200,
+        "elapsed_seconds": 900.094,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 910669,
+          "received_packets": 58923,
+          "sent_packets": 57206,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            316.9997863769531,
+            2215.999755859375,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 7,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14108.8125,
+          "start_tick": 902643,
+          "freeze_end_tick": 902963,
+          "warmup": 0,
+          "phase": "ended"
+        }
+      },
+      {
+        "tick": 912585,
+        "entity_tick": 912585,
+        "entity_count": 200,
+        "elapsed_seconds": 930.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 912585,
+          "received_packets": 60839,
+          "sent_packets": 59085,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            252.0,
+            2251.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            313.5003662109375
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 7,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14240.8125,
+          "start_tick": 911091,
+          "freeze_end_tick": 911411,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 914504,
+        "entity_tick": 914504,
+        "entity_count": 200,
+        "elapsed_seconds": 960.016,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 914504,
+          "received_packets": 62758,
+          "sent_packets": 60981,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            252.0,
+            2163.419189453125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 7,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14240.8125,
+          "start_tick": 911091,
+          "freeze_end_tick": 911411,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 916433,
+        "entity_tick": 916433,
+        "entity_count": 200,
+        "elapsed_seconds": 990.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 916433,
+          "received_packets": 64686,
+          "sent_packets": 62871,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            339.5813293457031,
+            2163.419189453125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 7,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14240.8125,
+          "start_tick": 911091,
+          "freeze_end_tick": 911411,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 918353,
+        "entity_tick": 918353,
+        "entity_count": 200,
+        "elapsed_seconds": 1020.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 918353,
+          "received_packets": 66606,
+          "sent_packets": 64751,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            339.5813293457031,
+            2253.460693359375,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 7,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14240.8125,
+          "start_tick": 911091,
+          "freeze_end_tick": 911411,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 920274,
+        "entity_tick": 920274,
+        "entity_count": 200,
+        "elapsed_seconds": 1050.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 920274,
+          "received_packets": 68527,
+          "sent_packets": 66645,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 8,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14372.8125,
+          "start_tick": 919539,
+          "freeze_end_tick": 919859,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 922186,
+        "entity_tick": 922186,
+        "entity_count": 200,
+        "elapsed_seconds": 1080.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 922186,
+          "received_packets": 70439,
+          "sent_packets": 68527,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2125.958251953125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 8,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14372.8125,
+          "start_tick": 919539,
+          "freeze_end_tick": 919859,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 924107,
+        "entity_tick": 924107,
+        "entity_count": 200,
+        "elapsed_seconds": 1110.047,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 924107,
+          "received_packets": 72360,
+          "sent_packets": 70398,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            278.5813293457031,
+            2125.958251953125,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 8,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14372.8125,
+          "start_tick": 919539,
+          "freeze_end_tick": 919859,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 926036,
+        "entity_tick": 926036,
+        "entity_count": 200,
+        "elapsed_seconds": 1140.188,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 926036,
+          "received_packets": 74289,
+          "sent_packets": 72294,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            278.5813293457031,
+            2211.077880859375,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 8,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14372.8125,
+          "start_tick": 919539,
+          "freeze_end_tick": 919859,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 927954,
+        "entity_tick": 927954,
+        "entity_count": 200,
+        "elapsed_seconds": 1170.172,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 927954,
+          "received_packets": 76207,
+          "sent_packets": 74184,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            193.4607391357422,
+            2211.077880859375,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 9,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14372.8125,
+          "start_tick": 919539,
+          "freeze_end_tick": 919859,
+          "warmup": 0,
+          "phase": "ended"
+        }
+      },
+      {
+        "tick": 929866,
+        "entity_tick": 929866,
+        "entity_count": 200,
+        "elapsed_seconds": 1200.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 929866,
+          "received_packets": 78119,
+          "sent_packets": 76049,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            191.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            2.999267578125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 9,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14504.8125,
+          "start_tick": 927987,
+          "freeze_end_tick": 928307,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 931790,
+        "entity_tick": 931790,
+        "entity_count": 200,
+        "elapsed_seconds": 1230.094,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 931790,
+          "received_packets": 80043,
+          "sent_packets": 77943,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            281.0422668457031,
+            2216.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 9,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14504.8125,
+          "start_tick": 927987,
+          "freeze_end_tick": 928307,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 933709,
+        "entity_tick": 933709,
+        "entity_count": 200,
+        "elapsed_seconds": 1260.094,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 933709,
+          "received_packets": 81962,
+          "sent_packets": 79832,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            281.0422668457031,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 9,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14504.8125,
+          "start_tick": 927987,
+          "freeze_end_tick": 928307,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 935625,
+        "entity_tick": 935625,
+        "entity_count": 200,
+        "elapsed_seconds": 1290.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 935625,
+          "received_packets": 83878,
+          "sent_packets": 81721,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            195.9216766357422,
+            2306.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 9,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14504.8125,
+          "start_tick": 927987,
+          "freeze_end_tick": 928307,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 937543,
+        "entity_tick": 937543,
+        "entity_count": 200,
+        "elapsed_seconds": 1320.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 937543,
+          "received_packets": 85796,
+          "sent_packets": 83607,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            252.0,
+            2251.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            313.5003662109375
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 10,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14636.8125,
+          "start_tick": 936435,
+          "freeze_end_tick": 936755,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 939474,
+        "entity_tick": 939474,
+        "entity_count": 200,
+        "elapsed_seconds": 1350.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 939474,
+          "received_packets": 87727,
+          "sent_packets": 85502,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            337.1203918457031,
+            2251.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 10,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14636.8125,
+          "start_tick": 936435,
+          "freeze_end_tick": 936755,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 941389,
+        "entity_tick": 941389,
+        "entity_count": 200,
+        "elapsed_seconds": 1380.079,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 941389,
+          "received_packets": 89642,
+          "sent_packets": 87382,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            337.1203918457031,
+            2341.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 10,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14636.8125,
+          "start_tick": 936435,
+          "freeze_end_tick": 936755,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 943311,
+        "entity_tick": 943311,
+        "entity_count": 200,
+        "elapsed_seconds": 1410.11,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 943311,
+          "received_packets": 91564,
+          "sent_packets": 89267,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            247.07794189453125,
+            2341.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 10,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14636.8125,
+          "start_tick": 936435,
+          "freeze_end_tick": 936755,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 945234,
+        "entity_tick": 945234,
+        "entity_count": 200,
+        "elapsed_seconds": 1440.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 945234,
+          "received_packets": 93487,
+          "sent_packets": 91154,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            222.000732421875
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 11,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14768.8125,
+          "start_tick": 944883,
+          "freeze_end_tick": 945203,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 947146,
+        "entity_tick": 947146,
+        "entity_count": 200,
+        "elapsed_seconds": 1470.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 947146,
+          "received_packets": 95399,
+          "sent_packets": 93035,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            442.1203918457031,
+            2162.0,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            0.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 11,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14768.8125,
+          "start_tick": 944883,
+          "freeze_end_tick": 945203,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 949066,
+        "entity_tick": 949066,
+        "entity_count": 200,
+        "elapsed_seconds": 1500.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 949066,
+          "received_packets": 97318,
+          "sent_packets": 94923,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            442.1203918457031,
+            2179.039306640625,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 11,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14768.8125,
+          "start_tick": 944883,
+          "freeze_end_tick": 945203,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 950991,
+        "entity_tick": 950991,
+        "entity_count": 200,
+        "elapsed_seconds": 1530.11,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 950991,
+          "received_packets": 99243,
+          "sent_packets": 96815,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            352.078125,
+            2179.039306640625,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 11,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14768.8125,
+          "start_tick": 944883,
+          "freeze_end_tick": 945203,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 952906,
+        "entity_tick": 952906,
+        "entity_count": 200,
+        "elapsed_seconds": 1560.032,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 952906,
+          "received_packets": 101158,
+          "sent_packets": 98697,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            352.078125,
+            2091.458740234375,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 12,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14768.8125,
+          "start_tick": 944883,
+          "freeze_end_tick": 945203,
+          "warmup": 0,
+          "phase": "ended"
+        }
+      },
+      {
+        "tick": 954834,
+        "entity_tick": 954834,
+        "entity_count": 200,
+        "elapsed_seconds": 1590.157,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 954834,
+          "received_packets": 103086,
+          "sent_packets": 100595,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            317.0,
+            2216.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            292.0001220703125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 12,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14900.8125,
+          "start_tick": 953331,
+          "freeze_end_tick": 953651,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 956753,
+        "entity_tick": 956753,
+        "entity_count": 200,
+        "elapsed_seconds": 1620.141,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 956753,
+          "received_packets": 105005,
+          "sent_packets": 102483,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            317.0,
+            2303.580810546875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 12,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14900.8125,
+          "start_tick": 953331,
+          "freeze_end_tick": 953651,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 958676,
+        "entity_tick": 958676,
+        "entity_count": 200,
+        "elapsed_seconds": 1650.188,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 958676,
+          "received_packets": 106928,
+          "sent_packets": 104373,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            226.95753479003906,
+            2303.580810546875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 12,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14900.8125,
+          "start_tick": 953331,
+          "freeze_end_tick": 953651,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 960593,
+        "entity_tick": 960593,
+        "entity_count": 200,
+        "elapsed_seconds": 1680.141,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 960593,
+          "received_packets": 108845,
+          "sent_packets": 106257,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            226.95753479003906,
+            2216.000244140625,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            270.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 12,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 14900.8125,
+          "start_tick": 953331,
+          "freeze_end_tick": 953651,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 962516,
+        "entity_tick": 962516,
+        "entity_count": 200,
+        "elapsed_seconds": 1710.188,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 962516,
+          "received_packets": 110768,
+          "sent_packets": 108145,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            156.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "eye_angles": [
+            0.0,
+            32.49755859375
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 13,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 15032.8125,
+          "start_tick": 961779,
+          "freeze_end_tick": 962099,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 964430,
+        "entity_tick": 964430,
+        "entity_count": 200,
+        "elapsed_seconds": 1740.094,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 964430,
+          "received_packets": 112682,
+          "sent_packets": 110030,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            156.0,
+            2252.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            90.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 13,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 15032.8125,
+          "start_tick": 961779,
+          "freeze_end_tick": 962099,
+          "warmup": 0,
+          "phase": "active"
+        }
+      },
+      {
+        "tick": 966355,
+        "entity_tick": 966355,
+        "entity_count": 200,
+        "elapsed_seconds": 1770.172,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 966355,
+          "received_packets": 114607,
+          "sent_packets": 111915,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 539028,
+          "duck_amount": 0.0,
+          "position": [
+            70.8795166015625,
+            2252.041748046875,
+            0.03125
+          ],
+          "eye_angles": [
+            0.0,
+            180.0
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 661906,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 539028,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        },
+        "round": {
+          "rounds_played": 13,
+          "freeze": 0,
+          "round_time": 120,
+          "start_time": 15032.8125,
+          "start_tick": 961779,
+          "freeze_end_tick": 962099,
+          "warmup": 0,
+          "phase": "active"
+        }
+      }
+    ],
+    "activity": [
+      {
+        "elapsed_seconds": 0.047,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 30.157,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 60.094,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 90.125,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 120.235,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 150.219,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 180.204,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 210.204,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 240.079,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 270.032,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 300.219,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 330.157,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 360.079,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 390.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 420.063,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 450.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 480.219,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 510.204,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 540.032,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 570.032,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 600.172,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 630.094,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 660.094,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 690.063,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 720.047,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 750.032,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 780.157,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 810.079,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 840.141,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 870.141,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 900.125,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 930.063,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 960.047,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 990.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1020.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1050.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1080.079,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1110.079,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1140.219,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1170.204,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1200.063,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1230.125,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1260.125,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1290.047,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1320.032,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1350.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1380.11,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1410.141,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1440.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1470.063,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1500.063,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1530.141,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1560.063,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1590.188,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1620.172,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1650.219,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1680.172,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 0,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1710.219,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1740.125,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": 180,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      },
+      {
+        "elapsed_seconds": 1770.204,
+        "input": {
+          "forward": 0.35,
+          "pitch": 0,
+          "yaw": -90,
+          "duration_ticks": 32,
+          "buttons": []
+        }
+      }
+    ]
+  },
+  "thirty_minute_soak_verified": true,
+  "runtime_before": {
+    "verified": true,
+    "asset_file_reads_checked": false,
+    "stock_process_count": 0,
+    "processes": [],
+    "forbidden_module_count": 0
+  },
+  "runtime_full": {
+    "verified": true,
+    "asset_file_reads_checked": false,
+    "stock_process_count": 0,
+    "processes": [
+      {
+        "name": "headless-csgo",
+        "modules": [
+          {
+            "name": "headless-csgo.exe",
+            "sha256": "b42d693bb49cf5b6e2b00b5760b6cd517dafc968fc91fee998da87264997b1d1"
+          },
+          {
+            "name": "ntdll.dll",
+            "sha256": "5218dfb5908f016ef2f42caa385c7bec7fdd076f554388943b846b7251e2b0f1"
+          },
+          {
+            "name": "wow64.dll",
+            "sha256": "d20c5944463ad3017df8855b45b36fd3304c464fbc8a587ea6ae8dfd0d0ff722"
+          },
+          {
+            "name": "wow64cpu.dll",
+            "sha256": "f38b3a12ba7d4e916f6dd73d9e648deb2f4f27c351381848914fc972106b212c"
+          },
+          {
+            "name": "wow64win.dll",
+            "sha256": "1d071ae573eb9fa5cafdc8e014f363a4e11a440580a91b39ee7e3d1b9811e963"
+          }
+        ]
+      },
+      {
+        "name": "steam_auth_helper",
+        "modules": [
+          {
+            "name": "ntdll.dll",
+            "sha256": "5218dfb5908f016ef2f42caa385c7bec7fdd076f554388943b846b7251e2b0f1"
+          },
+          {
+            "name": "steam_auth_helper.exe",
+            "sha256": "891a49bdda100d4b4a2b8d65984a2b0fdcfa1b655b1ea98dc2eac101be121ec5"
+          },
+          {
+            "name": "wow64.dll",
+            "sha256": "d20c5944463ad3017df8855b45b36fd3304c464fbc8a587ea6ae8dfd0d0ff722"
+          },
+          {
+            "name": "wow64cpu.dll",
+            "sha256": "f38b3a12ba7d4e916f6dd73d9e648deb2f4f27c351381848914fc972106b212c"
+          },
+          {
+            "name": "wow64win.dll",
+            "sha256": "1d071ae573eb9fa5cafdc8e014f363a4e11a440580a91b39ee7e3d1b9811e963"
+          }
+        ]
+      }
+    ],
+    "forbidden_module_count": 0
+  },
+  "runtime_end": {
+    "verified": true,
+    "asset_file_reads_checked": false,
+    "stock_process_count": 0,
+    "processes": [
+      {
+        "name": "headless-csgo",
+        "modules": [
+          {
+            "name": "headless-csgo.exe",
+            "sha256": "b42d693bb49cf5b6e2b00b5760b6cd517dafc968fc91fee998da87264997b1d1"
+          },
+          {
+            "name": "ntdll.dll",
+            "sha256": "5218dfb5908f016ef2f42caa385c7bec7fdd076f554388943b846b7251e2b0f1"
+          },
+          {
+            "name": "wow64.dll",
+            "sha256": "d20c5944463ad3017df8855b45b36fd3304c464fbc8a587ea6ae8dfd0d0ff722"
+          },
+          {
+            "name": "wow64cpu.dll",
+            "sha256": "f38b3a12ba7d4e916f6dd73d9e648deb2f4f27c351381848914fc972106b212c"
+          },
+          {
+            "name": "wow64win.dll",
+            "sha256": "1d071ae573eb9fa5cafdc8e014f363a4e11a440580a91b39ee7e3d1b9811e963"
+          }
+        ]
+      },
+      {
+        "name": "steam_auth_helper",
+        "modules": [
+          {
+            "name": "ntdll.dll",
+            "sha256": "5218dfb5908f016ef2f42caa385c7bec7fdd076f554388943b846b7251e2b0f1"
+          },
+          {
+            "name": "steam_auth_helper.exe",
+            "sha256": "891a49bdda100d4b4a2b8d65984a2b0fdcfa1b655b1ea98dc2eac101be121ec5"
+          },
+          {
+            "name": "wow64.dll",
+            "sha256": "d20c5944463ad3017df8855b45b36fd3304c464fbc8a587ea6ae8dfd0d0ff722"
+          },
+          {
+            "name": "wow64cpu.dll",
+            "sha256": "f38b3a12ba7d4e916f6dd73d9e648deb2f4f27c351381848914fc972106b212c"
+          },
+          {
+            "name": "wow64win.dll",
+            "sha256": "1d071ae573eb9fa5cafdc8e014f363a4e11a440580a91b39ee7e3d1b9811e963"
+          }
+        ]
+      }
+    ],
+    "forbidden_module_count": 0
+  },
+  "source_report_sha256": "76aa12f5cb2076ffbcee3160a7a2a8f44e6516554b1351eb81118cf88a944f9b"
+}
