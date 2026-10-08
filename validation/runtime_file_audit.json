@@ -1,0 +1,3732 @@
+{
+  "format": 2,
+  "method": "Private x86 CDB -o native-file-open breakpoints",
+  "game_root": "D:\\SteamLibrary\\steamapps\\common\\Counter-Strike Global Offensive",
+  "processes": [
+    21668,
+    23308
+  ],
+  "file_open_calls": 336,
+  "file_opens": [
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-theme-reloader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-theme-reloader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-uifile-override",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-uifile-override",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-vista-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-eradicate-immersive-menus",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-eradicate-immersive-menus",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-msg-box-font-fix",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-msg-box-font-fix",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-remove-ms-store-open-with",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-remove-ms-store-open-with",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7basic-dwm-unextend-frames",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7basic-dwm-unextend-frames",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7basic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7basic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7classic-classic-theme-hooker",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7classic-classic-theme-hooker",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7classic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_21668_local@r8p-w7classic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-theme-reloader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-theme-reloader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-uifile-override",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-uifile-override",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-vista-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-eradicate-immersive-menus",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-eradicate-immersive-menus",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-msg-box-font-fix",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-msg-box-font-fix",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-remove-ms-store-open-with",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-remove-ms-store-open-with",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7basic-dwm-unextend-frames",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7basic-dwm-unextend-frames",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7basic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7basic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7classic-classic-theme-hooker",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7classic-classic-theme-hooker",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7classic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_21668_local@r8p-w7classic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\Windows\\Globalization\\Sorting\\sortdefault.nls",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\globalization\\sorting\\sortdefault.nls",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\logs\\gameoverlay_renderer.txt",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\logs\\gameoverlay_renderer.txt",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\steamclient.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\steamclient.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\Device\\Afd\\Endpoint",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\afd\\endpoint",
+      "count": 3,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "\\Device\\DeviceApi\\CMApi",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\deviceapi\\cmapi",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtCreateFile",
+      "path": "steamcompat.inf",
+      "root_directory_path": "<package>",
+      "root_handle_type": "disk",
+      "root_resolution": "Synchronous duplicate-handle name query at breakpoint",
+      "non_filesystem_root": false,
+      "resolved_path": "<package>\\steamcompat.inf",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": true
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libc++.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\libc++.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libunwind.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\libunwind.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-theme-reloader_1.0.0_818508.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-theme-reloader_1.0.0_818508.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-uifile-override_1.0.2_638969.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-uifile-override_1.0.2_638969.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-aerexplorer_1.6.4_965356.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-aerexplorer_1.6.4_965356.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-icon-resource-redirect_1.1.9_273916.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-icon-resource-redirect_1.1.9_273916.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-registry-redirect_1.0.0_737077.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-registry-redirect_1.0.0_737077.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-config_1.0.0_686520.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-sib-config_1.0.0_686520.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-loader_1.0.0_238877.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-sib-loader_1.0.0_238877.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-aerexplorer_1.6.4_944216.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-aerexplorer_1.6.4_944216.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-eradicate-immersive-menus_1.1.0_510709.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-eradicate-immersive-menus_1.1.0_510709.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-icon-resource-redirect_1.1.9_796876.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-icon-resource-redirect_1.1.9_796876.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-msg-box-font-fix_1.5.0_574491.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-msg-box-font-fix_1.5.0_574491.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-registry-redirect_1.0.0_419738.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-registry-redirect_1.0.0_419738.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-remove-ms-store-open-with_1.0.0_127284.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-remove-ms-store-open-with_1.0.0_127284.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-config_1.0.0_407202.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-sib-config_1.0.0_407202.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-loader_1.0.0_352950.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-sib-loader_1.0.0_352950.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-dwm-unextend-frames_1.3.0_544279.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7basic-dwm-unextend-frames_1.3.0_544279.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-sib-config_1.0.0_560664.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7basic-sib-config_1.0.0_560664.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-classic-theme-hooker_1.0_306033.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7classic-classic-theme-hooker_1.0_306033.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-sib-config_1.0.0_611781.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7classic-sib-config_1.0.0_611781.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\<workspace>\\artifacts\\release\\SystemResources\\steam_auth_helper.exe.mun",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "<workspace>\\artifacts\\release\\systemresources\\steam_auth_helper.exe.mun",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\Revert8Plus\\Engine\\1.5.1\\32\\windhawk.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\revert8plus\\engine\\1.5.1\\32\\windhawk.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\Revert8Plus\\Engine\\1.5.1\\engine.ini",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\revert8plus\\engine\\1.5.1\\engine.ini",
+      "count": 3,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\CRYPTBASE.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\cryptbase.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\DbgHelp.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\dbghelp.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\IPHLPAPI.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\iphlpapi.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\MSWSOCK.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\mswsock.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\SSPICLI.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\sspicli.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\Secur32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\secur32.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\UxTheme.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\uxtheme.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\VERSION.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\version.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\WINHTTP.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\winhttp.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\WINMM.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\winmm.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\dbgcore.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\dbgcore.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\dui70.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\dui70.dll",
+      "count": 3,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\dwmapi.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\dwmapi.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\kernel.appcore.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\kernel.appcore.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\ole32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\ole32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\CRYPT32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\crypt32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\IMM32.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\imm32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\MSASN1.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\msasn1.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\OLEAUT32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\oleaut32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\PSAPI.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\psapi.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\SETUPAPI.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\setupapi.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\SHLWAPI.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\shlwapi.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\WS2_32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\ws2_32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\bcryptPrimitives.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\bcryptprimitives.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\cfgmgr32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\cfgmgr32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\combase.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\combase.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\d3d8.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\d3d8.dll",
+      "count": 6,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\d3d9.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\d3d9.dll",
+      "count": 6,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\ddraw.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\ddraw.dll",
+      "count": 6,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\dxgi.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\dxgi.dll",
+      "count": 6,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\imagehlp.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\imagehlp.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\ole32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\ole32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\opengl32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\opengl32.dll",
+      "count": 6,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\shcore.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\shcore.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\COMCTL32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "count": 3,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.7548_none_a864b18a867382bf\\COMCTL32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.7548_none_a864b18a867382bf\\comctl32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WindowsShell.Manifest",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\windowsshell.manifest",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\system32\\IMM32.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\imm32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\CSERHelper.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\cserhelper.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\gameoverlayrenderer.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\gameoverlayrenderer.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\logs\\gameoverlay_renderer.previous.txt",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\logs\\gameoverlay_renderer.previous.txt",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\logs\\gameoverlay_renderer.txt",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\logs\\gameoverlay_renderer.txt",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\steam.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\steam.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\steamclient.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\steamclient.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\tier0_s.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\tier0_s.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\??\\c:\\program files (x86)\\steam\\vstdlib_s.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\program files (x86)\\steam\\vstdlib_s.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\Device\\CNG",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\cng",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\Device\\KsecDD",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\ksecdd",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "\\Device\\NamedPipe\\",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\namedpipe",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "",
+      "root_directory_path": null,
+      "root_handle_type": "pipe",
+      "root_resolution": "GetFileType positively identifies a non-filesystem empty-name root",
+      "non_filesystem_root": true,
+      "resolved_path": null,
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": true
+    },
+    {
+      "pid": 21668,
+      "api": "NtOpenFile",
+      "path": "",
+      "root_directory_path": null,
+      "root_handle_type": "pipe",
+      "root_resolution": "GetFileType positively identifies a non-filesystem empty-name root",
+      "non_filesystem_root": true,
+      "resolved_path": null,
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": true
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-theme-reloader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-theme-reloader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-uifile-override",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-uifile-override",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-vista-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-eradicate-immersive-menus",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-eradicate-immersive-menus",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-msg-box-font-fix",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-msg-box-font-fix",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-remove-ms-store-open-with",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-remove-ms-store-open-with",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7basic-dwm-unextend-frames",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7basic-dwm-unextend-frames",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7basic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7basic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7classic-classic-theme-hooker",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7classic-classic-theme-hooker",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7classic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-status\\1536_134358604983251750_23308_local@r8p-w7classic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-theme-reloader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-theme-reloader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-uifile-override",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-uifile-override",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-vista-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-aerexplorer",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-aerexplorer",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-eradicate-immersive-menus",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-eradicate-immersive-menus",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-icon-resource-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-icon-resource-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-msg-box-font-fix",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-msg-box-font-fix",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-registry-redirect",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-registry-redirect",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-remove-ms-store-open-with",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-remove-ms-store-open-with",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-sib-loader",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7-sib-loader",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7basic-dwm-unextend-frames",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7basic-dwm-unextend-frames",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7basic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7basic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7classic-classic-theme-hooker",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7classic-classic-theme-hooker",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\ModsWritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7classic-sib-config",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\modswritable\\mod-task\\1536_134358604983251750_23308_local@r8p-w7classic-sib-config",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\<package>\\profiles\\legacy_13881.json",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "<package>\\profiles\\legacy_13881.json",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\Windows\\AppPatch\\sysmain.sdb",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\apppatch\\sysmain.sdb",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\C:\\Windows\\Globalization\\Sorting\\sortdefault.nls",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\globalization\\sorting\\sortdefault.nls",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\??\\NUL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "nul",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtCreateFile",
+      "path": "\\Device\\Afd\\Endpoint",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\afd\\endpoint",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libc++.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\libc++.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libunwind.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\libunwind.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-theme-reloader_1.0.0_818508.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-theme-reloader_1.0.0_818508.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-uifile-override_1.0.2_638969.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-uifile-override_1.0.2_638969.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-aerexplorer_1.6.4_965356.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-aerexplorer_1.6.4_965356.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-icon-resource-redirect_1.1.9_273916.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-icon-resource-redirect_1.1.9_273916.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-registry-redirect_1.0.0_737077.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-registry-redirect_1.0.0_737077.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-config_1.0.0_686520.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-sib-config_1.0.0_686520.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-loader_1.0.0_238877.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-vista-sib-loader_1.0.0_238877.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-aerexplorer_1.6.4_944216.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-aerexplorer_1.6.4_944216.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-eradicate-immersive-menus_1.1.0_510709.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-eradicate-immersive-menus_1.1.0_510709.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-icon-resource-redirect_1.1.9_796876.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-icon-resource-redirect_1.1.9_796876.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-msg-box-font-fix_1.5.0_574491.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-msg-box-font-fix_1.5.0_574491.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-registry-redirect_1.0.0_419738.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-registry-redirect_1.0.0_419738.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-remove-ms-store-open-with_1.0.0_127284.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-remove-ms-store-open-with_1.0.0_127284.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-config_1.0.0_407202.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-sib-config_1.0.0_407202.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-loader_1.0.0_352950.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7-sib-loader_1.0.0_352950.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-dwm-unextend-frames_1.3.0_544279.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7basic-dwm-unextend-frames_1.3.0_544279.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-sib-config_1.0.0_560664.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7basic-sib-config_1.0.0_560664.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-classic-theme-hooker_1.0_306033.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7classic-classic-theme-hooker_1.0_306033.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-sib-config_1.0.0_611781.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\programdata\\windhawk\\engine\\mods\\32\\local@r8p-w7classic-sib-config_1.0.0_611781.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\<workspace>\\artifacts\\release\\SystemResources\\headless-csgo.exe.mun",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "<workspace>\\artifacts\\release\\systemresources\\headless-csgo.exe.mun",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\Revert8Plus\\Engine\\1.5.1\\32\\windhawk.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\revert8plus\\engine\\1.5.1\\32\\windhawk.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\Revert8Plus\\Engine\\1.5.1\\engine.ini",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\revert8plus\\engine\\1.5.1\\engine.ini",
+      "count": 3,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\CRYPTBASE.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\cryptbase.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\UxTheme.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\uxtheme.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\WINHTTP.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\winhttp.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\dui70.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\dui70.dll",
+      "count": 3,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\dwmapi.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\dwmapi.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\kernel.appcore.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\kernel.appcore.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\SYSTEM32\\ole32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\ole32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\ADVAPI32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\advapi32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\GDI32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\gdi32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\IMM32.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\imm32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\OLEAUT32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\oleaut32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\SHELL32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\shell32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\SHLWAPI.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\shlwapi.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\USER32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\user32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\bcryptPrimitives.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\bcryptprimitives.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\combase.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\combase.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\gdi32full.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\gdi32full.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\msvcp_win.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\msvcp_win.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\msvcrt.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\msvcrt.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\ole32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\ole32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\sechost.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\sechost.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\ucrtbase.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\ucrtbase.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\System32\\win32u.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\win32u.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\COMCTL32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "count": 3,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.7548_none_a864b18a867382bf\\COMCTL32.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\winsxs\\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.7548_none_a864b18a867382bf\\comctl32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\WindowsShell.Manifest",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\windowsshell.manifest",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\system32\\IMM32.DLL",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\imm32.dll",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\??\\C:\\Windows\\system32\\mswsock.dll",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "c:\\windows\\system32\\mswsock.dll",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\Device\\CNG",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\cng",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\Device\\KsecDD",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\ksecdd",
+      "count": 2,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "\\Device\\NamedPipe\\",
+      "root_directory_path": null,
+      "root_handle_type": null,
+      "root_resolution": null,
+      "non_filesystem_root": false,
+      "resolved_path": "\\device\\namedpipe",
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": false
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "",
+      "root_directory_path": null,
+      "root_handle_type": "pipe",
+      "root_resolution": "GetFileType positively identifies a non-filesystem empty-name root",
+      "non_filesystem_root": true,
+      "resolved_path": null,
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": true
+    },
+    {
+      "pid": 23308,
+      "api": "NtOpenFile",
+      "path": "",
+      "root_directory_path": null,
+      "root_handle_type": "pipe",
+      "root_resolution": "GetFileType positively identifies a non-filesystem empty-name root",
+      "non_filesystem_root": true,
+      "resolved_path": null,
+      "count": 1,
+      "inside_game_installation": false,
+      "relative_root": true
+    }
+  ],
+  "loaded_modules": [
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libc++.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libunwind.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-theme-reloader_1.0.0_818508.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-uifile-override_1.0.2_638969.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-aerexplorer_1.6.4_965356.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-icon-resource-redirect_1.1.9_273916.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-registry-redirect_1.0.0_737077.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-config_1.0.0_686520.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-loader_1.0.0_238877.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-aerexplorer_1.6.4_944216.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-eradicate-immersive-menus_1.1.0_510709.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-icon-resource-redirect_1.1.9_796876.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-msg-box-font-fix_1.5.0_574491.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-registry-redirect_1.0.0_419738.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-remove-ms-store-open-with_1.0.0_127284.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-config_1.0.0_407202.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-loader_1.0.0_352950.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-dwm-unextend-frames_1.3.0_544279.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-sib-config_1.0.0_560664.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-classic-theme-hooker_1.0_306033.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-sib-config_1.0.0_611781.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "<package>\\steam_api.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "<package>\\steam_auth_helper.exe",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\Revert8Plus\\Engine\\1.5.1\\32\\windhawk.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\ADVAPI32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\CRYPT32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\CRYPTBASE.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\DbgHelp.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\GDI32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\IMM32.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\IPHLPAPI.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\KERNEL32.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\KERNELBASE.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\MSASN1.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\MSWSOCK.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\OLEAUT32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\PSAPI.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\RPCRT4.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\SETUPAPI.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\SHELL32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\SHLWAPI.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\SSPICLI.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\Secur32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\USER32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\UxTheme.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\VERSION.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\WINHTTP.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\WINMM.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\WS2_32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\apphelp.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\bcrypt.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\bcryptPrimitives.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\cfgmgr32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\combase.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\dbgcore.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\dui70.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\dwmapi.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\gdi32full.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\imagehlp.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\kernel.appcore.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\msvcp_win.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\msvcrt.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\ole32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\sechost.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\shcore.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\ucrtbase.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\SysWOW64\\win32u.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\COMCTL32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.7548_none_a864b18a867382bf\\COMCTL32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "c:\\program files (x86)\\steam\\CSERHelper.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "c:\\program files (x86)\\steam\\gameoverlayrenderer.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "c:\\program files (x86)\\steam\\steam.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "c:\\program files (x86)\\steam\\steamclient.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "c:\\program files (x86)\\steam\\tier0_s.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "c:\\program files (x86)\\steam\\vstdlib_s.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 21668,
+      "path": "image00260000",
+      "inside_game_installation": null
+    },
+    {
+      "pid": 21668,
+      "path": "ntdll.dll",
+      "inside_game_installation": null
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libc++.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\libunwind.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-theme-reloader_1.0.0_818508.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-uifile-override_1.0.2_638969.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-aerexplorer_1.6.4_965356.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-icon-resource-redirect_1.1.9_273916.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-registry-redirect_1.0.0_737077.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-config_1.0.0_686520.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-vista-sib-loader_1.0.0_238877.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-aerexplorer_1.6.4_944216.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-eradicate-immersive-menus_1.1.0_510709.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-icon-resource-redirect_1.1.9_796876.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-msg-box-font-fix_1.5.0_574491.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-registry-redirect_1.0.0_419738.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-remove-ms-store-open-with_1.0.0_127284.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-config_1.0.0_407202.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7-sib-loader_1.0.0_352950.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-dwm-unextend-frames_1.3.0_544279.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7basic-sib-config_1.0.0_560664.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-classic-theme-hooker_1.0_306033.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\ProgramData\\Windhawk\\Engine\\Mods\\32\\local@r8p-w7classic-sib-config_1.0.0_611781.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "<package>\\headless-csgo.exe",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\Revert8Plus\\Engine\\1.5.1\\32\\windhawk.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\ADVAPI32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\CRYPTBASE.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\GDI32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\IMM32.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\KERNEL32.DLL",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\KERNELBASE.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\OLEAUT32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\RPCRT4.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\SHELL32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\SHLWAPI.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\USER32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\UxTheme.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\WINHTTP.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\WS2_32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\apphelp.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\bcrypt.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\bcryptPrimitives.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\combase.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\dui70.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\dwmapi.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\gdi32full.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\kernel.appcore.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\msvcp_win.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\msvcrt.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\mswsock.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\ole32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\sechost.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\ucrtbase.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\SysWOW64\\win32u.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\COMCTL32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.6280_none_c0dab36c38bfeda0\\comctl32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "C:\\Windows\\WinSxS\\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.7548_none_a864b18a867382bf\\COMCTL32.dll",
+      "inside_game_installation": false
+    },
+    {
+      "pid": 23308,
+      "path": "ntdll.dll",
+      "inside_game_installation": null
+    }
+  ],
+  "game_file_open_calls": 0,
+  "game_modules": [],
+  "relative_root_calls": 5,
+  "relative_root_path_resolved_calls": 1,
+  "relative_root_nonfilesystem_calls": 4,
+  "relative_root_resolved_calls": 5,
+  "relative_root_unresolved_calls": 0,
+  "debugger_errors": {},
+  "core_observations": {
+    "event_counts": {
+      "connecting": 1,
+      "signon": 5,
+      "run_complete": 1,
+      "disconnected": 1
+    },
+    "signon_states": {
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1
+    },
+    "full_observed": true,
+    "full_tick": 971887,
+    "run_complete_signon": 6,
+    "run_complete_tick": 974636
+  },
+  "coverage": {
+    "native_apis": [
+      "NtCreateFile",
+      "NtOpenFile"
+    ],
+    "child_processes": true,
+    "x86_object_attributes_name_offset": 8,
+    "x86_stack_object_attributes_argument_offset": 12,
+    "unicode": "CDB %msu reads the counted UNICODE_STRING, not file contents.",
+    "limitations": [
+      "File opens before CDB's initial breakpoint are not intercepted; module snapshots cover loaded images.",
+      "RootDirectory names are queried synchronously for each call while CDB keeps the target stopped; unresolved relative calls prevent verification.",
+      "Only positively identified pipe/character handles with empty relative names are classified as non-filesystem; missing disk/unknown names remain unresolved.",
+      "This observes native API arguments, not successful read lengths or direct system calls that bypass ntdll exports.",
+      "Steam client's separate process is outside the core/helper audit.",
+      "CDB reported three loaded-image records without absolute filenames (image00260000 in the Steam helper and ntdll.dll in each process); these names are retained, but their filesystem origin cannot be established from this run."
+    ]
+  },
+  "elapsed_seconds": 53.297,
+  "debugger_exit_code": 0,
+  "timed_out": false,
+  "executable": "<package>\\headless-csgo.exe",
+  "cdb": "C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x86\\cdb.exe",
+  "executable_sha256": "b42d693bb49cf5b6e2b00b5760b6cd517dafc968fc91fee998da87264997b1d1",
+  "required_full": true,
+  "audit_verified": true,
+  "result": "passed",
+  "authorized_server": "151.243.93.16:27015",
+  "network_connections": 1,
+  "requested_run_seconds": 45,
+  "stock_process_observations": {
+    "before_audited_process_count": 0,
+    "before_stock_process_count": 0,
+    "before_checked_utc": "2026-10-08T05:14:00.591958Z",
+    "after_checked_utc": "2026-10-08T05:15:09.9120876Z",
+    "after_stock_process_count": 0,
+    "after_audited_process_count": 0,
+    "names_checked": [
+      "csgo.exe",
+      "cs2.exe"
+    ],
+    "audited_names_checked": [
+      "headless-csgo.exe",
+      "steam_auth_helper.exe",
+      "cdb.exe"
+    ]
+  },
+  "provenance": {
+    "date_utc": "2026-10-08",
+    "auditor_source": {
+      "path": "tools/audit_runtime_files.py",
+      "sha256": "b426f9c83f0f711c89adc953d540f7d2a4b61221b8dd6cbfcc6f283132f7f331",
+      "commit": "f634611"
+    },
+    "debugger": {
+      "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x86\\cdb.exe",
+      "version": "10.0.26100.6584",
+      "architecture": "x86",
+      "sha256": "d84075c96f934f67ffd419e2ed3d3b545692bffcc59192dbe8d5c064e9bf01bc"
+    },
+    "target_architecture": "x86",
+    "configuration": "Release",
+    "package": {
+      "source": "Extracted project Release ZIP; every manifest entry verified before final report.",
+      "path": "<package>",
+      "manifest_sha256": "f12e72da73e4a2962c8785a6c0cac75e88b567c31afcbd19947a61bf122bdbda",
+      "manifest_entry_count": 39,
+      "manifest_all_entries_verified": true,
+      "manifest_source_commit": "6bf326288f6722621442ebf271a97ce662a190d1"
+    },
+    "runtime_files": {
+      "headless-csgo.exe": {
+        "sha256": "b42d693bb49cf5b6e2b00b5760b6cd517dafc968fc91fee998da87264997b1d1",
+        "bytes": 673792
+      },
+      "steam_auth_helper.exe": {
+        "sha256": "891a49bdda100d4b4a2b8d65984a2b0fdcfa1b655b1ea98dc2eac101be121ec5",
+        "bytes": 233984
+      },
+      "steam_api.dll": {
+        "sha256": "b8f65163bb655577ff5c7e5c90184949bea07a122600868eed45ff765d2eb280",
+        "bytes": 263080
+      },
+      "profiles/legacy_13881.json": {
+        "sha256": "3e6b663c5e8e6e7955c4be3f82ba60679f9b4d7b74c9de32c86896da672365c1",
+        "bytes": 3680412
+      }
+    },
+    "privacy": "Only native file/module path arguments, PIDs, derived flags, ticks, counts, and hashes are retained; no packet buffers, player state, account values, authentication tickets, or raw debugger/JSON output."
+  },
+  "armed_processes": [
+    21668,
+    23308
+  ],
+  "process_roles": {
+    "21668": "steam_helper",
+    "23308": "core"
+  },
+  "path_normalization": {
+    "<package>": "Extracted Release ZIP directory outside the installed game.",
+    "<workspace>": "Project workspace.",
+    "<user>": "Current Windows user directory.",
+    "<account_id>": "Steam account identifier if present in a filename.",
+    "classification": "Game-installation membership was evaluated against the original full paths before these display-only substitutions."
+  },
+  "module_paths_without_absolute_names": [
+    {
+      "pid": 21668,
+      "path": "image00260000",
+      "inside_game_installation": null
+    },
+    {
+      "pid": 21668,
+      "path": "ntdll.dll",
+      "inside_game_installation": null
+    },
+    {
+      "pid": 23308,
+      "path": "ntdll.dll",
+      "inside_game_installation": null
+    }
+  ]
+}
