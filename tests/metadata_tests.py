@@ -4,6 +4,8 @@ import struct
 import sys
 import lzma
 import zlib
+import tempfile
+import hashlib
 import unittest
 from pathlib import Path
 
@@ -47,6 +49,13 @@ def demo(data=None):
     # Empty ordinary packet marks a real recorder's active gameplay state.
     packet = b"\2" + bytes(5) + bytes(160) + bytes(4)
     return header + datatables + packet + b"\7" + bytes(5)
+
+
+def crc_record(filename="pak01_001.vpk", content=b"abcdef", offset=4):
+    payload = (integer(1, 0) + integer(3, 2 ** 64 - 1) + string(4, filename)
+               + integer(5, offset) + string(6, hashlib.md5(content).digest()) + integer(7, len(content))
+               + integer(8, 1) + integer(9, len(content)) + integer(10, 2) + integer(11, 1))
+    return {"protobuf_hex": payload.hex()}
 
 
 class MetadataTests(unittest.TestCase):
@@ -109,13 +118,51 @@ class MetadataTests(unittest.TestCase):
         self.assertTrue(observed["full_signon_seen"])
 
     def test_integrity_records_are_carried_to_runtime_profile(self):
-        records = [{"protobuf_hex": string(1, "GAME").hex()}]
+        records = [crc_record()]
         merged = profile.merge_profile({"host_version": 13881, "app_id": 730}, demo(),
                                        integrity={"requirements_verified": True, "requirements": [], "records": records})
-        self.assertEqual(merged["integrity_records"], records)
+        self.assertEqual(merged["integrity_records"][0]["protobuf_hex"], records[0]["protobuf_hex"])
+        self.assertEqual(merged["integrity_records"][0]["path"], "GAME")
+        self.assertEqual(merged["integrity_records"][0]["filename"], "pak01_001.vpk")
+        self.assertFalse(merged["integrity"]["requirements_verified"])
         with self.assertRaises(metadata.FormatError):
             profile.merge_profile({"host_version": 13881, "app_id": 730}, demo(),
                                   integrity={"requirements_verified": True, "requirements": [], "records": [{"protobuf_hex": "f"}]})
+
+    def test_integrity_evidence_is_tied_to_map_whitelist_and_installed_hash(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            game = Path(temporary)
+            (game / "csgo").mkdir()
+            (game / "csgo" / "pak01_001.vpk").write_bytes(b"headabcdefextra")
+            evidence = {"send_table_crc": 123, "client_full_signon": True, "map": "cs_italy", "map_crc": 456,
+                        "pure_whitelist_sha256": "ab" * 32, "pure_mode": 1, "integrity_records": [crc_record(), crc_record()]}
+            merged = profile.merge_profile({"host_version": 13881, "app_id": 730}, demo(), evidence, game=game)
+            self.assertTrue(merged["integrity"]["requirements_verified"])
+            self.assertEqual(merged["integrity"]["whitelist_sha256"], "ab" * 32)
+            self.assertEqual(merged["integrity"]["coverage"]["map"], "cs_italy")
+            self.assertEqual(merged["integrity"]["coverage"]["record_count"], 1)
+            self.assertEqual(merged["integrity_records"][0]["source"]["file"], "csgo/pak01_001.vpk")
+            (game / "csgo" / "pak01_001.vpk").write_bytes(b"headghijklextra")
+            with self.assertRaisesRegex(metadata.FormatError, "MD5 differs"):
+                profile.merge_profile({"host_version": 13881, "app_id": 730}, demo(), evidence, game=game)
+
+    def test_integrity_conflicting_whitelist_is_rejected(self):
+        base = {"host_version": 13881, "app_id": 730, "integrity": {"whitelist_sha256": "ab" * 32}}
+        evidence = {"send_table_crc": 123, "pure_whitelist_sha256": "cd" * 32}
+        with self.assertRaisesRegex(metadata.FormatError, "changed"):
+            profile.merge_profile(base, demo(), evidence)
+        with self.assertRaisesRegex(metadata.FormatError, "conflicting"):
+            profile.merge_profile({"host_version": 13881, "app_id": 730}, demo(), evidence,
+                                  integrity={"pure_whitelist_sha256": "ab" * 32})
+        with self.assertRaises(metadata.FormatError):
+            profile.whitelist_hash("ab" * 30 + "    ")
+
+    def test_integrity_conflicting_files_and_escaping_paths_rejected(self):
+        records = [crc_record(), crc_record(content=b"ghijkl")]
+        with self.assertRaisesRegex(metadata.FormatError, "conflicting captured integrity"):
+            profile.merge_profile({"host_version": 13881, "app_id": 730}, demo(), integrity={"records": records})
+        with self.assertRaisesRegex(metadata.FormatError, "relative integrity filename"):
+            profile.integrity_record(crc_record(filename="../secret"))
 
     def test_dictionary_order_crc_and_encoding_width(self):
         raw = b"models/player.mdl\0materials/wall.vmt\0"
@@ -128,6 +175,18 @@ class MetadataTests(unittest.TestCase):
         self.assertEqual(profile.dictionary_metadata(valve), result)
         with self.assertRaises(metadata.FormatError):
             profile.dictionary_metadata(raw[:-1])
+
+    def test_bsp_crc_uses_unfinalized_accumulator_and_physical_lump_order(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / "test_map.bsp"
+            header = bytearray(b"VBSP" + struct.pack("<I", 21) + bytes(1028))
+            # Logical lump 2 precedes logical lump 1 on disk; entities are excluded.
+            struct.pack_into("<iii4s", header, 8, 1036, 3, 0, bytes(4))
+            struct.pack_into("<iii4s", header, 8 + 16, 1042, 3, 0, bytes(4))
+            struct.pack_into("<iii4s", header, 8 + 32, 1039, 3, 0, bytes(4))
+            target.write_bytes(header + b"enttwoone")
+            result = profile.bsp_metadata(target)
+            self.assertEqual(result["map_crc"], zlib.crc32(b"twoone") ^ 0xFFFFFFFF)
 
     def test_demo_truncation_and_unknown_table_rejected(self):
         with self.assertRaises(metadata.FormatError):

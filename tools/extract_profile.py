@@ -176,8 +176,162 @@ def parse_demo(data: bytes) -> tuple[dict, dict]:
     return schema, metadata
 
 
+def integrity_record(record: dict) -> dict:
+    payload = record.get("protobuf_hex") if isinstance(record, dict) else None
+    if not isinstance(payload, str) or len(payload) % 2 or len(payload) > 65536:
+        raise FormatError("invalid integrity record encoding")
+    try:
+        raw = bytes.fromhex(payload)
+        parsed = fields(raw)
+    except ValueError as error:
+        raise FormatError("invalid integrity protobuf record") from error
+    expected_types = {1: 0, 2: 2, 3: 0, 4: 2, 5: 0, 6: 2, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0}
+    if any(number not in expected_types or expected_types[number] != wire for number, wire, _ in parsed):
+        raise FormatError("integrity record does not match exact CCLCMsg_FileCRCCheck schema")
+    if len({number for number, _, _ in parsed}) != len(parsed):
+        raise FormatError("duplicate integrity protobuf fields")
+    path_code = signed32(first(raw, 1, 0))
+    path = ("GAME", "MOD")[path_code] if path_code in (0, 1) else text(raw, 2)
+    if path_code not in (-1, 0, 1) or not path:
+        raise FormatError("unknown integrity path identifier")
+    filename_code = signed32(first(raw, 3, 0))
+    if filename_code not in (-1, 0, 1, 2, 3):
+        raise FormatError("unknown integrity filename prefix")
+    filename = text(raw, 4)
+    if filename_code >= 0:
+        filename = ("materials", "models", "sounds", "scripts")[filename_code] + "/" + filename
+    filename = filename.replace("\\", "/")
+    if not filename or filename.startswith("/") or ":" in filename or any(part in ("", ".", "..") for part in filename.split("/")):
+        raise FormatError("invalid relative integrity filename")
+    md5 = first(raw, 6, b"")
+    if not isinstance(md5, bytes) or len(md5) != 16:
+        raise FormatError("integrity record requires a 16-byte MD5")
+    result = {"protobuf_hex": raw.hex(), "protobuf_sha256": hashlib.sha256(raw).hexdigest(),
+              "path": path, "filename": filename, "md5_hex": md5.hex(), "crc": first(raw, 7, 0)}
+    for name, number in (("file_fraction", 5), ("file_hash_type", 8), ("file_len", 9), ("pack_file_id", 10), ("pack_file_number", 11)):
+        result[name] = signed32(first(raw, number, 0))
+    if result["file_hash_type"] not in (0, 1, 2) or result["file_len"] < 0 or result["file_fraction"] < 0:
+        raise FormatError("invalid integrity file hash parameters")
+    return result
+
+
+def verify_integrity_sources(records: list[dict], game: Path) -> None:
+    """Verify reported full-file/VPK chunk hashes; never load these at runtime."""
+    game = game.resolve()
+    for record in records:
+        if record["path"] not in ("GAME", "MOD") or record["file_hash_type"] != 1:
+            raise FormatError(f"unsupported integrity source verification: {record['path']}/{record['filename']}")
+        candidates = [game / "csgo" / record["filename"]]
+        if record["path"] == "GAME":
+            candidates.append(game / "platform" / record["filename"])
+        source = next((candidate.resolve() for candidate in candidates if candidate.is_file()), None)
+        if source is None or not source.is_relative_to(game):
+            raise FormatError(f"integrity source file missing: {record['path']}/{record['filename']}")
+        offset = record["file_fraction"] if record["pack_file_id"] else 0
+        length = record["file_len"]
+        if not record["pack_file_id"] and source.stat().st_size != length:
+            raise FormatError(f"integrity full-file length mismatch: {record['filename']}")
+        if offset + length > source.stat().st_size:
+            raise FormatError(f"integrity chunk exceeds source: {record['filename']}")
+        remaining = length
+        md5, sha256 = hashlib.md5(), hashlib.sha256()
+        with source.open("rb") as data:
+            data.seek(offset)
+            while remaining:
+                chunk = data.read(min(remaining, 1024 * 1024))
+                if not chunk:
+                    raise FormatError("integrity source file truncated while hashing")
+                md5.update(chunk)
+                sha256.update(chunk)
+                remaining -= len(chunk)
+        if md5.hexdigest() != record["md5_hex"]:
+            raise FormatError(f"captured integrity MD5 differs from installed file: {record['filename']}@{offset}")
+        record["source_verified"] = True
+        record["source"] = {"file": source.relative_to(game).as_posix(), "offset": offset,
+                            "bytes": length, "sha256": sha256.hexdigest()}
+
+
+def whitelist_hash(value) -> str | None:
+    if value is None:
+        return None
+    if not isinstance(value, str) or len(value) != 64 or any(character not in "0123456789abcdefABCDEF" for character in value):
+        raise FormatError("PureServerWhitelist SHA256 must contain 64 hexadecimal digits")
+    try:
+        bytes.fromhex(value)
+    except ValueError as error:
+        raise FormatError("invalid PureServerWhitelist SHA256") from error
+    return value.lower()
+
+
+def reconcile_integrity(profile: dict, evidence: dict | None = None,
+                        observation: dict | None = None, game: Path | None = None) -> None:
+    evidence = evidence or {}
+    observation = observation or {}
+    old = profile.get("integrity", {})
+    observed_hash = whitelist_hash(evidence.get("pure_whitelist_sha256"))
+    explicit_hash = whitelist_hash(observation.get("pure_whitelist_sha256", observation.get("whitelist_sha256")))
+    previous_hash = whitelist_hash(old.get("whitelist_sha256", old.get("pure_whitelist_sha256")))
+    if observed_hash and explicit_hash and observed_hash != explicit_hash:
+        raise FormatError("conflicting captured PureServerWhitelist evidence")
+    expected_hash = observed_hash or explicit_hash or previous_hash
+    if previous_hash and expected_hash != previous_hash:
+        raise FormatError("PureServerWhitelist changed; regenerate a separate matching profile")
+    demo_info = profile.get("bootstrap", {}).get("demo_metadata", {}).get("server_info", {})
+    map_name = evidence.get("map", demo_info.get("map_name"))
+    map_crc = evidence.get("map_crc", demo_info.get("map_crc"))
+    if demo_info.get("map_name") and evidence.get("map") and evidence["map"] != demo_info["map_name"]:
+        raise FormatError("integrity evidence map differs from entity-schema demo")
+    if demo_info.get("map_crc") is not None and evidence.get("map_crc") is not None and evidence["map_crc"] != demo_info["map_crc"]:
+        raise FormatError("integrity evidence map CRC differs from entity-schema demo")
+    raw_records = observation.get("records", observation.get("integrity_records", evidence.get("integrity_records", profile.get("integrity_records", []))))
+    if not isinstance(raw_records, list):
+        raise FormatError("invalid captured integrity records")
+    records, hashes, identities = [], set(), {}
+    for raw in raw_records:
+        decoded = integrity_record(raw)
+        identity = tuple(decoded[key] for key in ("path", "filename", "file_fraction", "file_hash_type", "file_len", "pack_file_id", "pack_file_number"))
+        known = identities.get(identity)
+        if known is not None and (known["md5_hex"], known["crc"]) != (decoded["md5_hex"], decoded["crc"]):
+            raise FormatError(f"conflicting captured integrity hashes: {decoded['filename']}@{decoded['file_fraction']}")
+        identities[identity] = decoded
+        if decoded["protobuf_sha256"] not in hashes:
+            records.append(decoded)
+            hashes.add(decoded["protobuf_sha256"])
+    if game is not None:
+        verify_integrity_sources(records, game)
+    mode = evidence.get("pure_mode", observation.get("pure_mode", old.get("pure_mode")))
+    if mode is not None and mode not in (0, 1, 2):
+        raise FormatError("invalid observed sv_pure mode")
+    missing = []
+    if not expected_hash:
+        missing.append("PureServerWhitelist was not decoded from server_query_info entry userdata")
+    if not profile.get("bootstrap", {}).get("stock_signon_verified"):
+        missing.append("successful stock client FULL signon was not observed")
+    if not map_name or map_crc is None:
+        missing.append("captured map name and server map CRC are unavailable")
+    if not records:
+        missing.append("no genuine captured CCLCMsg_FileCRCCheck records are available")
+    if records and not all(record.get("source_verified") for record in records):
+        missing.append("captured file hashes have not been independently verified against installed files")
+    requirements = [{"kind": "PureServerWhitelist", "table": "server_query_info", "entry": "PureServerWhitelist",
+                     "sha256": expected_hash}] if expected_hash else []
+    profile["integrity_records"] = records
+    profile["integrity"] = {"requirements_verified": not missing, "requirements": requirements,
+                            "whitelist_sha256": expected_hash, "pure_mode": mode,
+                            "missing_requirements": missing,
+                            "coverage": {"server": evidence.get("server", "151.243.93.16:27015"),
+                                         "host_version": profile["host_version"], "map": map_name, "map_crc": map_crc,
+                                         "record_count": len(records),
+                                         "file_count": len({(record["path"], record["filename"]) for record in records}),
+                                         "records_sha256": hashlib.sha256(b"".join(bytes.fromhex(record["protobuf_hex"]) for record in records)).hexdigest(),
+                                         "scope": "captured files for the recorded map and exact whitelist"}}
+    if evidence.get("capture_sha256"):
+        profile["integrity"]["coverage"]["capture_sha256"] = evidence["capture_sha256"]
+
+
 def merge_profile(profile: dict, demo_data: bytes, client_info: dict | None = None,
-                  stock_signon_verified: bool = False, integrity: dict | None = None) -> dict:
+                  stock_signon_verified: bool = False, integrity: dict | None = None,
+                  game: Path | None = None) -> dict:
     if profile.get("host_version") != 13881 or profile.get("app_id") != 730:
         raise FormatError("incompatible metadata profile")
     schema, metadata = parse_demo(demo_data)
@@ -200,28 +354,7 @@ def merge_profile(profile: dict, demo_data: bytes, client_info: dict | None = No
             bootstrap["stock_signon_verified"] = True
         bootstrap["client_info_evidence"] = {key: client_info[key] for key in
                                              ("host_version", "server", "server_count", "send_table_crc", "capture_sha256") if key in client_info}
-    if integrity is not None:
-        if not isinstance(integrity.get("requirements_verified"), bool) or not isinstance(integrity.get("requirements"), list):
-            raise FormatError("invalid integrity observations")
-        records = integrity.get("records", integrity.get("integrity_records", []))
-        if not isinstance(records, list):
-            raise FormatError("invalid integrity records")
-        for record in records:
-            payload = record.get("protobuf_hex") if isinstance(record, dict) else None
-            if not isinstance(payload, str) or len(payload) % 2 or len(payload) > 65536:
-                raise FormatError("invalid integrity record encoding")
-            try:
-                raw = bytes.fromhex(payload)
-                fields(raw)
-            except ValueError as error:
-                raise FormatError("invalid integrity protobuf record") from error
-        profile["integrity_records"] = records
-        profile["integrity"] = integrity
-    elif client_info is not None and "integrity_records" in client_info:
-        records = client_info["integrity_records"]
-        if not isinstance(records, list):
-            raise FormatError("invalid captured integrity records")
-        profile["integrity_records"] = records
+    reconcile_integrity(profile, client_info, integrity, game)
     return profile
 
 
@@ -281,7 +414,9 @@ def bsp_metadata(path: Path) -> dict:
                     raise FormatError("truncated BSP lump")
                 crc = zlib.crc32(chunk, crc)
                 remaining -= len(chunk)
-        result = {"name": path.stem, "map_crc": crc, "dictionary": [], "dictionary_bits": 0,
+        # Source deliberately transmits CRC_MapFile's internal accumulator:
+        # its caller initializes it but neither caller nor CRC_MapFile finalizes.
+        result = {"name": path.stem, "map_crc": crc ^ 0xFFFFFFFF, "dictionary": [], "dictionary_bits": 0,
                   "dictionary_source": None}
         pak_offset, pak_length, _, _ = lumps[40]
         if pak_length:
@@ -316,18 +451,24 @@ def main() -> None:
     parser.add_argument("--client-info", type=Path, help="sanitized clc_ClientInfo export containing send_table_crc")
     parser.add_argument("--integrity", type=Path, help="sanitized observed integrity requirements JSON")
     parser.add_argument("--bsp", type=Path, help="development-only matching BSP; retain only CRC and dictionary strings")
+    parser.add_argument("--game", type=Path, help="development-only installed files for independently verifying captured integrity hashes")
     parser.add_argument("--stock-signon-verified", action="store_true", help="record explicit successful stock signon observation")
     args = parser.parse_args()
     try:
         profile = json.loads(args.profile.read_text(encoding="utf-8-sig"))
         client_info = json.loads(args.client_info.read_text(encoding="utf-8-sig")) if args.client_info else None
         integrity = json.loads(args.integrity.read_text(encoding="utf-8-sig")) if args.integrity else None
-        merged = merge_profile(profile, args.demo.read_bytes(), client_info, args.stock_signon_verified, integrity)
+        merged = merge_profile(profile, args.demo.read_bytes(), client_info, args.stock_signon_verified, integrity, args.game)
+        if args.client_info:
+            merged["bootstrap"]["client_info_evidence_sha256"] = hashlib.sha256(args.client_info.read_bytes()).hexdigest()
         if args.bsp:
             derived_map = bsp_metadata(args.bsp)
             demo_map = merged["bootstrap"]["demo_metadata"].get("server_info", {}).get("map_name", "")
             if demo_map and Path(demo_map).name != derived_map["name"]:
                 raise FormatError("BSP map does not match recorded server map")
+            observed_crc = merged["integrity"]["coverage"].get("map_crc")
+            if observed_crc is not None and derived_map["map_crc"] != observed_crc:
+                raise FormatError("installed BSP checksum does not match recorded server map")
             merged["entity_schema"]["dictionary"] = derived_map["dictionary"]
             merged["entity_schema"]["dictionary_bits"] = derived_map["dictionary_bits"]
             merged["map_metadata"] = {key: value for key, value in derived_map.items() if key != "dictionary"}
