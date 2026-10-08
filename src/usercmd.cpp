@@ -112,7 +112,7 @@ void InputController::set(const nlohmann::json& args) {
         {"attack", 1u << 0}, {"fire", 1u << 0}, {"jump", 1u << 1}, {"duck", 1u << 2},
         {"crouch", 1u << 2}, {"forward", 1u << 3}, {"back", 1u << 4}, {"use", 1u << 5},
         {"left", 1u << 7}, {"right", 1u << 8}, {"moveleft", 1u << 9}, {"moveright", 1u << 10},
-        {"attack2", 1u << 11}, {"reload", 1u << 13}, {"speed", 1u << 17}, {"walk", 1u << 18},
+        {"attack2", 1u << 11}, {"reload", 1u << 13}, {"speed", 1u << 17}, {"walk", 1u << 17},
         {"zoom", 1u << 19}, {"bullrush", 1u << 22}
     };
     if (args.contains("buttons")) {

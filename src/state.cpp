@@ -199,6 +199,21 @@ Json decode_prop(BitReader& in, const Prop& prop) {
     default: throw StateError("Unflattened datatable in entity schema");
     }
 }
+Json zero_fields(const Class& cls) {
+    Json result = Json::object();
+    for (const auto& prop : cls.flat) {
+        switch (prop.type) {
+        case 0: case 7: result[prop.path] = 0; break;
+        case 1: result[prop.path] = 0.0f; break;
+        case 2: result[prop.path] = Json::array({0.0f, 0.0f, 0.0f}); break;
+        case 3: result[prop.path] = Json::array({0.0f, 0.0f}); break;
+        case 4: result[prop.path] = ""; break;
+        case 5: result[prop.path] = Json::array(); break;
+        default: throw StateError("Unflattened property in baseline schema");
+        }
+    }
+    return result;
+}
 void decode_fields(BitReader& in, const Class& cls, Json& fields) {
     const bool modern = in.bit();
     std::vector<std::size_t> indexes;
@@ -449,6 +464,7 @@ struct State::Impl {
                 else {
                     const auto base = class_baselines.find(class_id);
                     require(base != class_baselines.end(), "Missing static baseline for class " + classes.at(class_id).name);
+                    entity->fields = zero_fields(classes.at(class_id));
                     BitReader baseline_reader(base->second);
                     decode_fields(baseline_reader, classes.at(class_id), entity->fields);
                 }

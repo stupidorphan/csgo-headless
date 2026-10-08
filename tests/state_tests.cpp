@@ -152,6 +152,51 @@ void state_tests() {
     rejects([&] { state.load_profile(invalid_profile); }, "array without element metadata must fail");
     check(state.class_count() == 1, "invalid profile does not replace loaded schema");
 }
+void metadata_tests() {
+    auto health = property(0, "m_iHealth", 1, 10);
+    health["priority"] = 100;
+    auto armor = property(0, "m_ArmorValue", 1, 8);
+    auto ignore = property(0, "ignored", 64, 0);
+    ignore["table"] = "DT_Base";
+    auto local_table = property(6, "cslocaldata", 0, 0);
+    local_table["table"] = "DT_Local";
+    auto base = property(6, "baseclass", 1u << 11, 0);
+    base["table"] = "DT_Base";
+    Json metadata{{"send_tables", Json::array({
+        {{"name", "DT_Player"}, {"props", Json::array({health, local_table, base, ignore})}},
+        {{"name", "DT_Local"}, {"props", Json::array({property(2, "m_vecOrigin", 4, 32)})}},
+        {{"name", "DT_Base"}, {"props", Json::array({armor, property(0, "ignored", 1, 7)})}}
+    })}, {"classes", Json::array({{{"id", 0}, {"name", "CCSPlayer"}, {"table", "DT_Player"}}})}};
+    State state;
+    state.load_profile(metadata);
+    state.set_server_info("de_dust2", 0, 16, 1.0f / 64);
+    BitWriter empty_fields;
+    field_start(empty_fields, 0);
+    state.consume(12, strings("instancebaseline", "0", empty_fields.data()), 1);
+    BitWriter empty_packet;
+    empty_packet.ubitvar(1); empty_packet.bit(false); empty_packet.bit(true); empty_packet.bits(0, 1); empty_packet.bits(1, 10);
+    empty_packet.bit_bytes(empty_fields.data(), empty_fields.position());
+    ProtoWriter zero;
+    zero.u32(1, 2048).u32(2, 1).bytes(7, empty_packet.data());
+    check(state.consume(26, Proto(zero.data()), 2), "zero-only baseline snapshot");
+    auto status = state.status();
+    check(status["local"]["health"] == 0 && status["local"]["armor"] == 0 &&
+          status["local"]["position"] == Json::array({0.0, 0.0, 0.0}), "omitted baseline props have Source zero defaults");
+    check(status["local"]["fields"].size() == 3, "excluded props are removed from flattened schema");
+    BitWriter data;
+    data.ubitvar(1); data.bit(false); data.bit(true); data.bits(0, 1); data.bits(1, 10);
+    field_start(data, 3);
+    data.float32(1); data.float32(2); data.float32(3); data.bits(99, 8); data.bits(78, 10);
+    ProtoWriter update;
+    update.u32(1, 2048).u32(2, 1).bytes(7, data.data());
+    check(state.consume(26, Proto(update.data()), 3), "nested prioritized snapshot");
+    status = state.status();
+    check(status["local"]["health"] == 78 && status["local"]["armor"] == 99 &&
+          status["local"]["position"] == Json::array({1.0, 2.0, 3.0}), "child hierarchy and priority swaps match Source field order");
+    auto cyclic = metadata;
+    cyclic["send_tables"][2]["props"].push_back(base);
+    rejects([&] { state.load_profile(cyclic); }, "cyclic send tables rejected");
+}
 void usercmd_tests() {
     UserCmd zero, neutral;
     neutral.command_number = neutral.tick_count = 1;
@@ -189,8 +234,10 @@ void usercmd_tests() {
     check(a.forwardmove == 450 && b.forwardmove == 450 && c.forwardmove == 0 && c.buttons == 0, "inputs expire in ticks");
     check(c.viewangles[0] == 30 && c.viewangles[1] == 90, "expired input preserves normalized view");
     check((a.buttons & 3u) == 3u && (a.buttons & (1u << 9)), "named action and movement buttons encoded");
+    controller.set({{"buttons", Json::array({"walk"})}});
+    check((controller.next(103).buttons & (1u << 17)) != 0, "CS:GO walk maps to IN_SPEED");
     controller.select_weapon(888, 6);
-    check(controller.next(103).weaponselect == 888 && controller.next(104).weaponselect == 0, "weapon selection is one-shot");
+    check(controller.next(104).weaponselect == 888 && controller.next(105).weaponselect == 0, "weapon selection is one-shot");
     rejects([&] { controller.set({{"forward", 2}}); }, "out of range input rejected");
     rejects([&] { controller.set({{"buttons", Json::array({"invalid"})}}); }, "unknown button rejected");
     controller.reset();
@@ -198,6 +245,6 @@ void usercmd_tests() {
 }
 }
 int main() {
-    try { state_tests(); usercmd_tests(); std::cout << "state/usercmd tests passed\n"; return 0; }
+    try { state_tests(); metadata_tests(); usercmd_tests(); std::cout << "state/usercmd tests passed\n"; return 0; }
     catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
 }
