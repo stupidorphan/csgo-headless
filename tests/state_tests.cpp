@@ -166,6 +166,14 @@ void state_tests() {
     invalid_profile["entity_schema"]["send_tables"][0]["props"].push_back(property(5, "bad_array", 0, 0));
     rejects([&] { state.load_profile(invalid_profile); }, "array without element metadata must fail");
     check(state.class_count() == 1, "invalid profile does not replace loaded schema");
+    State anchored;
+    anchored.load_profile(profile());
+    anchored.set_server_info("de_dust2", 0, 16, 1.0f / 64);
+    anchored.consume(12, strings("instancebaseline", "0", baseline), 0);
+    anchored.consume(26, full_packet(100), 100);
+    for (int tick = 101; tick < 181; ++tick)
+        check(anchored.consume(26, health_delta(100, 90), tick), "repeated acknowledged base survives frame-cache eviction");
+    check(!anchored.needs_full_update() && anchored.entity_tick() == 180, "valid old base triggers no artificial recovery");
 }
 void metadata_tests() {
     auto health = property(0, "m_iHealth", 1, 10);

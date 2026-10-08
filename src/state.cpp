@@ -506,7 +506,13 @@ struct State::Impl {
         current = std::move(live); baselines = std::move(next_baselines);
         if (!delta) frames.clear();
         frames[tick] = std::move(next);
-        while (frames.size() > 64) frames.erase(frames.begin());
+        while (frames.size() > 64) {
+            auto oldest = frames.begin();
+            // Keep the server's active acknowledged base, even when it remains
+            // older than the most recent 64 snapshots. Evict the next-oldest.
+            if (delta && oldest->first == from) ++oldest;
+            frames.erase(oldest);
+        }
         snapshot_tick = tick; full_update = false;
         if (update) {
             ProtoWriter ack;

@@ -48,7 +48,7 @@ struct Session::Impl {
     ClientConfig config;EventSink sink;Json profile;State state;InputController input;SteamAuth auth;SteamCredentials credentials;
     Netchannel channel;SOCKET socket=INVALID_SOCKET;bool wsa=false;int signon=0;int32_t spawn_count=-1,tick=0;float interval=1.0f/64;
     uint32_t challenge=0;Bytes connect_packet;Clock::time_point started{},last_received{},last_challenge{},next_send{},last_tick_time{};
-    std::deque<UserCmd> backups;bool paused=false;uint64_t rx=0,tx=0;std::string last_error;size_t integrity_cursor=0;Clock::time_point next_integrity{};
+    std::deque<UserCmd> backups;bool paused=false,awaiting_full_update=false;uint64_t rx=0,tx=0;std::string last_error;size_t integrity_cursor=0;Clock::time_point next_integrity{};
     Impl(ClientConfig c,EventSink e):config(std::move(c)),sink(std::move(e)),auth(config.auth_helper) {
         WSADATA d{};if(WSAStartup(MAKEWORD(2,2),&d))throw std::runtime_error("Winsock initialization failed");wsa=true;
         std::ifstream f(config.profile);if(!f)throw std::runtime_error("Cannot open metadata profile: "+config.profile.string());f>>profile;
@@ -64,7 +64,7 @@ struct Session::Impl {
     void close(std::string reason){
         if(socket!=INVALID_SOCKET){if(signon>=2){try{ProtoWriter w;w.string(1,reason);queue(1,Proto(w.data()));for(auto&d:channel.send())send_bytes(d);}catch(...) {}}closesocket(socket);socket=INVALID_SOCKET;}
         auth.close();if(!credentials.ticket.empty())SecureZeroMemory(credentials.ticket.data(),credentials.ticket.size());credentials={};
-        bool was=signon!=0;signon=0;input.reset();backups.clear();channel.reset();state.reset();spawn_count=-1;paused=false;integrity_cursor=0;if(!connect_packet.empty())SecureZeroMemory(connect_packet.data(),connect_packet.size());connect_packet.clear();
+        bool was=signon!=0;signon=0;input.reset();backups.clear();channel.reset();state.reset();spawn_count=-1;paused=false;awaiting_full_update=false;integrity_cursor=0;if(!connect_packet.empty())SecureZeroMemory(connect_packet.data(),connect_packet.size());connect_packet.clear();
         if(was)emit("disconnected",{{"reason",reason}});
     }
     void begin(){
@@ -130,8 +130,9 @@ struct Session::Impl {
         bool consumed=state.consume(m.type,p,tick);
         for(auto&[type,out]:state.take_outgoing())queue(type,out);
         for(auto&e:state.take_events())if(sink)sink(e);
-        if(m.type==26&&consumed&&signon==5&&!p.get_u32(2)){change_signon(6,spawn_count);next_send=Clock::now();}
-        if(state.needs_full_update()){emit("snapshot_recovery");state.clear_full_update_request();}
+        if(m.type==26&&consumed&&signon==5&&!p.get_u32(3)){change_signon(6,spawn_count);next_send=Clock::now();}
+        if(m.type==26&&consumed&&!p.get_u32(3))awaiting_full_update=false;
+        if(state.needs_full_update()){awaiting_full_update=true;state.clear_full_update_request();}
     }
     void poll(){
         if(socket==INVALID_SOCKET)return;
@@ -147,7 +148,7 @@ struct Session::Impl {
             if(signon==1){if(now-last_challenge>std::chrono::seconds(2)){if(now-started>std::chrono::seconds(30))throw std::runtime_error("Connection handshake timed out");if(connect_packet.empty())send_challenge();else{send_bytes(connect_packet);last_challenge=now;}}return;}
             if(now>=next_send){
                 std::vector<Message> unreliable;
-                ProtoWriter ack;ack.i32(1,state.entity_tick());unreliable.push_back({4,ack.take()});
+                ProtoWriter ack;ack.i32(1,awaiting_full_update?-1:state.entity_tick());unreliable.push_back({4,ack.take()});
                 if(signon==6&&!paused){
                     int32_t estimated=tick;if(last_tick_time!=Clock::time_point{})estimated+=int32_t(std::chrono::duration<double>(now-last_tick_time).count()/interval);
                     const auto due=unsigned(std::min(15.0,std::floor(std::chrono::duration<double>(now-next_send).count()/interval)+1));
