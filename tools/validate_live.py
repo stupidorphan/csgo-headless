@@ -408,10 +408,19 @@ def exercise(driver, report):
             if (gun_state.get("local") or {}).get("active_weapon_handle") == gun["handle"]:
                 break
             driver.wait(0.1)
+    # Equipping is replicated before the server permits attacks. Source's
+    # DefaultDeploy sets the owner's next attack to the draw animation end.
+    # Allow a bounded draw delay; firing still needs a real server effect.
+    deployment_started = time.monotonic()
+    driver.wait(1.5)
+    gun_state = driver.status()
+    deployment_wait = time.monotonic() - deployment_started
     selected_gun = active_weapon(gun_state)
     gun_ready = alive(gun_state) and selected_gun is not None and isinstance(selected_gun.get("clip"), int) and selected_gun["clip"] > 0
     report["gun_preparation"] = {"state": "verified" if gun_ready else "not_observed", "accepted_response": accepted,
                                  "before": compact(before_gun), "after": compact(gun_state),
+                                 "deployment_wait_seconds": round(deployment_wait, 3),
+                                 "next_attack": field(gun_state, "m_flNextAttack"),
                                  "reason": None if gun_ready else "No active server-reported gun with ammunition was confirmed"}
     attempt("fire", "input", {"buttons": ["attack"], "duration_ticks": 16},
             lambda a, b: magazine_changed(a, b, "decrease"), event_names=("weapon_fire",),
