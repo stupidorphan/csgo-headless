@@ -71,6 +71,24 @@ def active_weapon(status):
     return next((item for item in local.get("inventory", []) if item.get("handle") == handle), None)
 
 
+def gun_with_ammo(status):
+    inventory = (status.get("local") or {}).get("inventory", [])
+    current = active_weapon(status)
+    if current and isinstance(current.get("clip"), int) and current["clip"] > 0:
+        return current
+    return next((item for item in inventory if isinstance(item.get("clip"), int) and item["clip"] > 0), None)
+
+
+def magazine_changed(before, after, direction):
+    first, last = active_weapon(before), active_weapon(after)
+    if first is None or last is None or first.get("handle") != last.get("handle"):
+        return False
+    a, b = first.get("clip"), last.get("clip")
+    if not isinstance(a, int) or not isinstance(b, int) or min(a, b) < 0:
+        return False
+    return b < a if direction == "decrease" else b > a
+
+
 def compact(status):
     local = status.get("local") or {}
     return {"connection": status.get("connection", {}), "tick": status.get("tick"),
@@ -248,7 +266,7 @@ class Driver:
             if value.get("type") != "game_event" or value.get("name") not in names:
                 continue
             actor = value.get("values", {}).get("userid")
-            if user_id is not None and actor is not None and str(actor) != str(user_id):
+            if user_id is not None and (actor is None or str(actor) != str(user_id)):
                 continue
             return value
         return None
@@ -276,7 +294,7 @@ class Driver:
 def exercise(driver, report):
     results = report["controls"]
 
-    def attempt(name, op, parameters, predicate, timeout=5, event_names=(), reason="No qualifying server state or event was observed", neutralize=True):
+    def attempt(name, op, parameters, predicate, timeout=5, event_names=(), reason="No qualifying server state or event was observed", neutralize=True, event_match=None, event_validator=None):
         before = driver.status()
         after_event = driver.event_number
         user_id = (before.get("local") or {}).get("user_id")
@@ -288,6 +306,11 @@ def exercise(driver, report):
         while time.monotonic() < deadline:
             latest = driver.status()
             event = driver.event(after_event, set(event_names), user_id)
+            if event is not None and event_validator is not None and not event_validator(before, latest, event):
+                event = None
+            if event is None and event_match is not None:
+                event = next((value for number, value in reversed(driver.events)
+                              if number > after_event and event_match(value)), None)
             if predicate(before, latest) or event:
                 verified = True
                 break
@@ -307,15 +330,31 @@ def exercise(driver, report):
             driver.wait(0.2)
         return latest
 
+    # Health may arrive before the separate weapon entities at a round start.
+    # Give those authoritative inventory snapshots a bounded chance to settle.
     spawned = driver.status()
+    inventory_deadline = time.monotonic() + 5
+    while time.monotonic() < inventory_deadline and (not alive(spawned) or active_weapon(spawned) is None):
+        driver.wait(0.1)
+        spawned = driver.status()
     report["spawn"] = compact(spawned)
     inventory = (spawned.get("local") or {}).get("inventory", [])
     results["inventory"] = {"state": "verified" if inventory else "not_observed", "server_inventory": inventory}
+
+    # With the stock cl_use_opens_buy_menu=1 userinfo, +use in a buy zone
+    # makes the server send NET_StringCmd("buymenu"). The receipt proves
+    # server-side input handling without requiring a conveniently placed door.
+    attempt("use", "input", {"buttons": ["use"], "duration_ticks": 2},
+            lambda a, b: field(b, "m_hUseEntity") is not None and field(b, "m_hUseEntity") != field(a, "m_hUseEntity"),
+            event_names=("player_use", "hostage_follows"), timeout=3,
+            event_match=lambda value: value.get("type") == "server_command" and value.get("command", "").strip() == "buymenu",
+            reason="No server buy-menu command or usable target was demonstrated at spawn")
 
     attempt("buy", "buy", {"item": "vest"},
             lambda a, b: (b.get("local") or {}).get("armor", 0) > (a.get("local") or {}).get("armor", 0),
             event_names=("item_purchase",), reason="Purchase not confirmed; buy zone, money, or buy time may prevent it")
     before_weapon = driver.status()
+    inventory = (before_weapon.get("local") or {}).get("inventory", [])
     active = active_weapon(before_weapon)
     different = next((item for item in inventory if item.get("handle") != (active or {}).get("handle")), None)
     if different:
@@ -323,11 +362,6 @@ def exercise(driver, report):
                 lambda a, b: (b.get("local") or {}).get("active_weapon_handle") == different["handle"])
     else:
         results["weapon"] = {"state": "not_observed", "reason": "No second server-reported weapon available for a measurable switch"}
-    gun = next((item for item in inventory if isinstance(item.get("clip"), int) and item["clip"] > 0), None)
-    if gun:
-        driver.request("weapon", entity=gun["entity_index"])
-        driver.wait_status(lambda s: (s.get("local") or {}).get("active_weapon_handle") == gun["handle"], 5, "gun selection")
-
     initial_angles = eye_angles(driver.status())
     aim_pitch = -12 if initial_angles and abs(initial_angles[0] - 12) < 6 else 12
     aim_yaw = math.remainder(initial_angles[1] + 37, 360) if initial_angles else 40
@@ -359,21 +393,44 @@ def exercise(driver, report):
                          isinstance(field(a, "m_flDuckAmount", 0), (int, float)) and
                          field(b, "m_flDuckAmount") > field(a, "m_flDuckAmount", 0) + 0.1,
             reason="Server duck amount did not increase")
+
+    # Refresh after movement/round changes instead of selecting a stale weapon
+    # from the spawn inventory. Missing selection evidence must not abort soak.
+    before_gun = driver.status()
+    gun = gun_with_ammo(before_gun)
+    gun_state = before_gun
+    accepted = None
+    if gun and (before_gun.get("local") or {}).get("active_weapon_handle") != gun["handle"]:
+        accepted = driver.request("weapon", entity=gun["entity_index"])
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline:
+            gun_state = driver.status()
+            if (gun_state.get("local") or {}).get("active_weapon_handle") == gun["handle"]:
+                break
+            driver.wait(0.1)
+    selected_gun = active_weapon(gun_state)
+    gun_ready = alive(gun_state) and selected_gun is not None and isinstance(selected_gun.get("clip"), int) and selected_gun["clip"] > 0
+    report["gun_preparation"] = {"state": "verified" if gun_ready else "not_observed", "accepted_response": accepted,
+                                 "before": compact(before_gun), "after": compact(gun_state),
+                                 "reason": None if gun_ready else "No active server-reported gun with ammunition was confirmed"}
     attempt("fire", "input", {"buttons": ["attack"], "duration_ticks": 16},
-            lambda a, b: active_weapon(a) is not None and active_weapon(b) is not None and
-                         isinstance(active_weapon(a).get("clip"), int) and isinstance(active_weapon(b).get("clip"), int) and
-                         active_weapon(b)["clip"] < active_weapon(a)["clip"], event_names=("weapon_fire",),
+            lambda a, b: magazine_changed(a, b, "decrease"), event_names=("weapon_fire",),
+            event_validator=lambda a, b, event: alive(a) and gun_with_ammo(a) == active_weapon(a) and active_weapon(a) is not None and
+                bool(event.get("values", {}).get("weapon")) and event["values"]["weapon"] not in ("knife", "knife_t", "knifegg", "bayonet", "c4"),
             reason="No weapon-fire event or authoritative magazine decrease was observed")
     attempt("reload", "input", {"buttons": ["reload"], "duration_ticks": 1},
-            lambda a, b: active_weapon(a) is not None and active_weapon(b) is not None and
-                         isinstance(active_weapon(a).get("clip"), int) and isinstance(active_weapon(b).get("clip"), int) and
-                         active_weapon(b)["clip"] > active_weapon(a)["clip"], event_names=("weapon_reload",), timeout=8)
-    attempt("use", "input", {"buttons": ["use"], "duration_ticks": 4},
-            lambda a, b: field(b, "m_hUseEntity") is not None and field(b, "m_hUseEntity") != field(a, "m_hUseEntity"),
-            event_names=("player_use", "hostage_follows"), timeout=3,
-            reason="No usable target was demonstrated at the current position")
+            lambda a, b: magazine_changed(a, b, "increase"), event_names=("weapon_reload",), timeout=8)
+    if results["use"]["state"] != "verified":
+        attempt("use", "input", {"buttons": ["use"], "duration_ticks": 4},
+                lambda a, b: field(b, "m_hUseEntity") is not None and field(b, "m_hUseEntity") != field(a, "m_hUseEntity"),
+                event_names=("player_use", "hostage_follows"), timeout=3,
+                event_match=lambda value: value.get("type") == "server_command" and value.get("command", "").strip() == "buymenu",
+                reason="No server buy-menu command or usable target was demonstrated at the current position")
 
     for operation in ("say", "say_team"):
+        # Source shares a 0.66-second TALK_INTERVAL between both commands.
+        # Allow 1.5 seconds for server scheduling and custom server extensions.
+        driver.wait(1.5)
         token = "headless validation " + operation + " " + str(time.time_ns())
         after_event = driver.event_number
         accepted = driver.request(operation, text=token)
@@ -400,6 +457,11 @@ def self_test():
     assert not contains_text({"accepted": True}, "hello")
     assert eye_angles({"local": {"fields": {"DT_Player.m_angEyeAngles[0]": 12, "DT_Player.m_angEyeAngles[1]": 40}}}) == [12, 40]
     assert active_weapon({"local": {"active_weapon_handle": 23, "inventory": [{"handle": 23, "clip": 12}]}})["clip"] == 12
+    a = {"local": {"active_weapon_handle": 23, "inventory": [{"handle": 23, "clip": 12}]}}
+    b = {"local": {"active_weapon_handle": 23, "inventory": [{"handle": 23, "clip": 11}]}}
+    switched = {"local": {"active_weapon_handle": 24, "inventory": [{"handle": 24, "clip": 1}]}}
+    assert magazine_changed(a, b, "decrease") and not magazine_changed(a, switched, "decrease")
+    assert gun_with_ammo(a)["handle"] == 23 and gun_with_ammo({"local": {"inventory": []}}) is None
     emit("self_test", ok=True, network_used=False)
 
 
@@ -461,6 +523,9 @@ def main():
             status = driver.wait_status(lambda value: (value.get("local") or {}).get("team") == 2, 30, "T team")
             report["team"] = compact(status)
             status = driver.wait_status(alive, args.spawn_timeout, "alive player spawn")
+            # An empty server restarts the round after its first player joins.
+            driver.wait(7)
+            status = driver.wait_status(lambda value: alive(value) and not value.get("round", {}).get("freeze", 0), 30, "spawn after freeze time")
             exercise(driver, report)
         soak_started = time.monotonic()
         initial = driver.status()
