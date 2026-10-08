@@ -56,7 +56,7 @@ def canonical_path(path: str) -> str:
     return ntpath.normpath(path).rstrip("\\").casefold()
 
 
-def query_root_name(pid: int, root: int) -> str:
+def query_root_metadata(pid: int, root: int) -> tuple[str | None, str]:
     """Query a duplicated directory handle while CDB keeps the target stopped."""
     kernel = ctypes.WinDLL("kernel32", use_last_error=True)
     kernel.OpenProcess.argtypes = [ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32]
@@ -66,6 +66,8 @@ def query_root_name(pid: int, root: int) -> str:
                                       ctypes.POINTER(ctypes.c_void_p), ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32]
     kernel.DuplicateHandle.restype = ctypes.c_int
     kernel.CloseHandle.argtypes = [ctypes.c_void_p]
+    kernel.GetFileType.argtypes = [ctypes.c_void_p]
+    kernel.GetFileType.restype = ctypes.c_uint32
     kernel.GetFinalPathNameByHandleW.argtypes = [ctypes.c_void_p, ctypes.c_wchar_p, ctypes.c_uint32, ctypes.c_uint32]
     kernel.GetFinalPathNameByHandleW.restype = ctypes.c_uint32
     target = kernel.OpenProcess(0x0040, False, pid)  # PROCESS_DUP_HANDLE only.
@@ -76,10 +78,14 @@ def query_root_name(pid: int, root: int) -> str:
         if not kernel.DuplicateHandle(target, root, kernel.GetCurrentProcess(),
                                       ctypes.byref(duplicate), 0, False, 2):
             raise ctypes.WinError(ctypes.get_last_error())
+        file_type = kernel.GetFileType(duplicate) & ~0x8000
+        kind = {1: "disk", 2: "character_device", 3: "pipe"}.get(file_type, "unknown")
+        if kind in ("pipe", "character_device"):
+            return None, kind  # These handles have no filesystem asset path.
         name = ctypes.create_unicode_buffer(32768)
         length = kernel.GetFinalPathNameByHandleW(duplicate, name, len(name), 0xA)  # Opened name, NT volume.
         if 0 < length < len(name):
-            return name.value
+            return name.value, kind
         # Object-directory roots can lack a Win32 file path. Query only their
         # native object name; this never reads target file or ticket contents.
         class UnicodeString(ctypes.Structure):
@@ -97,7 +103,7 @@ def query_root_name(pid: int, root: int) -> str:
         start, end = ctypes.addressof(buffer), ctypes.addressof(buffer) + len(buffer)
         if unicode.Length and not unicode.Length % 2 and unicode.Buffer and start <= unicode.Buffer < end \
                 and unicode.Buffer + unicode.Length <= end:
-            return ctypes.wstring_at(unicode.Buffer, unicode.Length // 2)
+            return ctypes.wstring_at(unicode.Buffer, unicode.Length // 2), kind
         raise OSError("Root handle has no readable object name")
     finally:
         if duplicate.value:
@@ -113,10 +119,12 @@ def query_root_stdin() -> int:
         return 2
     pid, root = (int(value, 16) for value in match.groups())
     try:
-        name = query_root_name(pid, root)
-        if "\n" in name or "\r" in name or "|" in name:
+        name, kind = query_root_metadata(pid, root)
+        print(f"HC_ROOT_KIND|{pid:x}|{root:x}|{kind}")
+        if name is not None and ("\n" in name or "\r" in name or "|" in name):
             raise OSError("Unsupported object-name characters")
-        print(f"HC_ROOT_NAME|{pid:x}|{root:x}|{name}")
+        if name is not None:
+            print(f"HC_ROOT_NAME|{pid:x}|{root:x}|{name}")
         return 0
     except OSError:
         print(f"HC_ROOT_FAILED|{pid:x}|{root:x}")
@@ -185,18 +193,20 @@ class Observations:
             pid, api, root, path = file_record.groups()
             pid, root = int(pid, 16), int(root, 16)
             root_path = ""
+            root_kind = ""
             if root and self.pending_root and (
                     self.pending_root["pid"], self.pending_root["api"], self.pending_root["handle"]) == (pid, api, root):
                 root_path = self.pending_root.get("name") or ""
+                root_kind = self.pending_root.get("kind") or ""
             self.pending_root = None  # Snapshot applies to this call only; handles can be reused.
             resolved = canonical_path(root_path.rstrip("\\") + ("\\" + path if path else "")) if root_path else (
                 canonical_path(path) if not root else "")
-            self.files[(pid, api, root, path, root_path, resolved)] += 1
+            self.files[(pid, api, root, path, root_path, resolved, root_kind)] += 1
             return
         root_record = re.fullmatch(r"(?:HC_ROOT\|)?([0-9a-fA-F]+)\|(NtCreateFile|NtOpenFile)\|([0-9a-fA-F]+)", line)
         if root_record:
             pid, api, root = root_record.groups()
-            self.active_root = {"pid": int(pid, 16), "api": api, "handle": int(root, 16), "name": None}
+            self.active_root = {"pid": int(pid, 16), "api": api, "handle": int(root, 16), "name": None, "kind": None}
         elif line.startswith("HC_END_ROOT"):
             self.pending_root, self.active_root = self.active_root, None
         elif self.active_root is not None:
@@ -204,6 +214,10 @@ class Observations:
             if name and (int(name.group(1), 16), int(name.group(2), 16)) == (
                     self.active_root["pid"], self.active_root["handle"]):
                 self.active_root["name"] = name.group(3)
+            kind = re.fullmatch(r"HC_ROOT_KIND\|([0-9a-fA-F]+)\|([0-9a-fA-F]+)\|(disk|pipe|character_device|unknown)", line)
+            if kind and (int(kind.group(1), 16), int(kind.group(2), 16)) == (
+                    self.active_root["pid"], self.active_root["handle"]):
+                self.active_root["kind"] = kind.group(3)
         elif line.startswith("HC_PROCESS|"):
             self.processes.add(int(line.split("|")[1], 16))
         elif line.startswith("HC_ARMED|"):
@@ -228,10 +242,15 @@ class Observations:
     def summary(self):
         files = [{"pid": pid, "api": api, "root_directory_handle": root,
                   "path": path, "root_directory_path": root_path or None,
-                  "root_resolution": "Synchronous duplicate-handle name query at breakpoint" if root_path else None,
+                  "root_handle_type": root_kind or None,
+                  "root_resolution": "Synchronous duplicate-handle name query at breakpoint" if root_path else (
+                      "GetFileType positively identifies a non-filesystem empty-name root" if root and not path
+                      and root_kind in ("pipe", "character_device") else None),
+                  "non_filesystem_root": bool(root and not path and root_kind in ("pipe", "character_device")),
                   "resolved_path": resolved or None, "count": count,
-                  "inside_game_installation": inside(resolved, self.game_root) if resolved else None}
-                 for (pid, api, root, path, root_path, resolved), count in sorted(self.files.items())]
+                  "inside_game_installation": inside(resolved, self.game_root) if resolved else (
+                      False if root and not path and root_kind in ("pipe", "character_device") else None)}
+                 for (pid, api, root, path, root_path, resolved, root_kind), count in sorted(self.files.items())]
         modules = [{"pid": pid, "path": path, "inside_game_installation": inside(path, self.game_root)}
                    for pid, paths in sorted(self.modules.items()) for path in sorted(paths)]
         return {
@@ -243,8 +262,10 @@ class Observations:
             "game_file_open_calls": sum(item["count"] for item in files if item["inside_game_installation"]),
             "game_modules": [item for item in modules if item["inside_game_installation"]],
             "relative_root_calls": sum(item["count"] for item in files if item["root_directory_handle"]),
-            "relative_root_resolved_calls": sum(item["count"] for item in files if item["root_directory_handle"] and item["resolved_path"]),
-            "relative_root_unresolved_calls": sum(item["count"] for item in files if item["root_directory_handle"] and not item["resolved_path"]),
+            "relative_root_path_resolved_calls": sum(item["count"] for item in files if item["root_directory_handle"] and item["resolved_path"]),
+            "relative_root_nonfilesystem_calls": sum(item["count"] for item in files if item["non_filesystem_root"]),
+            "relative_root_resolved_calls": sum(item["count"] for item in files if item["root_directory_handle"] and (item["resolved_path"] or item["non_filesystem_root"])),
+            "relative_root_unresolved_calls": sum(item["count"] for item in files if item["root_directory_handle"] and not item["resolved_path"] and not item["non_filesystem_root"]),
             "nt_volume_mappings": NATIVE_VOLUMES,
             "debugger_errors": dict(self.errors),
             "core_observations": {"event_counts": dict(self.events),
@@ -258,6 +279,7 @@ class Observations:
                 "unicode": "CDB %msu reads the counted UNICODE_STRING, not file contents.",
                 "limitations": ["File opens before CDB's initial breakpoint are not intercepted; module snapshots cover loaded images.",
                                 "RootDirectory names are queried synchronously for each call while CDB keeps the target stopped; unresolved relative calls prevent verification.",
+                                "Only positively identified pipe/character handles with empty relative names are classified as non-filesystem; missing disk/unknown names remain unresolved.",
                                 "This observes native API arguments, not successful read lengths or direct system calls that bypass ntdll exports.",
                                 "Steam client's separate process is outside the core/helper audit."]
             }
@@ -368,15 +390,17 @@ def main():
                    "executable_sha256": hashlib.sha256(Path(command[0]).read_bytes()).hexdigest()})
     if args.expect_path:
         expected = canonical_path(str(args.expect_path.resolve()))
-        pids = sorted({pid for (pid, _, _, _, _, resolved) in observer.files if resolved == expected})
-        apis = sorted({api for (_, api, _, _, _, resolved) in observer.files if resolved == expected})
-        counted_unicode = not any("SENTINEL_OUTSIDE_UNICODE_STRING_LENGTH" in path for (_, _, _, path, _, _) in observer.files)
-        relative = {pid for (pid, _, root, _, root_path, resolved) in observer.files if root and root_path and resolved == expected}
+        pids = sorted({pid for (pid, _, _, _, _, resolved, _) in observer.files if resolved == expected})
+        apis = sorted({api for (_, api, _, _, _, resolved, _) in observer.files if resolved == expected})
+        counted_unicode = not any("SENTINEL_OUTSIDE_UNICODE_STRING_LENGTH" in path for (_, _, _, path, _, _, _) in observer.files)
+        relative = {pid for (pid, _, root, _, root_path, resolved, _) in observer.files if root and root_path and resolved == expected}
+        pipe_pids = {pid for (pid, _, root, path, _, _, kind) in observer.files if root and not path and kind == "pipe"}
         result["fixture"] = {"expected_path": str(args.expect_path.resolve()), "observed_pids": pids,
                              "observed_apis": apis, "counted_unicode_correct": counted_unicode,
                              "relative_path_observed_pids": sorted(relative),
+                             "nonfilesystem_pipe_observed_pids": sorted(pipe_pids),
                              "passed": len(pids) >= 2 and apis == ["NtCreateFile", "NtOpenFile"] and counted_unicode
-                                       and relative == set(pids) and all(pid in observer.armed for pid in pids)}
+                                       and relative == set(pids) and pipe_pids == set(pids) and all(pid in observer.armed for pid in pids)}
     base_verified = (not timed_out and process.returncode == 0 and not result["debugger_errors"]
                      and result["file_open_calls"] > 0 and observer.processes == set(observer.armed)
                      and result["relative_root_unresolved_calls"] == 0)

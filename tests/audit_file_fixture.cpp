@@ -65,6 +65,36 @@ bool open_relative_native_path(const wchar_t* path) {
     return ok;
 }
 
+bool open_empty_native_pipe() {
+    using Open = NTSTATUS(NTAPI*)(PHANDLE, ACCESS_MASK, POBJECT_ATTRIBUTES,
+                                 PIO_STATUS_BLOCK, ULONG, ULONG);
+    const auto open = reinterpret_cast<Open>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "NtOpenFile"));
+    if (!open) return false;
+    HANDLE read{}, write{};
+    if (!CreatePipe(&read, &write, nullptr, 0)) return false;
+    wchar_t empty{};
+    UNICODE_STRING unicode{0, sizeof(empty), &empty};
+    OBJECT_ATTRIBUTES attributes{sizeof(attributes), read, &unicode, 0, nullptr, nullptr};
+    IO_STATUS_BLOCK status{};
+    HANDLE reopened{};
+    bool ok = GetFileType(read) == FILE_TYPE_PIPE && GetFileType(write) == FILE_TYPE_PIPE;
+    // Reopening an anonymous pipe may be rejected by Windows. The audit must
+    // still identify this native API argument as a pipe, never a disk asset.
+    if (open(&reopened, GENERIC_READ | SYNCHRONIZE, &attributes, &status, 7, 0x20) >= 0) {
+        ok = ok && GetFileType(reopened) == FILE_TYPE_PIPE;
+        CloseHandle(reopened);
+    }
+    attributes.RootDirectory = write;
+    const bool write_ok = open(&reopened, GENERIC_WRITE | SYNCHRONIZE, &attributes, &status, 7, 0x20) >= 0;
+    if (write_ok) {
+        ok = ok && GetFileType(reopened) == FILE_TYPE_PIPE;
+        CloseHandle(reopened);
+    }
+    CloseHandle(read);
+    CloseHandle(write);
+    return ok;
+}
+
 int wmain(int argc, wchar_t** argv) {
     if (argc < 2 || argc > 3) return 2;
     HANDLE file = CreateFileW(argv[1], GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
@@ -76,6 +106,7 @@ int wmain(int argc, wchar_t** argv) {
     if (!ok) return 4;
     if (!open_counted_native_path(argv[1])) return 7;
     if (!open_relative_native_path(argv[1])) return 8;
+    if (!open_empty_native_pipe()) return 9;
     if (argc == 3) return 0;
     wchar_t executable[32768]{};
     if (!GetModuleFileNameW(nullptr, executable, 32768)) return 5;

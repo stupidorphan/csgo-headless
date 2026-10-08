@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "result": "passed",
+  "network_connections": 0,
+  "method": "Private x86 CDB -o native-file-open breakpoints",
+  "provenance": {
+    "date_utc": "2026-10-08",
+    "auditor_source": {
+      "path": "tools/audit_runtime_files.py",
+      "sha256": "b426f9c83f0f711c89adc953d540f7d2a4b61221b8dd6cbfcc6f283132f7f331"
+    },
+    "fixture_source": {
+      "path": "tests/audit_file_fixture.cpp",
+      "sha256": "be8395100aa0ef3ad1f60c5bb00875c8b0c6964c8eba69d478b85f7e88cd69b8"
+    },
+    "fixture_executable_sha256": "4ef996eabc1283799a84c45a0b7523130b7558a7c53f90f721b2b8a6efc0e63d",
+    "target_architecture": "x86",
+    "compiler": "MSVC 19.44.35228.0",
+    "windows_sdk": "10.0.26100.0",
+    "cdb": "10.0.26100.6584 x86",
+    "fixture_file": "<workspace>/artifacts/file-audit-fixture/Counter-Strike Global Offensive/csgo/maps/audit_fake_map.bsp",
+    "fixture_file_sha256": "80b12f245dfe00110979a4e46a4725581a61f7e7dcb821a841417ddc93287323",
+    "fixture_file_origin": "Artificial positive control created by this project; no Valve asset contents."
+  },
+  "observations": {
+    "process_count": 2,
+    "armed_process_count": 2,
+    "file_open_calls": 180,
+    "positive_fake_installation_calls": 12,
+    "relative_root_calls": 12,
+    "relative_root_path_resolved_calls": 6,
+    "relative_root_nonfilesystem_calls": 6,
+    "relative_root_unresolved_calls": 0,
+    "debugger_exit_code": 0,
+    "debugger_errors": {},
+    "elapsed_seconds": 13.188
+  },
+  "checks": {
+    "parent_child_capture": true,
+    "absolute_and_relative_NtCreateFile_and_NtOpenFile": true,
+    "counted_unicode_excludes_sentinel": true,
+    "empty_directory_name_reopens_resolve_to_directory": true,
+    "anonymous_pipe_empty_name_arguments_classified_by_GetFileType": true,
+    "FILE_TYPE_PIPE_value_from_Windows_SDK": 3,
+    "unknown_and_disk_roots_without_names_remain_unresolved": true,
+    "nonempty_pipe_paths_without_names_remain_unresolved": true,
+    "root_handle_reuse_does_not_reuse_old_names": true
+  },
+  "coverage": {
+    "native_apis": [
+      "NtCreateFile",
+      "NtOpenFile"
+    ],
+    "child_processes": true,
+    "x86_object_attributes_name_offset": 8,
+    "x86_stack_object_attributes_argument_offset": 12,
+    "unicode": "CDB %msu reads the counted UNICODE_STRING, not file contents.",
+    "limitations": [
+      "File opens before CDB's initial breakpoint are not intercepted; module snapshots cover loaded images.",
+      "RootDirectory names are queried synchronously for each call while CDB keeps the target stopped; unresolved relative calls prevent verification.",
+      "Only positively identified pipe/character handles with empty relative names are classified as non-filesystem; missing disk/unknown names remain unresolved.",
+      "This observes native API arguments, not successful read lengths or direct system calls that bypass ntdll exports.",
+      "Steam client's separate process is outside the core/helper audit."
+    ]
+  }
+}
