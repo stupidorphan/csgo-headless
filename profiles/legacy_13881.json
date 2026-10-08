@@ -139278,7 +139278,7 @@
       "server": "151.243.93.16:27015",
       "send_table_crc": 1008201905
     },
-    "client_info_evidence_sha256": "acb3ae0f1f959a7b0c4bc18432de7ccd0557f9a9b9741018019b3e752527df25"
+    "client_info_evidence_sha256": "164aafa79f5c6e17e7820fce7617e0eb49698860cde07ef7a87e4fa333a00174"
   },
   "integrity_records": [
     {
@@ -146589,5 +146589,17 @@
     "dictionary_source": null,
     "bsp_sha256": "4cb31788138e06a2f64ef1a1c41ae816bdc7a7461ec53a16512e12f3bc5ffd55",
     "bsp_bytes": 45998764
-  }
+  },
+  "cvar_responses": [
+    {
+      "name": "cl_language",
+      "status": 0,
+      "value": "english"
+    },
+    {
+      "name": "cl_lagcompensation",
+      "status": 0,
+      "value": "1"
+    }
+  ]
 }

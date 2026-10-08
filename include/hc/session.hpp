@@ -5,6 +5,7 @@
 #include <memory>
 #include <nlohmann/json.hpp>
 #include "hc/proto.hpp"
+#include "hc/netchannel.hpp"
 namespace hc {
 using Json=nlohmann::json;
 struct ClientConfig {
@@ -13,6 +14,7 @@ struct ClientConfig {
     std::filesystem::path profile="profiles/legacy_13881.json";
     std::filesystem::path auth_helper;
     bool trace=false;
+    bool replay_only=false;
 };
 class Session {
 public:
@@ -23,6 +25,8 @@ public:
     void poll();
     void disconnect(std::string reason="client disconnect");
     Json status() const;
+    void replay_message(uint32_t type,const Proto& message);
+    std::vector<Bytes> replay_step(int32_t command_tick);
 private:
     struct Impl;
     std::unique_ptr<Impl> impl_;

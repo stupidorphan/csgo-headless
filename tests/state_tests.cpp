@@ -220,6 +220,61 @@ void metadata_tests() {
     cyclic["send_tables"][2]["props"].push_back(base);
     rejects([&] { state.load_profile(cyclic); }, "cyclic send tables rejected");
 }
+void user_message_tests() {
+    State state;
+    auto message = [&](unsigned type, const ProtoWriter& body) {
+        ProtoWriter envelope;
+        envelope.u32(1, type).bytes(2, body.data());
+        check(state.consume(23, Proto(envelope.data()), 123), "user message handled");
+        auto events = state.take_events();
+        check(events.size() == 1 && events[0]["tick"] == 123, "user message carries server tick");
+        // Server plugins sometimes send non-UTF8 decorative bytes. An event
+        // must remain valid JSON even when preserving its raw string fields.
+        check(Json::parse(events[0].dump()) == events[0], "user message is UTF8-safe JSON");
+        return events[0];
+    };
+    std::string colored = "\x01" "cotton \x03" "Warning! You need cl_lagcompensation 1. \x01";
+    colored += static_cast<char>(0xb7);
+    ProtoWriter text;
+    text.u32(1, 4).string(2, "obsolete field must not be treated as params").string(3, colored).string(3, "").string(3, "");
+    auto event = message(7, text);
+    const auto readable = event["text"].get<std::string>();
+    check(readable.find("Warning! You need cl_lagcompensation 1.") != std::string::npos,
+          "TextMsg decodes actual repeated field3 into readable plugin feedback");
+    check(readable.find('\x01') == std::string::npos && readable.find('\x03') == std::string::npos,
+          "display text removes Source chat colors");
+    check(event["params"].size() == 3 && event["destination"] == 4, "TextMsg preserves exact parameter count and destination");
+    ProtoWriter connected;
+    connected.string(3, "#Game_connected").string(3, "Alice").string(3, "");
+    event = message(7, connected);
+    check(event["text"] == "#Game_connected: Alice", "untranslated localization token retains readable values");
+    ProtoWriter say;
+    say.i32(1, 3).string(2, "\x03" "Alice: hello" "\x01").u32(3, 1).u32(4, 1);
+    event = message(5, say);
+    check(event["text"] == "Alice: hello" && event["entity_index"] == 3 && event["chat"] == true &&
+          event["all_chat"] == true, "SayText field2 and chat flags decoded");
+    ProtoWriter say2;
+    say2.i32(1, 4).u32(2, 1).string(3, "%s1: %s2").string(4, "Alice").string(4, "\x03" "Hello" "\x01").u32(5, 0);
+    event = message(6, say2);
+    check(event["text"] == "Alice: Hello" && event["message_name"] == "%s1: %s2" && event["params"].size() == 2 &&
+          event["chat"] == true && event["all_chat"] == false, "SayText2 actual params field4 substitutes numbered strings");
+    ProtoWriter numeric;
+    numeric.string(3, "Cost %d1; %s2; %%").string(3, "500").string(3, "ready");
+    event = message(7, numeric);
+    check(event["text"] == "Cost 500; ready; %", "TextMsg supports numbered values and literal percent");
+    ProtoWriter pos, color, hud;
+    pos.float32(1, 0.25f).float32(2, 0.5f);
+    color.u32(1, 255).u32(2, 0).u32(3, 128).u32(4, 255);
+    hud.i32(1, 2).message(2, pos).message(3, color).i32(5, 1).float32(9, 2.5f).string(11, "\x04" "HUD line\nSecond line");
+    event = message(8, hud);
+    check(event["text"] == "HUD line\nSecond line" && event["channel"] == 2 && event["hold_time"] == 2.5 &&
+          event["position"] == Json::array({0.25, 0.5}) && event["color1"] == Json::array({255, 0, 128, 255}),
+          "HudMsg decodes text11 and presentation fields while preserving line breaks");
+    ProtoWriter hint;
+    hint.string(1, "AWP: restricted\nHS-only: off");
+    event = message(23, hint);
+    check(event["text"] == "AWP: restricted\nHS-only: off", "HintText emits readable string instead of text array");
+}
 void usercmd_tests() {
     UserCmd zero, neutral;
     neutral.command_number = neutral.tick_count = 1;
@@ -394,7 +449,7 @@ int main(int argc, char** argv) {
     try {
         if (argc == 3) return replay(argv[1], argv[2]);
         check(argc == 1, "usage: state-tests [PROFILE_JSON CAPTURE_JSONL]");
-        state_tests(); metadata_tests(); usercmd_tests(); std::cout << "state/usercmd tests passed\n"; return 0;
+        state_tests(); metadata_tests(); usercmd_tests(); user_message_tests(); std::cout << "state/usercmd tests passed\n"; return 0;
     }
     catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
 }

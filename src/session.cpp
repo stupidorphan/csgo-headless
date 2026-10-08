@@ -32,7 +32,7 @@ Bytes unhex(std::string_view s){if(s.size()%2)throw WireError("invalid metadata 
 Proto make_userinfo(std::string_view name,uint32_t rate){
     if(name.empty()||name.size()>63||std::any_of(name.begin(),name.end(),[](unsigned char c){return c<32;}))throw std::runtime_error("Invalid player name");
     ProtoWriter vars;
-    std::vector<std::pair<std::string,std::string>> values={{"name",std::string(name)},{"rate","786432"},{"cl_updaterate",std::to_string(rate)},{"cl_cmdrate",std::to_string(rate)},{"cl_interp","0"},{"cl_interp_ratio","2"},{"cl_predict","0"},{"cl_predictweapons","0"},{"cl_lagcompensation","1"},{"cl_dlmax","1200"},{"cl_downloadfilter","none"}};
+    std::vector<std::pair<std::string,std::string>> values={{"name",std::string(name)},{"rate","786432"},{"cl_updaterate",std::to_string(rate)},{"cl_cmdrate",std::to_string(rate)},{"cl_interp","0.03125"},{"cl_interp_ratio","2"},{"cl_predict","1"},{"cl_predictweapons","1"},{"cl_lagcompensation","1"},{"cl_language","english"},{"cl_dlmax","1200"},{"cl_downloadfilter","none"}};
     for(auto&[k,v]:values){ProtoWriter cv;cv.string(1,k).string(2,v);vars.message(1,cv);}
     ProtoWriter user;user.message(1,vars);return Proto(user.data());
 }
@@ -50,7 +50,7 @@ struct Session::Impl {
     uint32_t challenge=0;Bytes connect_packet;Clock::time_point started{},last_received{},last_challenge{},next_send{},last_tick_time{};
     std::deque<UserCmd> backups;bool paused=false,awaiting_full_update=false;uint64_t rx=0,tx=0;std::string last_error;size_t integrity_cursor=0;Clock::time_point next_integrity{};
     Impl(ClientConfig c,EventSink e):config(std::move(c)),sink(std::move(e)),auth(config.auth_helper) {
-        WSADATA d{};if(WSAStartup(MAKEWORD(2,2),&d))throw std::runtime_error("Winsock initialization failed");wsa=true;
+        if(!config.replay_only){WSADATA d{};if(WSAStartup(MAKEWORD(2,2),&d))throw std::runtime_error("Winsock initialization failed");wsa=true;}
         std::ifstream f(config.profile);if(!f)throw std::runtime_error("Cannot open metadata profile: "+config.profile.string());f>>profile;
         if(profile.value("host_version",0u)!=host_version)throw std::runtime_error("Profile must match Legacy host version 13881");
         state.load_profile(profile);
@@ -66,8 +66,10 @@ struct Session::Impl {
         auth.close();if(!credentials.ticket.empty())SecureZeroMemory(credentials.ticket.data(),credentials.ticket.size());credentials={};
         bool was=signon!=0;signon=0;input.reset();backups.clear();channel.reset();state.reset();spawn_count=-1;paused=false;awaiting_full_update=false;integrity_cursor=0;if(!connect_packet.empty())SecureZeroMemory(connect_packet.data(),connect_packet.size());connect_packet.clear();
         if(was)emit("disconnected",{{"reason",reason}});
+        tick=0;last_tick_time={};interval=1.0f/64;
     }
     void begin(){
+        if(config.replay_only)throw std::runtime_error("Replay sessions cannot open a live connection");
         close("reconnect");
         if(!profile.contains("send_table_crc")||!profile["send_table_crc"].is_number_unsigned()||profile["send_table_crc"].get<uint32_t>()==0||!profile.contains("entity_schema")||profile["entity_schema"].value("classes",Json::array()).empty()||!profile.value("bootstrap",Json::object()).value("stock_signon_verified",false)||!profile.value("bootstrap",Json::object()).value("send_table_crc_verified",false))throw std::runtime_error("Bootstrap incomplete: extract a matching demo schema and captured client-info checksum first");
         if(!profile.value("integrity",Json::object()).value("requirements_verified",false))throw std::runtime_error("Bootstrap incomplete: integrity requirements are not verified");
@@ -126,7 +128,7 @@ struct Session::Impl {
         else if(m.type==16)emit("print",{{"text",p.get_string(1)}});
         else if(m.type==11){paused=p.get_u32(1)!=0;emit("pause",{{"paused",paused}});}
         else if(m.type==19){auto angles=p.get_messages(2);if(!angles.empty()){Json a={{"pitch",angles[0].get_float(1)},{"yaw",angles[0].get_float(2)},{"duration_ticks",1}};input.set(a);}}
-        else if(m.type==31){std::string name=p.get_string(2);std::string val;uint32_t code=1;auto vars=make_userinfo(config.name,uint32_t(std::round(1/interval))).get_messages(1);if(!vars.empty())for(auto&cv:vars[0].get_messages(1))if(cv.get_string(1)==name){val=cv.get_string(2);code=0;break;}ProtoWriter response;response.u32(1,p.get_u32(1)).u32(2,code).string(3,name).string(4,val);queue(13,Proto(response.data()));}
+        else if(m.type==31){std::string name=p.get_string(2);std::string val;uint32_t code=1;auto vars=make_userinfo(config.name,uint32_t(std::round(1/interval))).get_messages(1);if(!vars.empty())for(auto&cv:vars[0].get_messages(1))if(cv.get_string(1)==name){val=cv.get_string(2);code=0;break;}if(config.trace)std::cerr<<"cvar_query name="<<name<<" status="<<code<<" value="<<val<<'\n';ProtoWriter response;response.u32(1,p.get_u32(1)).u32(2,code).string(3,name).string(4,val);queue(13,Proto(response.data()));}
         bool consumed=state.consume(m.type,p,tick);
         for(auto&[type,out]:state.take_outgoing())queue(type,out);
         for(auto&e:state.take_events())if(sink)sink(e);
@@ -167,6 +169,17 @@ Session::~Session()=default;
 void Session::poll(){impl_->poll();}
 void Session::disconnect(std::string r){impl_->close(std::move(r));}
 Json Session::status()const{auto result=impl_->state.status();result["connection"]={{"state",signon_names[impl_->signon]},{"signon",impl_->signon},{"server",impl_->config.server},{"tick",impl_->tick},{"received_packets",impl_->rx},{"sent_packets",impl_->tx},{"last_error",impl_->last_error}};return result;}
+void Session::replay_message(uint32_t type,const Proto& p){
+    if(!impl_->config.replay_only)throw std::logic_error("Offline replay requires replay_only configuration");
+    try{impl_->consume({type,p.data()});}catch(const std::exception&e){impl_->last_error=e.what();impl_->emit("error",{{"message",impl_->last_error}});impl_->close(impl_->last_error);}
+}
+std::vector<Bytes> Session::replay_step(int32_t command_tick){
+    if(!impl_->config.replay_only)throw std::logic_error("Offline replay requires replay_only configuration");
+    if(impl_->signon<2)return {};
+    ProtoWriter ack;ack.i32(1,impl_->awaiting_full_update?-1:impl_->state.entity_tick());std::vector<Message> messages{{4,ack.take()}};
+    if(impl_->signon==6&&!impl_->paused){auto command=impl_->input.next(command_tick);std::vector<UserCmd> backup(impl_->backups.begin(),impl_->backups.end());std::array<UserCmd,1> fresh{command};messages.push_back({9,make_move(backup,fresh).data()});impl_->backups.push_back(command);while(impl_->backups.size()>2)impl_->backups.pop_front();}
+    return impl_->channel.send(messages);
+}
 Json Session::command(std::string_view op,const Json&a){
     if(!a.is_object())throw std::runtime_error("args must be an object");
     if(op=="connect"){try{impl_->begin();}catch(...){impl_->close("connection initialization failed");throw;}return {{"state","connecting"}};}
@@ -175,7 +188,7 @@ Json Session::command(std::string_view op,const Json&a){
     if(impl_->signon!=6)throw std::runtime_error("Gameplay commands require full signon");
     if(op=="input")impl_->input.set(a);
     else if(op=="weapon"){auto entity=a.at("entity").get<unsigned>();if(entity==0||entity>=2048)throw std::runtime_error("Weapon entity must be 1..2047");impl_->input.select_weapon(uint16_t(entity));}
-    else if(op=="team"){auto team=a.at("team").get<std::string>();int id=team=="T"||team=="t"?2:team=="CT"||team=="ct"?3:team=="spectator"?1:0;if(!id)throw std::runtime_error("Team must be T, CT, or spectator");impl_->stringcmd("jointeam "+std::to_string(id));}
+    else if(op=="team"){auto team=a.at("team").get<std::string>();int id=team=="T"||team=="t"?2:team=="CT"||team=="ct"?3:team=="spectator"?1:0;if(!id)throw std::runtime_error("Team must be T, CT, or spectator");impl_->stringcmd("jointeam "+std::to_string(id)+" 1");}
     else if(op=="buy"){auto item=a.at("item").get<std::string>();if(item.empty()||item.size()>64||!std::all_of(item.begin(),item.end(),[](unsigned char c){return std::isalnum(c)||c=='_';}))throw std::runtime_error("Invalid buy item");impl_->stringcmd("buy "+item);}
     else if(op=="say"||op=="say_team")impl_->stringcmd(std::string(op)+" "+command_quote(a.at("text").get<std::string>()));
     else throw std::runtime_error("Unknown operation: "+std::string(op));

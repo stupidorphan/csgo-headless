@@ -49,6 +49,82 @@ Json opaque_fields(const Proto& message) {
     }
     return result;
 }
+std::string utf8_safe(std::string_view input) {
+    std::string result;
+    result.reserve(input.size());
+    for (std::size_t i = 0; i < input.size();) {
+        const auto first = static_cast<unsigned char>(input[i]);
+        unsigned length = 0;
+        std::uint32_t scalar = 0;
+        if (first < 0x80) { result += input[i++]; continue; }
+        if (first >= 0xc2 && first <= 0xdf) { length = 2; scalar = first & 31u; }
+        else if (first >= 0xe0 && first <= 0xef) { length = 3; scalar = first & 15u; }
+        else if (first >= 0xf0 && first <= 0xf4) { length = 4; scalar = first & 7u; }
+        bool valid = length && i + length <= input.size();
+        if (valid) {
+            for (unsigned j = 1; j < length; ++j) {
+                const auto next = static_cast<unsigned char>(input[i + j]);
+                if ((next & 0xc0) != 0x80) { valid = false; break; }
+                scalar = (scalar << 6) | (next & 63u);
+            }
+            valid = valid && scalar <= 0x10ffff && !(scalar >= 0xd800 && scalar <= 0xdfff) &&
+                !(length == 3 && scalar < 0x800) && !(length == 4 && scalar < 0x10000);
+        }
+        if (valid) { result.append(input.substr(i, length)); i += length; }
+        else { result += "\xef\xbf\xbd"; ++i; }
+    }
+    return result;
+}
+std::string display_text(std::string_view input) {
+    std::string visible;
+    visible.reserve(input.size());
+    // Source chat embeds palette indexes as control bytes. Preserve actual
+    // line breaks/tabs, while removing color tags and terminal control bytes.
+    for (const auto character : input) {
+        const auto byte = static_cast<unsigned char>(character);
+        if ((byte >= 32 && byte != 127) || byte == '\n' || byte == '\t') visible += character;
+    }
+    return utf8_safe(visible);
+}
+std::vector<std::string> text_parameters(const Proto& message, std::uint32_t field) {
+    std::vector<std::string> result;
+    for (const auto& value : message.fields(field)) {
+        if (value.wire_type == 2) result.push_back(utf8_safe(std::string(value.data.begin(), value.data.end())));
+    }
+    return result;
+}
+std::string format_text(const std::string& raw, const std::vector<std::string>& parameters) {
+    const auto format = display_text(raw);
+    std::string result;
+    std::size_t positional = 0;
+    bool substituted = false;
+    for (std::size_t i = 0; i < format.size();) {
+        if (format[i] == '%' && i + 1 < format.size()) {
+            if (format[i + 1] == '%') { result += '%'; i += 2; continue; }
+            if (format[i + 1] == 's' || format[i + 1] == 'd') {
+                std::size_t next = i + 2, index = positional;
+                if (next < format.size() && format[next] >= '1' && format[next] <= '9') index = format[next++] - '1';
+                else ++positional;
+                if (index < parameters.size()) {
+                    result += display_text(parameters[index]);
+                    i = next; substituted = true; continue;
+                }
+            }
+        }
+        result += format[i++];
+    }
+    // A localization key requires derived localization metadata to translate.
+    // Preserve an intelligible key and its values instead of dropping either.
+    if (!substituted) {
+        for (const auto& parameter : parameters) {
+            const auto text = display_text(parameter);
+            if (text.empty()) continue;
+            if (!result.empty()) result += result == format ? ": " : " | ";
+            result += text;
+        }
+    }
+    return result;
+}
 struct Prop {
     int type{};
     std::string name, table, path;
@@ -708,10 +784,60 @@ bool State::consume(std::uint32_t type, const Proto& message, std::int32_t tick)
             const auto data = message.get_bytes(2);
             const Proto body(data);
             Json value{{"type", "user_message"}, {"message_type", subtype}, {"fields", opaque_fields(body)}};
-            if (subtype == 5 || subtype == 6) { value["entity_index"] = body.get_u32(1); value["text"] = body.get_string(subtype == 5 ? 2 : 3); }
-            else if (subtype == 7 || subtype == 23) {
-                Json text = Json::array();
-                for (const auto& field : body.fields(subtype == 7 ? 2 : 1)) text.push_back(std::string(field.data.begin(), field.data.end()));
+            if (subtype == 5) {
+                const auto raw = body.get_string(2);
+                value["entity_index"] = body.get_i32(1);
+                value["chat"] = body.get_u32(3) != 0;
+                value["all_chat"] = body.get_u32(4) != 0;
+                value["raw_text"] = utf8_safe(raw);
+                value["text"] = display_text(raw);
+            } else if (subtype == 6) {
+                const auto name = utf8_safe(body.get_string(3));
+                const auto parameters = text_parameters(body, 4);
+                value["entity_index"] = body.get_i32(1);
+                value["chat"] = body.get_u32(2) != 0;
+                value["all_chat"] = body.get_u32(5) != 0;
+                value["message_name"] = name;
+                value["params"] = parameters;
+                value["text"] = format_text(name, parameters);
+            } else if (subtype == 7) {
+                const auto parameters = text_parameters(body, 3);
+                value["destination"] = body.get_i32(1);
+                value["params"] = parameters;
+                const auto name = parameters.empty() ? std::string{} : parameters.front();
+                value["message_name"] = name;
+                const auto arguments = parameters.empty() ? std::vector<std::string>{} :
+                    std::vector<std::string>(parameters.begin() + 1, parameters.end());
+                value["text"] = format_text(name, arguments);
+            } else if (subtype == 8) {
+                const auto raw = body.get_string(11);
+                value["channel"] = body.get_i32(1);
+                value["effect"] = body.get_i32(5);
+                value["fade_in_time"] = body.get_float(6);
+                value["fade_out_time"] = body.get_float(7);
+                value["hold_time"] = body.get_float(9);
+                value["fx_time"] = body.get_float(10);
+                value["raw_text"] = utf8_safe(raw);
+                value["text"] = display_text(raw);
+                const auto position = body.get_messages(2);
+                if (!position.empty()) value["position"] = Json::array({position[0].get_float(1), position[0].get_float(2)});
+                for (unsigned i = 3; i <= 4; ++i) {
+                    const auto colors = body.get_messages(i);
+                    if (!colors.empty()) value[i == 3 ? "color1" : "color2"] = Json::array({
+                        colors[0].get_u32(1), colors[0].get_u32(2), colors[0].get_u32(3), colors[0].get_u32(4)});
+                }
+            } else if (subtype == 4 || subtype == 23) {
+                const auto raw = body.get_string(1);
+                value["raw_text"] = utf8_safe(raw);
+                value["text"] = display_text(raw);
+            } else if (subtype == 24) {
+                const auto parameters = text_parameters(body, 1);
+                std::string text;
+                for (const auto& parameter : parameters) {
+                    if (!text.empty()) text += '\n';
+                    text += display_text(parameter);
+                }
+                value["params"] = parameters;
                 value["text"] = std::move(text);
             }
             impl_->event(std::move(value));

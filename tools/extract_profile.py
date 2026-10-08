@@ -345,6 +345,30 @@ def reconcile_integrity(profile: dict, evidence: dict | None = None,
         profile["integrity"]["coverage"]["capture_sha256"] = evidence["capture_sha256"]
 
 
+def cvar_responses(observed: list[dict]) -> list[dict]:
+    # Retain protocol behavior only; identity, passwords, session IDs and other
+    # user-specific console variables cannot enter the portable profile.
+    allowed = {"cl_language", "cl_lagcompensation", "cl_interp", "cl_interp_ratio", "cl_interpolate",
+               "cl_predict", "cl_predictweapons", "cl_updaterate", "cl_cmdrate", "rate", "cl_dlmax", "cl_downloadfilter"}
+    if not isinstance(observed, list):
+        raise FormatError("invalid captured cvar response table")
+    result = {}
+    for response in observed:
+        if not isinstance(response, dict):
+            raise FormatError("invalid captured cvar response")
+        name = response.get("name")
+        if name not in allowed:
+            continue
+        status, value = response.get("status", response.get("status_code")), response.get("value")
+        if isinstance(status, bool) or status not in (0, 1, 2, 3) or not isinstance(value, str) or len(value) > 256:
+            raise FormatError("invalid captured cvar response fields")
+        sanitized = {"name": name, "status": status, "value": value}
+        if name in result and result[name] != sanitized:
+            raise FormatError(f"conflicting captured cvar responses: {name}")
+        result[name] = sanitized
+    return list(result.values())
+
+
 def merge_profile(profile: dict, demo_data: bytes, client_info: dict | None = None,
                   stock_signon_verified: bool = False, integrity: dict | None = None,
                   game: Path | None = None) -> dict:
@@ -371,6 +395,8 @@ def merge_profile(profile: dict, demo_data: bytes, client_info: dict | None = No
         bootstrap["client_info_evidence"] = {key: client_info[key] for key in
                                              ("host_version", "server", "server_count", "send_table_crc", "capture_sha256") if key in client_info}
     reconcile_integrity(profile, client_info, integrity, game)
+    if client_info is not None and "cvar_responses" in client_info:
+        profile["cvar_responses"] = cvar_responses(client_info["cvar_responses"])
     return profile
 
 

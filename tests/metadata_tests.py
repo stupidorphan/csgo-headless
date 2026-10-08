@@ -183,6 +183,18 @@ class MetadataTests(unittest.TestCase):
             self.assertTrue(records[0]["source_verified"])
             self.assertEqual(records[0]["source"]["file"], "platform/platform_pak01_dir.vpk")
 
+    def test_cvar_profile_keeps_protocol_values_and_discards_sensitive_fields(self):
+        observed = [{"name": "cl_language", "status": 0, "value": "english", "cookie": 123},
+                    {"name": "cl_lagcompensation", "status": 0, "value": "1"},
+                    {"name": "password", "status": 0, "value": "secret"},
+                    {"name": "name", "status": 0, "value": "Private person"}]
+        result = profile.cvar_responses(observed)
+        self.assertEqual(len(result), 2)
+        self.assertNotIn("secret", json.dumps(result))
+        self.assertNotIn("cookie", result[0])
+        with self.assertRaisesRegex(metadata.FormatError, "conflicting captured cvar"):
+            profile.cvar_responses(result + [{"name": "cl_lagcompensation", "status": 0, "value": "0"}])
+
     def test_integrity_conflicting_files_and_escaping_paths_rejected(self):
         records = [crc_record(), crc_record(content=b"ghijkl")]
         with self.assertRaisesRegex(metadata.FormatError, "conflicting captured integrity"):
