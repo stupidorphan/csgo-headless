@@ -1,0 +1,2026 @@
+{
+  "format": 1,
+  "host_version": 13881,
+  "server": "151.243.93.16:27015",
+  "executable_sha256": "b42d693bb49cf5b6e2b00b5760b6cd517dafc968fc91fee998da87264997b1d1",
+  "profile_sha256": "3e6b663c5e8e6e7955c4be3f82ba60679f9b4d7b74c9de32c86896da672365c1",
+  "state": "failed",
+  "connect_only": false,
+  "requested_soak_seconds": 1800,
+  "elapsed_seconds": 793.172,
+  "full_elapsed_seconds": 4.688,
+  "started_at": "2026-10-08T04:26:00.170614+00:00",
+  "finished_at": "2026-10-08T04:39:13.341623+00:00",
+  "full_signon": {
+    "tick": 787154,
+    "entity_tick": 787154,
+    "entity_count": 197,
+    "map": "cs_italy",
+    "needs_full_update": false,
+    "connection": {
+      "signon": 6,
+      "tick": 787154,
+      "received_packets": 135,
+      "sent_packets": 16,
+      "state": "full"
+    },
+    "local": {
+      "entity_index": 1,
+      "team": 0,
+      "health": 0,
+      "life_state": 2,
+      "armor": 0,
+      "money": 800,
+      "active_weapon_handle": 2097151,
+      "position": [
+        369.98199462890625,
+        2099.2900390625,
+        80.0
+      ],
+      "inventory": []
+    }
+  },
+  "team": {
+    "tick": 787215,
+    "entity_tick": 787215,
+    "entity_count": 201,
+    "map": "cs_italy",
+    "needs_full_update": false,
+    "connection": {
+      "signon": 6,
+      "tick": 787215,
+      "received_packets": 186,
+      "sent_packets": 66,
+      "state": "full"
+    },
+    "local": {
+      "entity_index": 1,
+      "team": 2,
+      "health": 100,
+      "life_state": 0,
+      "armor": 0,
+      "money": 800,
+      "active_weapon_handle": 1544412,
+      "position": [
+        357.0,
+        2162.0,
+        0.031249992549419403
+      ],
+      "inventory": [
+        {
+          "entity_index": 217,
+          "handle": 1366233,
+          "item_definition": 59,
+          "clip": -1,
+          "class": "CKnife"
+        },
+        {
+          "entity_index": 220,
+          "handle": 1544412,
+          "item_definition": 4,
+          "clip": 20,
+          "class": "CWeaponGlock"
+        }
+      ]
+    }
+  },
+  "spawn": {
+    "tick": 787667,
+    "entity_tick": 787667,
+    "entity_count": 201,
+    "map": "cs_italy",
+    "needs_full_update": false,
+    "connection": {
+      "signon": 6,
+      "tick": 787667,
+      "received_packets": 649,
+      "sent_packets": 497,
+      "state": "full"
+    },
+    "local": {
+      "entity_index": 1,
+      "team": 2,
+      "health": 100,
+      "life_state": 0,
+      "armor": 0,
+      "money": 800,
+      "active_weapon_handle": 534932,
+      "position": [
+        357.0,
+        2162.0,
+        0.031249992549419403
+      ],
+      "inventory": [
+        {
+          "entity_index": 402,
+          "handle": 657810,
+          "item_definition": 59,
+          "clip": -1,
+          "class": "CKnife"
+        },
+        {
+          "entity_index": 404,
+          "handle": 534932,
+          "item_definition": 4,
+          "clip": 20,
+          "class": "CWeaponGlock"
+        }
+      ]
+    }
+  },
+  "controls": {
+    "inventory": {
+      "state": "verified",
+      "server_inventory": [
+        {
+          "entity_index": 402,
+          "handle": 657810,
+          "item_definition": 59,
+          "clip": -1,
+          "class": "CKnife"
+        },
+        {
+          "entity_index": 404,
+          "handle": 534932,
+          "item_definition": 4,
+          "clip": 20,
+          "class": "CWeaponGlock"
+        }
+      ]
+    },
+    "use": {
+      "state": "verified",
+      "before": {
+        "tick": 787668,
+        "entity_tick": 787668,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787668,
+          "received_packets": 650,
+          "sent_packets": 497,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 0,
+          "money": 800,
+          "active_weapon_handle": 534932,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 787681,
+        "entity_tick": 787681,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787681,
+          "received_packets": 663,
+          "sent_packets": 511,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 0,
+          "money": 800,
+          "active_weapon_handle": 534932,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "server_event": {
+        "tick": 787676,
+        "type": "server_command",
+        "buy_menu_observed": true
+      }
+    },
+    "buy": {
+      "state": "verified",
+      "before": {
+        "tick": 787697,
+        "entity_tick": 787697,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787697,
+          "received_packets": 679,
+          "sent_packets": 527,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 0,
+          "money": 800,
+          "active_weapon_handle": 534932,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 787711,
+        "entity_tick": 787711,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787711,
+          "received_packets": 693,
+          "sent_packets": 537,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "server_event": {
+        "tick": 787707,
+        "event_id": 105,
+        "type": "game_event",
+        "name": "item_purchase",
+        "values": {
+          "team": 2,
+          "weapon": "item_kevlar"
+        }
+      }
+    },
+    "weapon": {
+      "state": "verified",
+      "before": {
+        "tick": 787713,
+        "entity_tick": 787713,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787713,
+          "received_packets": 695,
+          "sent_packets": 539,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 787725,
+        "entity_tick": 787725,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787725,
+          "received_packets": 707,
+          "sent_packets": 548,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      }
+    },
+    "aim": {
+      "state": "verified",
+      "before": {
+        "tick": 787727,
+        "entity_tick": 787727,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787727,
+          "received_packets": 709,
+          "sent_packets": 550,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 787740,
+        "entity_tick": 787740,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787740,
+          "received_packets": 722,
+          "sent_packets": 560,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      }
+    },
+    "movement": {
+      "state": "verified",
+      "before": {
+        "tick": 787756,
+        "entity_tick": 787756,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787756,
+          "received_packets": 738,
+          "sent_packets": 571,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 787769,
+        "entity_tick": 787769,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787769,
+          "received_packets": 751,
+          "sent_packets": 585,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            361.019775390625,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      }
+    },
+    "input_expiry": {
+      "state": "verified",
+      "positions": [
+        [
+          479.8952331542969,
+          2162.0,
+          0.03125
+        ],
+        [
+          479.8952331542969,
+          2162.0,
+          0.03125
+        ]
+      ]
+    },
+    "jump": {
+      "state": "verified",
+      "before": {
+        "tick": 787872,
+        "entity_tick": 787872,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787872,
+          "received_packets": 854,
+          "sent_packets": 687,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 787886,
+        "entity_tick": 787886,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787886,
+          "received_packets": 868,
+          "sent_packets": 701,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            24.24156951904297
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "server_event": {
+        "tick": 787880,
+        "event_id": 174,
+        "type": "game_event",
+        "name": "player_jump"
+      }
+    },
+    "crouch": {
+      "state": "verified",
+      "before": {
+        "tick": 787953,
+        "entity_tick": 787953,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787953,
+          "received_packets": 935,
+          "sent_packets": 767,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 787967,
+        "entity_tick": 787967,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 787967,
+          "received_packets": 949,
+          "sent_packets": 781,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 657810,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      }
+    },
+    "fire": {
+      "state": "verified",
+      "before": {
+        "tick": 788093,
+        "entity_tick": 788093,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 788093,
+          "received_packets": 1075,
+          "sent_packets": 900,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 788105,
+        "entity_tick": 788105,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 788105,
+          "received_packets": 1087,
+          "sent_packets": 910,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 19,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "server_event": {
+        "tick": 788102,
+        "event_id": 130,
+        "type": "game_event",
+        "name": "weapon_fire",
+        "values": {
+          "weapon": "weapon_glock",
+          "silenced": false
+        }
+      }
+    },
+    "reload": {
+      "state": "verified",
+      "before": {
+        "tick": 788120,
+        "entity_tick": 788120,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 788120,
+          "received_packets": 1102,
+          "sent_packets": 925,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 19,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "after": {
+        "tick": 788134,
+        "entity_tick": 788134,
+        "entity_count": 201,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 788134,
+          "received_packets": 1116,
+          "sent_packets": 939,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 19,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      "server_event": {
+        "tick": 788129,
+        "event_id": 134,
+        "type": "game_event",
+        "name": "weapon_reload"
+      }
+    },
+    "say": {
+      "state": "verified",
+      "echo_verified": true
+    },
+    "say_team": {
+      "state": "verified",
+      "echo_verified": true
+    }
+  },
+  "unverified_controls": [],
+  "gun_preparation": {
+    "deployment_wait_seconds": 1.547,
+    "next_attack": 12313.537109375,
+    "state": "verified"
+  },
+  "soak": {
+    "elapsed_seconds": 769.812,
+    "continuous_full": false,
+    "initial": {
+      "tick": 788360,
+      "entity_tick": 788360,
+      "entity_count": 201,
+      "map": "cs_italy",
+      "needs_full_update": false,
+      "connection": {
+        "signon": 6,
+        "tick": 788360,
+        "received_packets": 1342,
+        "sent_packets": 1160,
+        "state": "full"
+      },
+      "local": {
+        "entity_index": 1,
+        "team": 2,
+        "health": 100,
+        "life_state": 0,
+        "armor": 100,
+        "money": 150,
+        "active_weapon_handle": 534932,
+        "position": [
+          479.8952331542969,
+          2162.0,
+          0.03125
+        ],
+        "inventory": [
+          {
+            "entity_index": 402,
+            "handle": 657810,
+            "item_definition": 59,
+            "clip": -1,
+            "class": "CKnife"
+          },
+          {
+            "entity_index": 404,
+            "handle": 534932,
+            "item_definition": 4,
+            "clip": 20,
+            "class": "CWeaponGlock"
+          }
+        ]
+      }
+    },
+    "measurements": [
+      {
+        "tick": 788361,
+        "entity_tick": 788361,
+        "entity_count": 201,
+        "elapsed_seconds": 0.015,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 788361,
+          "received_packets": 1343,
+          "sent_packets": 1161,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      {
+        "tick": 790282,
+        "entity_tick": 790282,
+        "entity_count": 201,
+        "elapsed_seconds": 30.031,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 790282,
+          "received_packets": 3264,
+          "sent_packets": 3042,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      {
+        "tick": 792206,
+        "entity_tick": 792206,
+        "entity_count": 201,
+        "elapsed_seconds": 60.093,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 792206,
+          "received_packets": 5188,
+          "sent_packets": 4906,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      {
+        "tick": 794120,
+        "entity_tick": 794120,
+        "entity_count": 201,
+        "elapsed_seconds": 90.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 794120,
+          "received_packets": 7102,
+          "sent_packets": 6750,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 150,
+          "active_weapon_handle": 534932,
+          "position": [
+            479.8952331542969,
+            2162.0,
+            0.03125
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      {
+        "tick": 796048,
+        "entity_tick": 796048,
+        "entity_count": 200,
+        "elapsed_seconds": 120.14,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 796048,
+          "received_packets": 9030,
+          "sent_packets": 8548,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 534932,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      {
+        "tick": 797968,
+        "entity_tick": 797968,
+        "entity_count": 200,
+        "elapsed_seconds": 150.125,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 797968,
+          "received_packets": 10950,
+          "sent_packets": 10415,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 2,
+          "health": 100,
+          "life_state": 0,
+          "armor": 100,
+          "money": 16000,
+          "active_weapon_handle": 534932,
+          "position": [
+            357.0,
+            2162.0,
+            0.031249992549419403
+          ],
+          "inventory": [
+            {
+              "entity_index": 402,
+              "handle": 657810,
+              "item_definition": 59,
+              "clip": -1,
+              "class": "CKnife"
+            },
+            {
+              "entity_index": 404,
+              "handle": 534932,
+              "item_definition": 4,
+              "clip": 20,
+              "class": "CWeaponGlock"
+            }
+          ]
+        }
+      },
+      {
+        "tick": 799887,
+        "entity_tick": 799887,
+        "entity_count": 199,
+        "elapsed_seconds": 180.109,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 799887,
+          "received_packets": 12869,
+          "sent_packets": 12295,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 0,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 801810,
+        "entity_tick": 801810,
+        "entity_count": 199,
+        "elapsed_seconds": 210.156,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 801810,
+          "received_packets": 14792,
+          "sent_packets": 14182,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 0,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 803723,
+        "entity_tick": 803723,
+        "entity_count": 199,
+        "elapsed_seconds": 240.047,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 803723,
+          "received_packets": 16705,
+          "sent_packets": 16033,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 0,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 805649,
+        "entity_tick": 805649,
+        "entity_count": 197,
+        "elapsed_seconds": 270.14,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 805649,
+          "received_packets": 18631,
+          "sent_packets": 17913,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 807572,
+        "entity_tick": 807572,
+        "entity_count": 197,
+        "elapsed_seconds": 300.187,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 807572,
+          "received_packets": 20554,
+          "sent_packets": 19810,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 809483,
+        "entity_tick": 809483,
+        "entity_count": 197,
+        "elapsed_seconds": 330.047,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 809483,
+          "received_packets": 22465,
+          "sent_packets": 21653,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 811407,
+        "entity_tick": 811407,
+        "entity_count": 197,
+        "elapsed_seconds": 360.093,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 811407,
+          "received_packets": 24389,
+          "sent_packets": 23527,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 813330,
+        "entity_tick": 813330,
+        "entity_count": 197,
+        "elapsed_seconds": 390.14,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 813330,
+          "received_packets": 26312,
+          "sent_packets": 25379,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 815253,
+        "entity_tick": 815253,
+        "entity_count": 197,
+        "elapsed_seconds": 420.203,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 815253,
+          "received_packets": 28235,
+          "sent_packets": 27254,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 817160,
+        "entity_tick": 817160,
+        "entity_count": 197,
+        "elapsed_seconds": 450.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 817160,
+          "received_packets": 30142,
+          "sent_packets": 29096,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            357.0,
+            2162.0,
+            64.03125
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 819088,
+        "entity_tick": 819088,
+        "entity_count": 197,
+        "elapsed_seconds": 480.109,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 819088,
+          "received_packets": 32070,
+          "sent_packets": 30910,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 821003,
+        "entity_tick": 821003,
+        "entity_count": 197,
+        "elapsed_seconds": 510.047,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 821003,
+          "received_packets": 33985,
+          "sent_packets": 32701,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 822920,
+        "entity_tick": 822920,
+        "entity_count": 197,
+        "elapsed_seconds": 540.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 822920,
+          "received_packets": 35902,
+          "sent_packets": 34516,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 824853,
+        "entity_tick": 824853,
+        "entity_count": 197,
+        "elapsed_seconds": 570.203,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 824853,
+          "received_packets": 37835,
+          "sent_packets": 36310,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 826770,
+        "entity_tick": 826770,
+        "entity_count": 197,
+        "elapsed_seconds": 600.156,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 826770,
+          "received_packets": 39752,
+          "sent_packets": 38148,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 828693,
+        "entity_tick": 828693,
+        "entity_count": 197,
+        "elapsed_seconds": 630.187,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 828693,
+          "received_packets": 41675,
+          "sent_packets": 39979,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 830603,
+        "entity_tick": 830603,
+        "entity_count": 197,
+        "elapsed_seconds": 660.047,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 830603,
+          "received_packets": 43585,
+          "sent_packets": 41827,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 832521,
+        "entity_tick": 832521,
+        "entity_count": 197,
+        "elapsed_seconds": 690.0,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 832521,
+          "received_packets": 45503,
+          "sent_packets": 43695,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 834450,
+        "entity_tick": 834450,
+        "entity_count": 197,
+        "elapsed_seconds": 720.156,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 834450,
+          "received_packets": 47432,
+          "sent_packets": 45583,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      },
+      {
+        "tick": 836362,
+        "entity_tick": 836362,
+        "entity_count": 197,
+        "elapsed_seconds": 750.015,
+        "map": "cs_italy",
+        "needs_full_update": false,
+        "connection": {
+          "signon": 6,
+          "tick": 836362,
+          "received_packets": 49344,
+          "sent_packets": 47466,
+          "state": "full"
+        },
+        "local": {
+          "entity_index": 1,
+          "team": 1,
+          "health": 0,
+          "life_state": 2,
+          "armor": 0,
+          "money": 16000,
+          "active_weapon_handle": 2097151,
+          "position": [
+            -508.25457763671875,
+            -1721.0272216796875,
+            -239.96875
+          ],
+          "inventory": []
+        }
+      }
+    ]
+  },
+  "thirty_minute_soak_verified": false,
+  "error_present": true,
+  "failure_category": "server_afk_rejection",
+  "runtime_before": {
+    "verified": true,
+    "asset_file_reads_checked": false,
+    "stock_process_count": 0,
+    "processes": [],
+    "forbidden_module_count": 0
+  },
+  "runtime_full": {
+    "verified": true,
+    "asset_file_reads_checked": false,
+    "stock_process_count": 0,
+    "processes": [
+      {
+        "name": "headless-csgo",
+        "modules": [
+          {
+            "name": "headless-csgo.exe",
+            "sha256": "b42d693bb49cf5b6e2b00b5760b6cd517dafc968fc91fee998da87264997b1d1"
+          },
+          {
+            "name": "ntdll.dll",
+            "sha256": "5218dfb5908f016ef2f42caa385c7bec7fdd076f554388943b846b7251e2b0f1"
+          },
+          {
+            "name": "wow64.dll",
+            "sha256": "d20c5944463ad3017df8855b45b36fd3304c464fbc8a587ea6ae8dfd0d0ff722"
+          },
+          {
+            "name": "wow64cpu.dll",
+            "sha256": "f38b3a12ba7d4e916f6dd73d9e648deb2f4f27c351381848914fc972106b212c"
+          },
+          {
+            "name": "wow64win.dll",
+            "sha256": "1d071ae573eb9fa5cafdc8e014f363a4e11a440580a91b39ee7e3d1b9811e963"
+          }
+        ]
+      },
+      {
+        "name": "steam_auth_helper",
+        "modules": [
+          {
+            "name": "ntdll.dll",
+            "sha256": "5218dfb5908f016ef2f42caa385c7bec7fdd076f554388943b846b7251e2b0f1"
+          },
+          {
+            "name": "steam_auth_helper.exe",
+            "sha256": "891a49bdda100d4b4a2b8d65984a2b0fdcfa1b655b1ea98dc2eac101be121ec5"
+          },
+          {
+            "name": "wow64.dll",
+            "sha256": "d20c5944463ad3017df8855b45b36fd3304c464fbc8a587ea6ae8dfd0d0ff722"
+          },
+          {
+            "name": "wow64cpu.dll",
+            "sha256": "f38b3a12ba7d4e916f6dd73d9e648deb2f4f27c351381848914fc972106b212c"
+          },
+          {
+            "name": "wow64win.dll",
+            "sha256": "1d071ae573eb9fa5cafdc8e014f363a4e11a440580a91b39ee7e3d1b9811e963"
+          }
+        ]
+      }
+    ],
+    "forbidden_module_count": 0
+  },
+  "source_report_sha256": "c095cd6d9e9fedc5048d5d631c1833b4ddda5de19234283c9e171785c7667b14"
+}
