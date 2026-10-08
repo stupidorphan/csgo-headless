@@ -51,6 +51,8 @@ void write_usercmd_delta(BitWriter& out, const UserCmd& to, const UserCmd& from)
         delta_int(out, to.weaponsubtype, from.weaponsubtype, 6);
     delta_int(out, static_cast<std::uint16_t>(to.mousedx), static_cast<std::uint16_t>(from.mousedx), 16);
     delta_int(out, static_cast<std::uint16_t>(to.mousedy), static_cast<std::uint16_t>(from.mousedy), 16);
+    for (std::size_t i = 0; i < 3; ++i) delta_float(out, to.headangles[i], from.headangles[i]);
+    delta_int(out, to.headoffset, from.headoffset, 32);
 }
 
 UserCmd read_usercmd_delta(BitReader& in, const UserCmd& from) {
@@ -70,6 +72,8 @@ UserCmd read_usercmd_delta(BitReader& in, const UserCmd& from) {
     }
     if (in.bit()) to.mousedx = static_cast<std::int16_t>(in.bits(16));
     if (in.bit()) to.mousedy = static_cast<std::int16_t>(in.bits(16));
+    for (std::size_t i = 0; i < 3; ++i) to.headangles[i] = read_float(in, from.headangles[i]);
+    if (in.bit()) to.headoffset = in.bits(32);
     return to;
 }
 
@@ -128,7 +132,8 @@ void InputController::set(const nlohmann::json& args) {
     if (next.sidemove < 0) next.buttons |= 1u << 9;
     if (next.sidemove > 0) next.buttons |= 1u << 10;
     current_ = next;
-    ticks_left_ = static_cast<std::uint32_t>(duration);
+    duration_ = static_cast<std::uint32_t>(duration);
+    start_pending_ = true;
 }
 
 void InputController::select_weapon(std::uint16_t entity_index, std::uint8_t subtype) {
@@ -141,10 +146,16 @@ void InputController::select_weapon(std::uint16_t entity_index, std::uint8_t sub
 UserCmd InputController::next(std::int32_t server_tick) {
     current_.command_number = static_cast<std::int32_t>(increment(current_.command_number));
     current_.tick_count = server_tick;
-    if (!ticks_left_) {
+    if (start_pending_) {
+        start_tick_ = static_cast<std::uint32_t>(server_tick);
+        start_pending_ = false;
+    }
+    const auto elapsed = static_cast<std::uint32_t>(server_tick) - start_tick_;
+    if (!duration_ || elapsed >= duration_) {
         current_.forwardmove = current_.sidemove = current_.upmove = 0;
         current_.buttons = 0;
-    } else --ticks_left_;
+        duration_ = 0;
+    }
     const auto command = current_;
     // Selection is an action, not a permanently held input.
     current_.weaponselect = 0;
@@ -152,6 +163,6 @@ UserCmd InputController::next(std::int32_t server_tick) {
     return command;
 }
 
-void InputController::reset() { current_ = {}; ticks_left_ = 0; }
+void InputController::reset() { current_ = {}; duration_ = start_tick_ = 0; start_pending_ = false; }
 
 } // namespace hc

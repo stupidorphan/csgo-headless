@@ -67,7 +67,13 @@ Prop prop_from_json(const Json& data) {
     prop.priority = data.value("priority", 0u);
     prop.table = data.value("table", std::string{});
     prop.elements = data.value("elements", 0u);
-    prop.bits = data.value("bits", 0u);
+    const auto bit_count = data.value("bits", 0);
+    // BITS_FULLRES (-1) survives in the exact CSPlayer eye-angle table.
+    // Width is unused for coordinate, raw-float, and normal encodings.
+    const auto special_float = prop.flags & (Coord | NoScale | Normal | CoordMP | CoordMPLow | CoordMPIntegral);
+    require(bit_count >= 0 || (bit_count >= -2 && prop.type >= 1 && prop.type <= 3 && special_float),
+            "Negative send-property width without a special float encoding");
+    prop.bits = bit_count < 0 ? 0u : static_cast<unsigned>(bit_count);
     prop.low = data.value("low", 0.0f);
     prop.high = data.value("high", 0.0f);
     require(prop.type >= 0 && prop.type <= 7 && prop.priority <= 255 && prop.bits <= 64 &&
@@ -97,7 +103,7 @@ Table table_from_proto(const Proto& data) {
         table["props"].push_back({{"type", item.get_i32(1)}, {"name", item.get_string(2)},
             {"flags", item.get_u32(3)}, {"priority", item.get_u32(4)}, {"table", item.get_string(5)},
             {"elements", item.get_u32(6)}, {"low", item.get_float(7)}, {"high", item.get_float(8)},
-            {"bits", item.get_u32(9)}});
+            {"bits", item.get_i32(9)}});
     }
     return table_from_json(table);
 }

@@ -20,10 +20,13 @@ struct UserCmd {
     std::uint16_t weaponselect{};
     std::uint8_t weaponsubtype{};
     std::int16_t mousedx{}, mousedy{};
+    std::array<float, 3> headangles{};
+    std::uint32_t headoffset{};
     bool operator==(const UserCmd&) const = default;
 };
 
-// CS:GO's non-HL2, non-Portal user-command layout, with head tracking disabled.
+// Legacy 13881 adds four unconditional head fields after the mouse deltas.
+// The installed serializer uses raw floats and a raw 32-bit head-offset value.
 void write_usercmd_delta(BitWriter&, const UserCmd& to, const UserCmd& from);
 UserCmd read_usercmd_delta(BitReader&, const UserCmd& from);
 Proto make_move(std::span<const UserCmd> backup, std::span<const UserCmd> fresh);
@@ -38,7 +41,8 @@ public:
     void reset();
 private:
     UserCmd current_;
-    std::uint32_t ticks_left_{};
+    std::uint32_t duration_{}, start_tick_{};
+    bool start_pending_{};
 };
 
 } // namespace hc

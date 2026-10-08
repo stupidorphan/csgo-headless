@@ -4,6 +4,7 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 
 using namespace hc;
@@ -128,7 +129,7 @@ void state_tests() {
     check(state.class_count() == 1, "reset preserves schema");
 
     Bytes user_data(344);
-    std::fill(user_data.begin(), user_data.begin() + 6, 255);
+    std::fill(user_data.begin(), user_data.begin() + 6, std::uint8_t{255});
     user_data[6] = 240; user_data[7] = 2;
     user_data[15] = 42; user_data[16] = 'A'; user_data[147] = 7; user_data[316] = 1;
     state.set_server_info("de_dust2", 0, 16, 1.0f / 64);
@@ -178,7 +179,7 @@ void metadata_tests() {
     base["table"] = "DT_Base";
     Json metadata{{"send_tables", Json::array({
         {{"name", "DT_Player"}, {"props", Json::array({health, local_table, base, ignore})}},
-        {{"name", "DT_Local"}, {"props", Json::array({property(2, "m_vecOrigin", 4, 32)})}},
+        {{"name", "DT_Local"}, {"props", Json::array({{{"type", 2}, {"name", "m_vecOrigin"}, {"flags", 4}, {"bits", -1}}})}},
         {{"name", "DT_Base"}, {"props", Json::array({armor, property(0, "ignored", 1, 7)})}}
     })}, {"classes", Json::array({{{"id", 0}, {"name", "CCSPlayer"}, {"table", "DT_Player"}}})}};
     State state;
@@ -216,7 +217,7 @@ void usercmd_tests() {
     neutral.command_number = neutral.tick_count = 1;
     BitWriter out;
     write_usercmd_delta(out, neutral, zero);
-    check(out.position() == 16 && out.data() == Bytes({0, 0}), "neutral command fixture is sixteen zero flags");
+    check(out.position() == 20 && out.data() == Bytes({0, 0, 0}), "13881 neutral command fixture is twenty zero flags");
     BitReader input(out.data(), out.position());
     check(read_usercmd_delta(input, zero) == neutral && input.empty(), "neutral decode");
     UserCmd moving = neutral;
@@ -225,6 +226,7 @@ void usercmd_tests() {
     moving.forwardmove = 450; moving.sidemove = -100; moving.upmove = 9;
     moving.buttons = 0x1234; moving.impulse = 4; moving.weaponselect = 1000;
     moving.weaponsubtype = 33; moving.mousedx = -8; moving.mousedy = 900;
+    moving.headangles = {-12, 35, 7}; moving.headoffset = 0x87654321u;
     BitWriter encoded;
     write_usercmd_delta(encoded, moving, neutral);
     BitReader decoded(encoded.data(), encoded.position());
@@ -256,6 +258,19 @@ void usercmd_tests() {
     rejects([&] { controller.set({{"buttons", Json::array({"invalid"})}}); }, "unknown button rejected");
     controller.reset();
     check(controller.next(105).command_number == 1, "reset starts clean command sequence");
+    controller.set({{"forward", 1}, {"yaw", 45}, {"duration_ticks", 2}});
+    check(controller.next(200).forwardmove == 450 && controller.next(200).forwardmove == 450,
+          "repeated server ticks do not consume input duration");
+    check(controller.next(220).forwardmove == 0 && controller.next(220).viewangles[1] == 45,
+          "skipped server ticks expire input while preserving view");
+    controller.set({{"forward", 1}, {"duration_ticks", 2}});
+    check(controller.next(std::numeric_limits<std::int32_t>::max() - 1).forwardmove == 450,
+          "input starts near tick wrap");
+    check(controller.next(std::numeric_limits<std::int32_t>::min()).forwardmove == 0,
+          "input expiration handles server tick wrap");
+    controller.set({{"forward", 1}, {"duration_ticks", 10}});
+    check(controller.next(500).forwardmove == 450 && controller.next(20).forwardmove == 0,
+          "backward server tick reset neutralizes pending input");
 }
 Bytes unhex(const std::string& value) {
     check(value.size() % 2 == 0, "capture contains odd-length hex");
@@ -318,9 +333,21 @@ int replay(const char* profile_path, const char* capture_path) {
                         check(backups <= 7 && fresh <= 15 && backups + fresh > 0, "invalid captured move counts");
                         const auto data = body.get_bytes(3);
                         BitReader commands(data);
+                        BitWriter reproduced;
                         UserCmd previous;
-                        for (unsigned i = 0; i < backups + fresh; ++i) previous = read_usercmd_delta(commands, previous);
-                        check(commands.remaining() <= 7, "captured move has undecoded nonpadding bits");
+                        for (unsigned i = 0; i < backups + fresh; ++i) {
+                            const auto command = read_usercmd_delta(commands, previous);
+                            write_usercmd_delta(reproduced, command, previous);
+                            previous = command;
+                        }
+                        check(commands.position() == reproduced.position(), "captured move round trip changed bit length");
+                        for (std::size_t i = 0; i < reproduced.position(); ++i)
+                            check(((data[i / 8] >> (i % 8)) & 1) == ((reproduced.data()[i / 8] >> (i % 8)) & 1),
+                                  "captured move round trip changed wire bits");
+                        const auto detail = "captured move has " + std::to_string(commands.remaining()) +
+                            " undecoded bits after " + std::to_string(backups + fresh) + " commands (" +
+                            std::to_string(data.size() * 8) + " total bits)";
+                        check(commands.remaining() <= 7, detail.c_str());
                         ++captured_moves;
                         captured_commands += backups + fresh;
                     } catch (const std::exception& error) {
