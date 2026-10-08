@@ -91,6 +91,8 @@ def parse_send_table(data: bytes) -> dict | None:
 def parse_datatables(data: bytes) -> dict:
     cursor = Cursor(data)
     tables = []
+    by_name = {}
+    table_records = 0
     while True:
         message_type = cursor.variable()
         if message_type != 9:
@@ -98,21 +100,29 @@ def parse_datatables(data: bytes) -> dict:
         table = parse_send_table(cursor.take(cursor.variable()))
         if table is None:
             break
-        tables.append(table)
-        if len(tables) > 8192:
+        table_records += 1
+        # Source writes some identical generated array tables more than once
+        # because their SendTable pointers differ despite identical names/schema.
+        if table["name"] in by_name:
+            if by_name[table["name"]] != table:
+                raise FormatError(f"conflicting send table definitions: {table['name']}")
+        else:
+            by_name[table["name"]] = table
+            tables.append(table)
+        if table_records > 8192:
             raise FormatError("too many send tables")
     count = cursor.integer(2)
     if count > 4096:
         raise FormatError("too many server classes")
     classes = [{"id": cursor.integer(2), "name": cursor.cstring(), "table": cursor.cstring()} for _ in range(count)]
     known_tables = {table["name"] for table in tables}
-    if len(known_tables) != len(tables) or len({entry["id"] for entry in classes}) != count:
-        raise FormatError("duplicate send table/class identifiers")
+    if len({entry["id"] for entry in classes}) != count:
+        raise FormatError("duplicate server class identifiers")
     if any(entry["table"] not in known_tables for entry in classes):
         raise FormatError("server class references a missing send table")
     if any(cursor.data[cursor.offset:]):
         raise FormatError("unexpected trailing demo datatable content")
-    return {"send_tables": tables, "classes": classes, "dictionary": []}
+    return {"send_tables": tables, "classes": classes, "dictionary": [], "source_table_count": table_records}
 
 
 def packet_metadata(packet: bytes, metadata: dict) -> None:
@@ -221,9 +231,15 @@ def verify_integrity_sources(records: list[dict], game: Path) -> None:
     for record in records:
         if record["path"] not in ("GAME", "MOD") or record["file_hash_type"] != 1:
             raise FormatError(f"unsupported integrity source verification: {record['path']}/{record['filename']}")
-        candidates = [game / "csgo" / record["filename"]]
+        source_filename = record["filename"]
+        # Source reports a packed-store directory as the logical base .vpk
+        # (archive index -1); its physical Steam depot filename ends _dir.vpk.
+        if record["pack_file_id"] and record["pack_file_number"] == -1 and source_filename.endswith(".vpk"):
+            source_filename = source_filename[:-4] + "_dir.vpk"
+        candidates = [game / "csgo" / source_filename]
         if record["path"] == "GAME":
-            candidates.append(game / "platform" / record["filename"])
+            candidates.append(game / "platform" / source_filename)
+            candidates.append(game / source_filename)
         source = next((candidate.resolve() for candidate in candidates if candidate.is_file()), None)
         if source is None or not source.is_relative_to(game):
             raise FormatError(f"integrity source file missing: {record['path']}/{record['filename']}")

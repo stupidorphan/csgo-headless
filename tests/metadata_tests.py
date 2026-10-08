@@ -92,6 +92,20 @@ class MetadataTests(unittest.TestCase):
         self.assertEqual(schema["send_tables"][0]["props"][0]["bits"], 10)
         self.assertTrue(schema["send_tables"][0]["needs_decoder"])
 
+    def test_identical_generated_array_tables_are_deduplicated(self):
+        original = send_tables()
+        cursor = profile.Cursor(original)
+        cursor.variable(); cursor.take(cursor.variable())
+        frame = original[:cursor.offset]
+        doubled = frame + original
+        schema = profile.parse_datatables(doubled)
+        self.assertEqual(len(schema["send_tables"]), 1)
+        self.assertEqual(schema["source_table_count"], 2)
+        # A same-named table with a changed field width must still fail.
+        conflict = frame.replace(integer(9, 10), integer(9, 11)) + original
+        with self.assertRaisesRegex(metadata.FormatError, "conflicting send table"):
+            profile.parse_datatables(conflict)
+
     def test_demo_merges_only_sanitized_metadata(self):
         base = {"host_version": 13881, "app_id": 730, "bootstrap": {}}
         info = {"send_table_crc": 0x12345678, "ticket_hex": "secret", "steam_id": 123}
@@ -156,6 +170,18 @@ class MetadataTests(unittest.TestCase):
                                   integrity={"pure_whitelist_sha256": "ab" * 32})
         with self.assertRaises(metadata.FormatError):
             profile.whitelist_hash("ab" * 30 + "    ")
+
+    def test_vpk_directory_logical_name_resolves_to_depot_directory_file(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            game = Path(temporary)
+            (game / "platform").mkdir()
+            (game / "platform" / "platform_pak01_dir.vpk").write_bytes(b"abcdef")
+            raw = bytes.fromhex(crc_record(filename="platform/platform_pak01.vpk", offset=0)["protobuf_hex"])
+            raw = raw.replace(integer(11, 1), integer(11, 2 ** 64 - 1))
+            records = [profile.integrity_record({"protobuf_hex": raw.hex()})]
+            profile.verify_integrity_sources(records, game)
+            self.assertTrue(records[0]["source_verified"])
+            self.assertEqual(records[0]["source"]["file"], "platform/platform_pak01_dir.vpk")
 
     def test_integrity_conflicting_files_and_escaping_paths_rejected(self):
         records = [crc_record(), crc_record(content=b"ghijkl")]
