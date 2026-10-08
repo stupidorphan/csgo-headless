@@ -69,6 +69,11 @@ def snapshot(value):
             if candidate is not None:
                 result["local"][name] = candidate
         result["local"]["inventory"] = inventory(local.get("inventory"))
+    round_state = value.get("round", {})
+    result["round"] = numeric_fields(round_state, ("rounds_played", "freeze", "round_time", "start_time",
+                                                   "start_tick", "freeze_end_tick", "warmup"))
+    if isinstance(round_state, dict) and round_state.get("phase") in {"active", "freeze", "warmup", "ended"}:
+        result["round"]["phase"] = round_state["phase"]
     return result
 
 

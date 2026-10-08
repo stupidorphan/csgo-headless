@@ -21,7 +21,8 @@ class SummaryTests(unittest.TestCase):
                                 "clip": 19, "owner_steam_id": secret, "fields": {"secret": secret}}]}
         state = {"tick": 64, "map": "cs_italy", "local": local,
                  "connection": {"signon": 6, "state": "full", "received_packets": 42,
-                                "last_error": secret, "ticket_hex": secret}, "round": {"secret": secret}}
+                                "last_error": secret, "ticket_hex": secret},
+                 "round": {"secret": secret, "rounds_played": 10, "phase": "active", "freeze_end_tick": 60}}
         return {"server": summary.SERVER, "executable_sha256": "a" * 64, "state": "verified",
                 "executable": "C:\\Users\\" + secret + "\\headless-csgo.exe", "profile": secret,
                 "started_at": "2026-10-08T04:00:00+00:00", "finished_at": "2026-10-08T04:30:01+00:00",
@@ -53,6 +54,8 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(result["runtime_full"]["processes"][0]["modules"], [{"name": "steam_api.dll", "sha256": "c" * 64}])
         self.assertIn("reload", result["unverified_controls"])
         self.assertEqual(result["soak"]["measurements"][0]["local"]["eye_angles"], [12, 37])
+        self.assertEqual(result["soak"]["measurements"][0]["round"],
+                         {"rounds_played": 10, "freeze_end_tick": 60, "phase": "active"})
         self.assertEqual(result["soak"]["activity"], [{"elapsed_seconds": 30, "input": {"forward": 0.35, "yaw": 90, "buttons": ["jump"]}}])
 
     def test_incomplete_soak_is_not_promoted(self):
