@@ -1,0 +1,52 @@
+{
+  "host_version": 13881,
+  "captures": [
+    {
+      "captured_moves": 534,
+      "captured_user_commands": 1610,
+      "entity_count": 197,
+      "entity_tick": 441933,
+      "errors": 0,
+      "first_errors": [],
+      "has_local_player": true,
+      "has_pure_whitelist": true,
+      "map": "cs_italy",
+      "messages": 1169,
+      "move_errors": 0,
+      "packets": 1500,
+      "players": 1,
+      "pure_whitelist_bytes": 123,
+      "recoveries": 0,
+      "snapshots": 531,
+      "stale_packets": 0,
+      "tick": 441933,
+      "type": "state_replay_summary",
+      "capture_sha256": "00381cf87d6cea74d99986a0a7bed66f0645c02202169cdb4cddcf60cfe59dff",
+      "fixture": "initial"
+    },
+    {
+      "captured_moves": 935,
+      "captured_user_commands": 2820,
+      "entity_count": 197,
+      "entity_tick": 532129,
+      "errors": 0,
+      "first_errors": [],
+      "has_local_player": true,
+      "has_pure_whitelist": true,
+      "map": "cs_italy",
+      "messages": 2033,
+      "move_errors": 0,
+      "packets": 2220,
+      "players": 1,
+      "pure_whitelist_bytes": 123,
+      "recoveries": 2,
+      "snapshots": 944,
+      "stale_packets": 0,
+      "tick": 532129,
+      "type": "state_replay_summary",
+      "capture_sha256": "d0572a96251fe03dacc8702d8ba83c7f3624a966a2ce88e9d6ea5abe96379770",
+      "fixture": "stock-finalized"
+    }
+  ],
+  "authentication_packets_retained": false
+}
