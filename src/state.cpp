@@ -675,7 +675,9 @@ struct State::Impl {
             if (item != current.end() && (handle >> 11) == static_cast<std::uint32_t>(item->second->serial)) {
                 weapon["class"] = classes.at(item->second->class_id).name;
                 if (const auto* definition = suffix(item->second->fields, "m_iItemDefinitionIndex")) weapon["item_definition"] = *definition;
-                if (const auto* clip = suffix(item->second->fields, "m_iClip1")) weapon["clip"] = *clip;
+                // SendProxy_IntAddOne reserves wire zero for WEAPON_NOCLIP.
+                // Match RecvProxy_IntSubOne while preserving the raw snapshot.
+                if (const auto* clip = suffix(item->second->fields, "m_iClip1")) weapon["clip"] = clip->get<std::int64_t>() - 1;
             }
             inventory.push_back(std::move(weapon));
         };

@@ -220,6 +220,62 @@ void metadata_tests() {
     cyclic["send_tables"][2]["props"].push_back(base);
     rejects([&] { state.load_profile(cyclic); }, "cyclic send tables rejected");
 }
+void inventory_tests() {
+    State state;
+    state.load_profile({{"send_tables", Json::array({
+        {{"name", "DT_Player"}, {"props", Json::array({property(0, "m_hMyWeapons.000", 1, 21)})}},
+        {{"name", "DT_Weapon"}, {"props", Json::array({property(0, "m_iClip1", 1, 8),
+                                                       property(0, "m_iItemDefinitionIndex", 1, 16)})}}
+    })}, {"classes", Json::array({
+        {{"id", 0}, {"name", "CCSPlayer"}, {"table", "DT_Player"}},
+        {{"id", 1}, {"name", "CWeaponGlock"}, {"table", "DT_Weapon"}}
+    })}});
+    state.set_server_info("cs_italy", 0, 8, 1.0f / 64);
+    BitWriter empty, baseline;
+    field_start(empty, 0);
+    baseline.bit(false);
+    for (const char* name : {"0", "1"}) {
+        baseline.bit(true); baseline.bit(true); baseline.bit(false); baseline.string(name);
+        baseline.bit(true); baseline.bits(static_cast<std::uint32_t>(empty.data().size()), 14); baseline.bytes(empty.data());
+    }
+    ProtoWriter baselines;
+    baselines.string(1, "instancebaseline").u32(2, 64).u32(3, 2).bytes(8, baseline.data());
+    check(state.consume(12, Proto(baselines.data()), 1), "inventory class baselines");
+    constexpr unsigned weapon_index = 10, serial = 7, handle = (serial << 11) | weapon_index;
+    auto full = [&](unsigned clip, unsigned weapon_serial = 7) {
+        BitWriter data;
+        data.ubitvar(1); data.bit(false); data.bit(true); data.bits(0, 2); data.bits(5, 10);
+        field_start(data, 1); data.bits(handle, 21);
+        data.ubitvar(8); data.bit(false); data.bit(true); data.bits(1, 2); data.bits(weapon_serial, 10);
+        field_start(data, 2); data.bits(clip, 8); data.bits(4, 16);
+        ProtoWriter message;
+        message.u32(1, 2048).u32(2, 2).bytes(7, data.data());
+        return Proto(message.data());
+    };
+    auto delta = [&](int from, unsigned clip) {
+        BitWriter data;
+        data.ubitvar(weapon_index); data.bit(false); data.bit(false);
+        field_start(data, 1); data.bits(clip, 8); data.ubitvar(0);
+        ProtoWriter message;
+        message.u32(1, 2048).u32(2, 1).u32(3, 1).i32(6, from).bytes(7, data.data());
+        return Proto(message.data());
+    };
+    check(state.consume(26, full(21), 100), "loaded weapon snapshot");
+    auto item = state.status()["local"]["inventory"].at(0);
+    check(item["clip"] == 20 && item["item_definition"] == 4 && item["handle"] == handle,
+          "Source add-one wire proxy is reversed for a loaded Glock magazine");
+    check(state.consume(26, delta(100, 20), 101) && state.status()["local"]["inventory"][0]["clip"] == 19,
+          "server ammunition delta reports one fired round");
+    check(state.consume(26, delta(101, 1), 102) && state.status()["local"]["inventory"][0]["clip"] == 0,
+          "wire one means empty magazine");
+    check(state.consume(26, delta(102, 0), 103) && state.status()["local"]["inventory"][0]["clip"] == -1,
+          "wire zero preserves the no-magazine sentinel");
+    check(state.consume(26, delta(103, 255), 104) && state.status()["local"]["inventory"][0]["clip"] == 254,
+          "unsigned clip decoding does not wrap into a signed byte");
+    check(state.consume(26, full(21, serial + 1), 105), "reused weapon entity index");
+    item = state.status()["local"]["inventory"].at(0);
+    check(!item.contains("clip") && !item.contains("class"), "stale weapon handle never borrows another entity's ammunition");
+}
 void user_message_tests() {
     State state;
     auto message = [&](unsigned type, const ProtoWriter& body) {
@@ -449,7 +505,7 @@ int main(int argc, char** argv) {
     try {
         if (argc == 3) return replay(argv[1], argv[2]);
         check(argc == 1, "usage: state-tests [PROFILE_JSON CAPTURE_JSONL]");
-        state_tests(); metadata_tests(); usercmd_tests(); user_message_tests(); std::cout << "state/usercmd tests passed\n"; return 0;
+        state_tests(); metadata_tests(); inventory_tests(); usercmd_tests(); user_message_tests(); std::cout << "state/usercmd tests passed\n"; return 0;
     }
     catch (const std::exception& error) { std::cerr << error.what() << '\n'; return 1; }
 }
