@@ -1,0 +1,285 @@
+"""Audit x86 core/helper file-open paths with an existing private CDB debugger.
+
+Example (run only after other live validation has finished):
+  python tools/audit_runtime_files.py --output artifacts/file-audit --game-root GAME -- \
+    PACKAGE/headless-csgo.exe --json --connect --run-seconds 30 --profile ABSOLUTE_PROFILE
+
+The debuggee's working directory is the output directory. Supply absolute paths.
+Only native file-open arguments, process IDs and loaded module paths are retained.
+No symbols are downloaded, no kernel trace/service is installed, and no buffers or
+authentication ticket contents are inspected. CDB startup/loading before its first
+breakpoint is represented by module snapshots, not a complete early file-open trace.
+"""
+from __future__ import annotations
+
+import argparse
+import collections
+import ctypes
+import hashlib
+import json
+import os
+from pathlib import Path
+import queue
+import re
+import subprocess
+import threading
+import time
+
+
+DEFAULT_CDB = Path(r"C:\Program Files (x86)\Windows Kits\10\Debuggers\x86\cdb.exe")
+MODULE_LINE = re.compile(r"^\s*[0-9a-fA-F`]{8,}\s+[0-9a-fA-F`]{8,}\s+\S+\s+(.+?)\s*$")
+NATIVE_VOLUMES: dict[str, str] = {}
+if os.name == "nt":
+    query_device = ctypes.WinDLL("kernel32", use_last_error=True).QueryDosDeviceW
+    query_device.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
+    query_device.restype = ctypes.c_uint32
+    for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        buffer = ctypes.create_unicode_buffer(32768)
+        if query_device(letter + ":", buffer, len(buffer)):
+            NATIVE_VOLUMES[buffer.value.casefold()] = letter + ":"
+
+
+def canonical_path(path: str) -> str:
+    path = path.strip().strip('"').replace("/", "\\")
+    for prefix in ("\\??\\", "\\\\?\\"):
+        if path.startswith(prefix):
+            path = path[len(prefix):]
+            break
+    for native, drive in NATIVE_VOLUMES.items():
+        if path.casefold() == native or path.casefold().startswith(native + "\\"):
+            path = drive + path[len(native):]
+            break
+    return path.rstrip("\\").casefold()
+
+
+def inside(path: str, root: str) -> bool:
+    path, root = canonical_path(path), canonical_path(root)
+    return path == root or path.startswith(root + "\\")
+
+
+class Observations:
+    def __init__(self, game_root: str):
+        self.game_root = game_root
+        self.files = collections.Counter()
+        self.modules: dict[int, set[str]] = collections.defaultdict(set)
+        self.armed: dict[int, dict[str, str]] = {}
+        self.errors: collections.Counter[str] = collections.Counter()
+        self.module_pid: int | None = None
+        self.processes: set[int] = set()
+        self.events: collections.Counter[str] = collections.Counter()
+        self.signon_states: collections.Counter[int] = collections.Counter()
+        self.full_tick: int | None = None
+        self.run_complete_signon: int | None = None
+        self.run_complete_tick: int | None = None
+
+    def core_event(self, event: dict):
+        kind = event.get("type")
+        if kind in ("signon", "run_complete", "error", "disconnected", "connecting"):
+            self.events[kind] += 1
+        if kind == "signon" and isinstance(event.get("state"), int):
+            state = event["state"]
+            if 0 <= state <= 7:
+                self.signon_states[state] += 1
+                if state == 6 and isinstance(event.get("tick"), int):
+                    self.full_tick = event["tick"]
+        elif kind == "run_complete":
+            connection = event.get("status", {}).get("connection", {})
+            if isinstance(connection.get("signon"), int):
+                self.run_complete_signon = connection["signon"]
+            if isinstance(connection.get("tick"), int):
+                self.run_complete_tick = connection["tick"]
+        elif kind == "response" and event.get("ok") is False:
+            self.events["failed_response"] += 1
+
+    def consume(self, line: str):
+        # CDB can prefix command results with a debugger prompt.
+        line = re.sub(r"^\s*[0-9a-fA-F]+:[0-9a-fA-F]+>\s*", "", line).strip()
+        # Core JSON and debugger output can share a stdout line. Consume only
+        # flags/counts/ticks, dropping all other JSON fields immediately.
+        json_start = line.find("{")
+        if json_start >= 0:
+            try:
+                event, _ = json.JSONDecoder().raw_decode(line[json_start:])
+                if isinstance(event, dict) and isinstance(event.get("type"), str):
+                    self.core_event(event)
+                    line = line[:json_start].strip()
+            except (json.JSONDecodeError, AttributeError, TypeError):
+                pass
+        # DbgEng can insert a checksum/symbol warning after .printf has printed
+        # the marker, splitting that single output record across two lines.
+        file_record = re.fullmatch(r"(?:HC_FILE\|)?([0-9a-fA-F]+)\|(NtCreateFile|NtOpenFile)\|([0-9a-fA-F]+)\|(.*)", line)
+        if file_record:
+            pid, api, root, path = file_record.groups()
+            self.files[(int(pid, 16), api, int(root, 16), path)] += 1
+            return
+        if line.startswith("HC_PROCESS|"):
+            self.processes.add(int(line.split("|")[1], 16))
+        elif line.startswith("HC_ARMED|"):
+            parts = line.split("|")
+            if len(parts) == 4 and all(re.fullmatch(r"[0-9a-fA-F`]+", address) and
+                                      int(address.replace("`", ""), 16) for address in parts[2:]):
+                pid = int(parts[1], 16)
+                self.armed[pid] = {"NtCreateFile": parts[2], "NtOpenFile": parts[3]}
+        elif line.startswith("HC_MODULES|"):
+            self.module_pid = int(line.split("|")[1], 16)
+        elif line.startswith("HC_END_MODULES"):
+            self.module_pid = None
+        elif self.module_pid is not None:
+            match = MODULE_LINE.match(line)
+            if match:
+                self.modules[self.module_pid].add(match.group(1))
+        for needle in ("Memory access error", "Syntax error", "Couldn't resolve error",
+                       "Unable to resolve breakpoint", "Couldn't open process"):
+            if needle.casefold() in line.casefold():
+                self.errors[needle] += 1
+
+    def summary(self):
+        files = [{"pid": pid, "api": api, "root_directory_handle": root,
+                  "path": path, "count": count, "inside_game_installation": inside(path, self.game_root)}
+                 for (pid, api, root, path), count in sorted(self.files.items())]
+        modules = [{"pid": pid, "path": path, "inside_game_installation": inside(path, self.game_root)}
+                   for pid, paths in sorted(self.modules.items()) for path in sorted(paths)]
+        return {
+            "format": 1, "method": "Private x86 CDB -o native-file-open breakpoints",
+            "game_root": self.game_root, "processes": sorted(self.processes),
+            "breakpoints": {str(pid): values for pid, values in sorted(self.armed.items())},
+            "file_open_calls": sum(self.files.values()), "file_opens": files,
+            "loaded_modules": modules,
+            "game_file_open_calls": sum(item["count"] for item in files if item["inside_game_installation"]),
+            "game_modules": [item for item in modules if item["inside_game_installation"]],
+            "relative_root_calls": sum(item["count"] for item in files if item["root_directory_handle"]),
+            "debugger_errors": dict(self.errors),
+            "core_observations": {"event_counts": dict(self.events),
+                                  "signon_states": {str(state): count for state, count in sorted(self.signon_states.items())},
+                                  "full_observed": bool(self.signon_states[6]), "full_tick": self.full_tick,
+                                  "run_complete_signon": self.run_complete_signon, "run_complete_tick": self.run_complete_tick},
+            "coverage": {
+                "native_apis": ["NtCreateFile", "NtOpenFile"], "child_processes": True,
+                "x86_object_attributes_name_offset": 8,
+                "x86_stack_object_attributes_argument_offset": 12,
+                "unicode": "CDB %msu reads the counted UNICODE_STRING, not file contents.",
+                "limitations": ["File opens before CDB's initial breakpoint are not intercepted; module snapshots cover loaded images.",
+                                "Relative RootDirectory handles are retained but not resolved; nonzero counts require further review.",
+                                "This observes native API arguments, not successful read lengths or direct system calls that bypass ntdll exports.",
+                                "Steam client's separate process is outside the core/helper audit."]
+            }
+        }
+
+
+def write_scripts(directory: Path):
+    modules = '.printf "HC_MODULES|%x\\n", @$tpid\nlmf\n.printf "HC_END_MODULES\\n"\n'
+    install = '.printf "HC_PROCESS|%x\\n", @$tpid\n'
+    for api in ("NtCreateFile", "NtOpenFile"):
+        # x86 stdcall: OBJECT_ATTRIBUTES* is argument 3 at ESP+12. Its
+        # RootDirectory is at +4; ObjectName (UNICODE_STRING*) is at +8.
+        install += (f'bu ntdll!{api} ".printf \\"HC_FILE|%x|{api}|%x|%msu\\\\n\\", '
+                    '@$tpid, poi(poi(@esp+0xc)+4), poi(poi(@esp+0xc)+8); gc"\n')
+    install += '.printf "HC_ARMED|%x|%p|%p\\n", @$tpid, ntdll!NtCreateFile, ntdll!NtOpenFile\n'
+    install += modules + 'g\n'
+    (directory / "audit_install.cdb").write_text(install, encoding="ascii")
+    (directory / "audit_modules.cdb").write_text(modules + "g\n", encoding="ascii")
+    (directory / "audit_start.cdb").write_text(
+        'sxe -c "g" cpr\n'
+        'sxe -c "$><audit_install.cdb" ibp\n'
+        'sxe -c "$><audit_modules.cdb" ld\n'
+        'sxd epr\n$><audit_install.cdb\n', encoding="ascii")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--cdb", type=Path, default=DEFAULT_CDB)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--game-root", type=Path, required=True)
+    parser.add_argument("--timeout", type=float, default=90)
+    parser.add_argument("--expect-path", type=Path, help="Offline fixture must observe this exact file in both parent and child.")
+    parser.add_argument("--require-full", action="store_true", help="Require a live FULL/run_complete result and two armed core/helper processes.")
+    parser.add_argument("command", nargs=argparse.REMAINDER)
+    args = parser.parse_args()
+    if os.name != "nt":
+        parser.error("This tool requires Windows and the installed x86 CDB debugger.")
+    command = args.command[1:] if args.command[:1] == ["--"] else args.command
+    if not command:
+        parser.error("Provide an absolute x86 executable and arguments after --.")
+    command[0] = str(Path(command[0]).resolve(strict=True))
+    if not args.cdb.is_file() or "x86" not in str(args.cdb).casefold():
+        parser.error("Provide an installed x86 CDB executable.")
+    if args.timeout <= 0:
+        parser.error("Timeout must be positive.")
+    output = args.output.resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    write_scripts(output)
+    observer = Observations(str(args.game_root.resolve()))
+    environment = dict(os.environ)
+    environment.pop("_NT_SYMBOL_PATH", None)
+    environment.pop("_NT_ALT_SYMBOL_PATH", None)
+    process = subprocess.Popen([str(args.cdb), "-sins", "-y", ".", "-nosqm", "-noshell", "-hd", "-o", "-G",
+                                "-cf", "audit_start.cdb", *command],
+                               cwd=output, env=environment, stdin=subprocess.DEVNULL,
+                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                               text=True, encoding="utf-8", errors="replace",
+                               creationflags=subprocess.CREATE_NO_WINDOW)
+    lines: queue.Queue[str | None] = queue.Queue()
+    def reader():
+        try:
+            for line in process.stdout:
+                lines.put(line.rstrip("\r\n"))
+        finally:
+            lines.put(None)
+    worker = threading.Thread(target=reader, daemon=True)
+    worker.start()
+    start = time.monotonic()
+    timed_out = False
+    while True:
+        remaining = args.timeout - (time.monotonic() - start)
+        if remaining <= 0:
+            timed_out = True
+            process.kill()
+            break
+        try:
+            line = lines.get(timeout=min(remaining, 1))
+        except queue.Empty:
+            continue
+        if line is None:
+            break
+        observer.consume(line)
+    process.wait(timeout=10)
+    worker.join(timeout=2)
+    while not lines.empty():
+        line = lines.get_nowait()
+        if line is not None:
+            observer.consume(line)
+    result = observer.summary()
+    result.update({"elapsed_seconds": round(time.monotonic() - start, 3), "debugger_exit_code": process.returncode,
+                   "timed_out": timed_out, "executable": command[0], "cdb": str(args.cdb),
+                   "executable_sha256": hashlib.sha256(Path(command[0]).read_bytes()).hexdigest()})
+    if args.expect_path:
+        expected = canonical_path(str(args.expect_path.resolve()))
+        pids = sorted({pid for (pid, _, _, path) in observer.files if canonical_path(path) == expected})
+        apis = sorted({api for (_, api, _, path) in observer.files if canonical_path(path) == expected})
+        counted_unicode = not any("SENTINEL_OUTSIDE_UNICODE_STRING_LENGTH" in path for (_, _, _, path) in observer.files)
+        result["fixture"] = {"expected_path": str(args.expect_path.resolve()), "observed_pids": pids,
+                             "observed_apis": apis, "counted_unicode_correct": counted_unicode,
+                             "passed": len(pids) >= 2 and apis == ["NtCreateFile", "NtOpenFile"] and counted_unicode
+                                       and all(pid in observer.armed for pid in pids)}
+    base_verified = (not timed_out and process.returncode == 0 and not result["debugger_errors"]
+                     and result["file_open_calls"] > 0 and observer.processes == set(observer.armed)
+                     and result["relative_root_calls"] == 0)
+    core = result["core_observations"]
+    live_verified = (len(observer.armed) >= 2 and core["full_observed"]
+                     and core["run_complete_signon"] == 6 and core["event_counts"].get("run_complete", 0) == 1
+                     and not observer.events["error"] and not observer.events["failed_response"]
+                     and observer.events["disconnected"] == 1 and result["game_file_open_calls"] == 0
+                     and not result["game_modules"])
+    result["required_full"] = args.require_full
+    result["audit_verified"] = bool(base_verified and (live_verified if args.require_full else True)
+                                    and result.get("fixture", {}).get("passed", True))
+    report = output / "file-audit.json"
+    report.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"report": str(report), "file_open_calls": result["file_open_calls"],
+                      "game_file_open_calls": result["game_file_open_calls"], "processes": result["processes"],
+                      "timed_out": timed_out, "audit_verified": result["audit_verified"], "fixture": result.get("fixture")}))
+    return 0 if result["audit_verified"] else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
