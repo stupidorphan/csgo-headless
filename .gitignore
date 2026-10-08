@@ -1,0 +1,14 @@
+/build/
+/artifacts/
+/captures/
+/local/
+*.dem
+*.pcap
+*.pcapng
+*.jsonl
+*.ticket
+*.dmp
+__pycache__/
+.vs/
+*.user
+*.log
