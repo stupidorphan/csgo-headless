@@ -111,6 +111,16 @@ The live harness only accepts the authorized endpoint. It checks stock processes
 python tools/validate_live.py build/Release/headless-csgo.exe --seconds 1800
 ```
 
+During the soak, the harness sends a fixed four-direction movement/view script every 30 seconds. This keeps a normal player active under the server's AFK policy; it makes no autonomous gameplay decisions. Use `--activity-seconds 0` for an idle soak. This server rejected the earlier idle attempt under its existing AFK policy.
+
+After the run, retain a derived report and remove the local raw JSON log:
+
+```powershell
+python tools/summarize_live_validation.py artifacts/live/RUN/validation.json --output validation/live_13881.json
+```
+
+The summary keeps measured state, counters, control effects, and module hashes while excluding player/account identifiers, chat contents, and raw messages.
+
 `tests/fixtures` retains sanitized stock user commands; `validation` contains derived reports. Build outputs, raw captures, demos, and credentials are excluded from Git.
 
 `tools/audit_runtime_files.py` uses an existing x86 Windows SDK CDB debugger to follow native file opens and DLLs in the client and helper. It retains paths and verification counters, with no packet or ticket contents. Run it separately from other live clients. Supply absolute executable/profile paths because its working directory is the audit output folder:
@@ -127,3 +137,11 @@ python tools/package_release.py --configuration Debug
 ```
 
 Packages include the client, helper, permitted generic Steam runtime, exact profile/descriptors, instructions, Python example, dependency notices, validation reports, and a SHA256 manifest. Packaging uses fixed archive timestamps and an explicit file allowlist. Extract a package into its own directory, keep Steam signed in, and run the interactive or JSON commands above there.
+
+The separate source ZIP contains the C++ implementation, metadata-generation tools, tests, and sanitized fixtures. Create it from the committed checkout after recording the validation results:
+
+```powershell
+git archive --format=zip --output=artifacts/release/headless-csgo-13881-source.zip HEAD
+```
+
+Building from source requires matching Steamworks SDK headers/import libraries and the pinned generic Steam runtime, supplied through the CMake paths above. These development inputs are separate from the standalone runtime packages.
