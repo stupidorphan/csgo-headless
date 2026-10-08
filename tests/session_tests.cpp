@@ -147,6 +147,10 @@ void framing_tests() {
     check(request["args"]["duration_ticks"] == 64, "duration command parser");
     const auto info = make_userinfo("test");
     check(info.get_messages(1).at(0).get_messages(1).at(0).get_string(1) == "name", "nested userinfo framing");
+    const auto variables = info.get_messages(1).at(0).get_messages(1);
+    check(std::any_of(variables.begin(), variables.end(), [](const Proto& variable) {
+        return variable.get_string(1) == "cl_use_opens_buy_menu" && variable.get_string(2) == "1";
+    }), "normal USE behavior advertises the stock buy-menu userinfo setting");
     const Bytes ticket{1, 2, 3, 4};
     const auto packet = build_connect_packet(13881, 0xabcdef, 0x1122334455667788, ticket, info);
     BitReader reader(packet);
@@ -182,10 +186,20 @@ void lifecycle_tests(const std::filesystem::path& path) {
           status["local"]["position"] == Json::array({10.0, 20.0, 30.0}), "FULL exposes authoritative player state");
     check(std::any_of(events.begin(), events.end(), [](const Json& event) { return event.value("type", "") == "signon" && event.value("state", 0) == 6; }),
           "FULL transition is emitted to the frontend");
+    ProtoWriter menu_command;
+    menu_command.string(1, "buymenu\n");
+    session.replay_message(5, Proto(menu_command.data()));
+    check(events.back()["type"] == "server_command" && events.back()["command"] == "buymenu\n" && events.back()["tick"] == 100,
+          "server USE response is exposed with its exact command and server tick");
+    ProtoWriter disconnect_command;
+    disconnect_command.string(1, "disconnect\n");
+    session.replay_message(5, Proto(disconnect_command.data()));
+    check(events.back()["command"] == "disconnect\n" && session.status()["connection"]["signon"] == 6 &&
+          session.status()["local"]["health"] == 100, "server command text is surfaced without executing its disconnect operation");
     Netchannel peer(passive_config());
     auto outgoing = decode_step(session, peer, 100);
     const Proto client_info(find_message(outgoing, 8).bytes);
-    check(client_info.get_u32(1) == schema_checksum && client_info.get_u32(2) == 41,
+    check(client_info.get_u32(1) == schema_checksum && client_info.fields(1).at(0).wire_type == 5 && client_info.get_u32(2) == 41,
           "signon sends verified fixed32 schema checksum and spawn count");
     check(Proto(find_message(outgoing, 7).bytes).get_i32(1) == 6 &&
           Proto(find_message(outgoing, 5).bytes).get_string(1) == "joingame", "FULL confirmation and normal player admission command queued");

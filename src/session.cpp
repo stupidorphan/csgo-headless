@@ -32,7 +32,7 @@ Bytes unhex(std::string_view s){if(s.size()%2)throw WireError("invalid metadata 
 Proto make_userinfo(std::string_view name,uint32_t rate){
     if(name.empty()||name.size()>63||std::any_of(name.begin(),name.end(),[](unsigned char c){return c<32;}))throw std::runtime_error("Invalid player name");
     ProtoWriter vars;
-    std::vector<std::pair<std::string,std::string>> values={{"name",std::string(name)},{"rate","786432"},{"cl_updaterate",std::to_string(rate)},{"cl_cmdrate",std::to_string(rate)},{"cl_interp","0.03125"},{"cl_interp_ratio","2"},{"cl_predict","1"},{"cl_predictweapons","1"},{"cl_lagcompensation","1"},{"cl_language","english"},{"cl_dlmax","1200"},{"cl_downloadfilter","none"}};
+    std::vector<std::pair<std::string,std::string>> values={{"name",std::string(name)},{"rate","786432"},{"cl_updaterate",std::to_string(rate)},{"cl_cmdrate",std::to_string(rate)},{"cl_interp","0.03125"},{"cl_interp_ratio","2"},{"cl_predict","1"},{"cl_predictweapons","1"},{"cl_lagcompensation","1"},{"cl_language","english"},{"cl_use_opens_buy_menu","1"},{"cl_dlmax","1200"},{"cl_downloadfilter","none"}};
     for(auto&[k,v]:values){ProtoWriter cv;cv.string(1,k).string(2,v);vars.message(1,cv);}
     ProtoWriter user;user.message(1,vars);return Proto(user.data());
 }
@@ -123,6 +123,7 @@ struct Session::Impl {
         Proto p(m.bytes);if(config.trace)std::cerr<<"rx type="<<m.type<<" bytes="<<m.bytes.size()<<" tick="<<tick<<'\n';
         if(m.type==1)throw std::runtime_error("Server disconnected: "+p.get_string(1));
         if(m.type==4){tick=p.get_i32(1);last_tick_time=Clock::now();}
+        else if(m.type==5)emit("server_command",{{"command",p.get_string(1)}});
         else if(m.type==7)change_signon(p.get_i32(1),p.get_i32(2,-1));
         else if(m.type==8){auto coverage=profile["integrity"].value("coverage",Json::object());if(coverage.value("map",std::string{})!=p.get_string(16)||coverage.value("map_crc",0u)!=p.get_u32(8))throw std::runtime_error("Incompatible metadata: server map or checksum differs from verified profile");spawn_count=p.get_i32(2);interval=p.get_float(14,1.0f/64);if(!std::isfinite(interval)||interval<0.001f||interval>0.1f)throw WireError("Invalid server tick interval");state.set_server_info(p.get_string(16),p.get_i32(13),p.get_i32(11),interval);emit("server_info",{{"map",p.get_string(16)},{"tick_interval",interval},{"slot",p.get_i32(13)}});}
         else if(m.type==16)emit("print",{{"text",p.get_string(1)}});
