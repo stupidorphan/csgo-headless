@@ -28,6 +28,12 @@ def emit(kind, **data):
     print(json.dumps({"type": kind, **data}, separators=(",", ":")), flush=True)
 
 
+def soak_input(step):
+    """A fixed four-direction operator script; no gameplay decisions."""
+    return {"forward": 0.35, "pitch": 0, "yaw": (0, 90, 180, -90)[step % 4],
+            "buttons": [], "duration_ticks": 32}
+
+
 def field(status, name, default=None):
     fields = (status.get("local") or {}).get("fields", {})
     for key, value in fields.items():
@@ -457,6 +463,8 @@ def exercise(driver, report):
 
 
 def self_test():
+    assert [soak_input(step)["yaw"] for step in range(5)] == [0, 90, 180, -90, 0]
+    assert all(soak_input(step)["duration_ticks"] == 32 and not soak_input(step)["buttons"] for step in range(5))
     assert position({"local": {"position": [1, 2, 3]}}) == [1, 2, 3]
     assert position({"local": {"position": [None, 2, 3]}}) is None
     assert not distance(None, [1, 2, 3])
@@ -480,6 +488,8 @@ def main():
     parser.add_argument("--profile", type=Path, default=Path("profiles/legacy_13881.json"))
     parser.add_argument("--server", default=SERVER, choices=[SERVER])
     parser.add_argument("--seconds", type=int, default=1800, help="Continuous FULL soak after controls, default 30 minutes")
+    parser.add_argument("--activity-seconds", type=int, default=30,
+                        help="Repeat a fixed movement/view script during soak; 0 requests an idle soak")
     parser.add_argument("--connect-only", action="store_true", help="Check FULL and soak without gameplay")
     parser.add_argument("--connect-timeout", type=int, default=150)
     parser.add_argument("--spawn-timeout", type=int, default=180)
@@ -491,7 +501,7 @@ def main():
     if args.self_test:
         self_test()
         return 0
-    if args.seconds < 1 or args.seconds > 86400 or args.connect_timeout < 1 or args.spawn_timeout < 1:
+    if args.seconds < 1 or args.seconds > 86400 or args.connect_timeout < 1 or args.spawn_timeout < 1 or not 0 <= args.activity_seconds <= 300:
         parser.error("Durations must be positive; soak must be at most 86400 seconds")
     executable, profile = args.executable.resolve(), args.profile.resolve()
     if not executable.is_file() or not profile.is_file():
@@ -500,6 +510,7 @@ def main():
     directory.mkdir(parents=True, exist_ok=True)
     report = {"server": SERVER, "executable": str(executable), "profile": str(profile),
               "executable_sha256": hashlib.sha256(executable.read_bytes()).hexdigest(),
+              "profile_sha256": hashlib.sha256(profile.read_bytes()).hexdigest(),
               "started_at": datetime.now(timezone.utc).isoformat(), "requested_soak_seconds": args.seconds,
               "connect_only": args.connect_only, "controls": {}, "state": "running"}
     driver = None
@@ -539,9 +550,12 @@ def main():
         soak_started = time.monotonic()
         initial = driver.status()
         measurements = []
-        report["soak"] = {"initial": compact(initial), "measurements": measurements, "continuous_full": False}
+        activity = []
+        report["soak"] = {"initial": compact(initial), "measurements": measurements, "continuous_full": False,
+                          "activity_interval_seconds": args.activity_seconds, "activity": activity}
         deadline = soak_started + args.seconds
         next_status = soak_started
+        next_activity = soak_started if args.activity_seconds else deadline
         while time.monotonic() < deadline:
             now = time.monotonic()
             if now >= next_status:
@@ -554,12 +568,19 @@ def main():
                 if len(measurements) > 1 and status.get("connection", {}).get("received_packets", 0) <= measurements[-2]["connection"].get("received_packets", 0):
                     raise RuntimeError("No received packet progress between soak measurements")
                 next_status += 30
+            if now >= next_activity:
+                command = soak_input(len(activity))
+                accepted = driver.request("input", **command)
+                activity.append({"elapsed_seconds": round(time.monotonic() - soak_started, 3),
+                                 "input": command, "accepted_response": accepted})
+                next_activity += args.activity_seconds
             driver.wait(min(0.2, max(0.0, deadline - time.monotonic())))
         final = driver.status()
         if final.get("tick", 0) <= initial.get("tick", 0) or final.get("connection", {}).get("received_packets", 0) <= initial.get("connection", {}).get("received_packets", 0):
             raise RuntimeError("Server tick or received packets did not advance during soak")
         report["soak"] = {"elapsed_seconds": round(time.monotonic() - soak_started, 3), "measurements": measurements,
-                           "initial": compact(initial), "final": compact(final), "continuous_full": True}
+                           "initial": compact(initial), "final": compact(final), "continuous_full": True,
+                           "activity_interval_seconds": args.activity_seconds, "activity": activity}
         if not args.skip_module_check:
             report["runtime_end"] = inspect_processes(driver.process.pid)
             runtime = report["runtime_end"]
