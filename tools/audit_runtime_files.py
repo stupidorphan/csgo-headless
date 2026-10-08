@@ -17,11 +17,13 @@ import collections
 import ctypes
 import hashlib
 import json
+import ntpath
 import os
 from pathlib import Path
 import queue
 import re
 import subprocess
+import sys
 import threading
 import time
 
@@ -41,6 +43,8 @@ if os.name == "nt":
 
 def canonical_path(path: str) -> str:
     path = path.strip().strip('"').replace("/", "\\")
+    if not path:
+        return ""
     for prefix in ("\\??\\", "\\\\?\\"):
         if path.startswith(prefix):
             path = path[len(prefix):]
@@ -49,7 +53,74 @@ def canonical_path(path: str) -> str:
         if path.casefold() == native or path.casefold().startswith(native + "\\"):
             path = drive + path[len(native):]
             break
-    return path.rstrip("\\").casefold()
+    return ntpath.normpath(path).rstrip("\\").casefold()
+
+
+def query_root_name(pid: int, root: int) -> str:
+    """Query a duplicated directory handle while CDB keeps the target stopped."""
+    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel.OpenProcess.argtypes = [ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32]
+    kernel.OpenProcess.restype = ctypes.c_void_p
+    kernel.GetCurrentProcess.restype = ctypes.c_void_p
+    kernel.DuplicateHandle.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p,
+                                      ctypes.POINTER(ctypes.c_void_p), ctypes.c_uint32, ctypes.c_int, ctypes.c_uint32]
+    kernel.DuplicateHandle.restype = ctypes.c_int
+    kernel.CloseHandle.argtypes = [ctypes.c_void_p]
+    kernel.GetFinalPathNameByHandleW.argtypes = [ctypes.c_void_p, ctypes.c_wchar_p, ctypes.c_uint32, ctypes.c_uint32]
+    kernel.GetFinalPathNameByHandleW.restype = ctypes.c_uint32
+    target = kernel.OpenProcess(0x0040, False, pid)  # PROCESS_DUP_HANDLE only.
+    if not target:
+        raise ctypes.WinError(ctypes.get_last_error())
+    duplicate = ctypes.c_void_p()
+    try:
+        if not kernel.DuplicateHandle(target, root, kernel.GetCurrentProcess(),
+                                      ctypes.byref(duplicate), 0, False, 2):
+            raise ctypes.WinError(ctypes.get_last_error())
+        name = ctypes.create_unicode_buffer(32768)
+        length = kernel.GetFinalPathNameByHandleW(duplicate, name, len(name), 0xA)  # Opened name, NT volume.
+        if 0 < length < len(name):
+            return name.value
+        # Object-directory roots can lack a Win32 file path. Query only their
+        # native object name; this never reads target file or ticket contents.
+        class UnicodeString(ctypes.Structure):
+            _fields_ = [("Length", ctypes.c_uint16), ("MaximumLength", ctypes.c_uint16), ("Buffer", ctypes.c_void_p)]
+        native = ctypes.WinDLL("ntdll").NtQueryObject
+        native.argtypes = [ctypes.c_void_p, ctypes.c_uint32, ctypes.c_void_p,
+                           ctypes.c_uint32, ctypes.POINTER(ctypes.c_uint32)]
+        native.restype = ctypes.c_int32
+        buffer = ctypes.create_string_buffer(65536)
+        returned = ctypes.c_uint32()
+        status = native(duplicate, 1, buffer, len(buffer), ctypes.byref(returned))  # ObjectNameInformation.
+        if status < 0:
+            raise OSError("Object name query failed")
+        unicode = UnicodeString.from_buffer(buffer)
+        start, end = ctypes.addressof(buffer), ctypes.addressof(buffer) + len(buffer)
+        if unicode.Length and not unicode.Length % 2 and unicode.Buffer and start <= unicode.Buffer < end \
+                and unicode.Buffer + unicode.Length <= end:
+            return ctypes.wstring_at(unicode.Buffer, unicode.Length // 2)
+        raise OSError("Root handle has no readable object name")
+    finally:
+        if duplicate.value:
+            kernel.CloseHandle(duplicate)
+        kernel.CloseHandle(target)
+
+
+def query_root_stdin() -> int:
+    sys.stdout.reconfigure(encoding="utf-8")
+    match = re.search(r"HC_ID\|([0-9a-fA-F]+)\|([0-9a-fA-F]+)", sys.stdin.read(4096))
+    if not match:
+        print("HC_ROOT_FAILED|invalid_input")
+        return 2
+    pid, root = (int(value, 16) for value in match.groups())
+    try:
+        name = query_root_name(pid, root)
+        if "\n" in name or "\r" in name or "|" in name:
+            raise OSError("Unsupported object-name characters")
+        print(f"HC_ROOT_NAME|{pid:x}|{root:x}|{name}")
+        return 0
+    except OSError:
+        print(f"HC_ROOT_FAILED|{pid:x}|{root:x}")
+        return 2
 
 
 def inside(path: str, root: str) -> bool:
@@ -71,6 +142,8 @@ class Observations:
         self.full_tick: int | None = None
         self.run_complete_signon: int | None = None
         self.run_complete_tick: int | None = None
+        self.active_root: dict | None = None
+        self.pending_root: dict | None = None
 
     def core_event(self, event: dict):
         kind = event.get("type")
@@ -110,9 +183,28 @@ class Observations:
         file_record = re.fullmatch(r"(?:HC_FILE\|)?([0-9a-fA-F]+)\|(NtCreateFile|NtOpenFile)\|([0-9a-fA-F]+)\|(.*)", line)
         if file_record:
             pid, api, root, path = file_record.groups()
-            self.files[(int(pid, 16), api, int(root, 16), path)] += 1
+            pid, root = int(pid, 16), int(root, 16)
+            root_path = ""
+            if root and self.pending_root and (
+                    self.pending_root["pid"], self.pending_root["api"], self.pending_root["handle"]) == (pid, api, root):
+                root_path = self.pending_root.get("name") or ""
+            self.pending_root = None  # Snapshot applies to this call only; handles can be reused.
+            resolved = canonical_path(root_path.rstrip("\\") + ("\\" + path if path else "")) if root_path else (
+                canonical_path(path) if not root else "")
+            self.files[(pid, api, root, path, root_path, resolved)] += 1
             return
-        if line.startswith("HC_PROCESS|"):
+        root_record = re.fullmatch(r"(?:HC_ROOT\|)?([0-9a-fA-F]+)\|(NtCreateFile|NtOpenFile)\|([0-9a-fA-F]+)", line)
+        if root_record:
+            pid, api, root = root_record.groups()
+            self.active_root = {"pid": int(pid, 16), "api": api, "handle": int(root, 16), "name": None}
+        elif line.startswith("HC_END_ROOT"):
+            self.pending_root, self.active_root = self.active_root, None
+        elif self.active_root is not None:
+            name = re.fullmatch(r"HC_ROOT_NAME\|([0-9a-fA-F]+)\|([0-9a-fA-F]+)\|(.*)", line)
+            if name and (int(name.group(1), 16), int(name.group(2), 16)) == (
+                    self.active_root["pid"], self.active_root["handle"]):
+                self.active_root["name"] = name.group(3)
+        elif line.startswith("HC_PROCESS|"):
             self.processes.add(int(line.split("|")[1], 16))
         elif line.startswith("HC_ARMED|"):
             parts = line.split("|")
@@ -135,12 +227,15 @@ class Observations:
 
     def summary(self):
         files = [{"pid": pid, "api": api, "root_directory_handle": root,
-                  "path": path, "count": count, "inside_game_installation": inside(path, self.game_root)}
-                 for (pid, api, root, path), count in sorted(self.files.items())]
+                  "path": path, "root_directory_path": root_path or None,
+                  "root_resolution": "Synchronous duplicate-handle name query at breakpoint" if root_path else None,
+                  "resolved_path": resolved or None, "count": count,
+                  "inside_game_installation": inside(resolved, self.game_root) if resolved else None}
+                 for (pid, api, root, path, root_path, resolved), count in sorted(self.files.items())]
         modules = [{"pid": pid, "path": path, "inside_game_installation": inside(path, self.game_root)}
                    for pid, paths in sorted(self.modules.items()) for path in sorted(paths)]
         return {
-            "format": 1, "method": "Private x86 CDB -o native-file-open breakpoints",
+            "format": 2, "method": "Private x86 CDB -o native-file-open breakpoints",
             "game_root": self.game_root, "processes": sorted(self.processes),
             "breakpoints": {str(pid): values for pid, values in sorted(self.armed.items())},
             "file_open_calls": sum(self.files.values()), "file_opens": files,
@@ -148,6 +243,9 @@ class Observations:
             "game_file_open_calls": sum(item["count"] for item in files if item["inside_game_installation"]),
             "game_modules": [item for item in modules if item["inside_game_installation"]],
             "relative_root_calls": sum(item["count"] for item in files if item["root_directory_handle"]),
+            "relative_root_resolved_calls": sum(item["count"] for item in files if item["root_directory_handle"] and item["resolved_path"]),
+            "relative_root_unresolved_calls": sum(item["count"] for item in files if item["root_directory_handle"] and not item["resolved_path"]),
+            "nt_volume_mappings": NATIVE_VOLUMES,
             "debugger_errors": dict(self.errors),
             "core_observations": {"event_counts": dict(self.events),
                                   "signon_states": {str(state): count for state, count in sorted(self.signon_states.items())},
@@ -159,7 +257,7 @@ class Observations:
                 "x86_stack_object_attributes_argument_offset": 12,
                 "unicode": "CDB %msu reads the counted UNICODE_STRING, not file contents.",
                 "limitations": ["File opens before CDB's initial breakpoint are not intercepted; module snapshots cover loaded images.",
-                                "Relative RootDirectory handles are retained but not resolved; nonzero counts require further review.",
+                                "RootDirectory names are queried synchronously for each call while CDB keeps the target stopped; unresolved relative calls prevent verification.",
                                 "This observes native API arguments, not successful read lengths or direct system calls that bypass ntdll exports.",
                                 "Steam client's separate process is outside the core/helper audit."]
             }
@@ -172,8 +270,22 @@ def write_scripts(directory: Path):
     for api in ("NtCreateFile", "NtOpenFile"):
         # x86 stdcall: OBJECT_ATTRIBUTES* is argument 3 at ESP+12. Its
         # RootDirectory is at +4; ObjectName (UNICODE_STRING*) is at +8.
-        install += (f'bu ntdll!{api} ".printf \\"HC_FILE|%x|{api}|%x|%msu\\\\n\\", '
-                    '@$tpid, poi(poi(@esp+0xc)+4), poi(poi(@esp+0xc)+8); gc"\n')
+        (directory / f"audit_call_{api}.cdb").write_text(
+            '.if (poi(poi(@esp+0xc)+4) != 0) { '
+            f'.printf "HC_ROOT|%x|{api}|%x\\n", @$tpid, poi(poi(@esp+0xc)+4); }}\n'
+            '.if (poi(poi(@esp+0xc)+4) != 0) { $$<audit_query_root.cdb; }\n'
+            '.if (poi(poi(@esp+0xc)+4) != 0) { .printf "HC_END_ROOT\\n"; }\n'
+            f'.printf "HC_FILE|%x|{api}|%x|%msu\\n", '
+            '@$tpid, poi(poi(@esp+0xc)+4), poi(poi(@esp+0xc)+8)\ngc\n', encoding="ascii")
+        install += f'bu ntdll!{api} "$$<audit_call_{api}.cdb"\n'
+    # Keep .shell on its own uncondensed script line. The fixed helper receives
+    # only PID/handle numbers, and CDB waits for it before continuing the target.
+    # A relative script name also avoids CDB .shell's quoting of a source path
+    # containing spaces. This artifact is only a copy of our development tool.
+    (directory / "audit_root_name.py").write_text(Path(__file__).read_text(encoding="utf-8"), encoding="utf-8")
+    (directory / "audit_query_root.cdb").write_text(
+        '.shell -ci ".printf \\"HC_ID|%x|%x\\\\n\\", @$tpid, poi(poi(@esp+0xc)+4)" '
+        f'"{sys.executable}" audit_root_name.py --query-root-stdin\n', encoding="utf-8")
     install += '.printf "HC_ARMED|%x|%p|%p\\n", @$tpid, ntdll!NtCreateFile, ntdll!NtOpenFile\n'
     install += modules + 'g\n'
     (directory / "audit_install.cdb").write_text(install, encoding="ascii")
@@ -186,6 +298,8 @@ def write_scripts(directory: Path):
 
 
 def main():
+    if sys.argv[1:] == ["--query-root-stdin"]:
+        return query_root_stdin()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cdb", type=Path, default=DEFAULT_CDB)
     parser.add_argument("--output", type=Path, required=True)
@@ -212,7 +326,7 @@ def main():
     environment = dict(os.environ)
     environment.pop("_NT_SYMBOL_PATH", None)
     environment.pop("_NT_ALT_SYMBOL_PATH", None)
-    process = subprocess.Popen([str(args.cdb), "-sins", "-y", ".", "-nosqm", "-noshell", "-hd", "-o", "-G",
+    process = subprocess.Popen([str(args.cdb), "-sins", "-y", ".", "-nosqm", "-hd", "-o", "-G",
                                 "-cf", "audit_start.cdb", *command],
                                cwd=output, env=environment, stdin=subprocess.DEVNULL,
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -254,16 +368,18 @@ def main():
                    "executable_sha256": hashlib.sha256(Path(command[0]).read_bytes()).hexdigest()})
     if args.expect_path:
         expected = canonical_path(str(args.expect_path.resolve()))
-        pids = sorted({pid for (pid, _, _, path) in observer.files if canonical_path(path) == expected})
-        apis = sorted({api for (_, api, _, path) in observer.files if canonical_path(path) == expected})
-        counted_unicode = not any("SENTINEL_OUTSIDE_UNICODE_STRING_LENGTH" in path for (_, _, _, path) in observer.files)
+        pids = sorted({pid for (pid, _, _, _, _, resolved) in observer.files if resolved == expected})
+        apis = sorted({api for (_, api, _, _, _, resolved) in observer.files if resolved == expected})
+        counted_unicode = not any("SENTINEL_OUTSIDE_UNICODE_STRING_LENGTH" in path for (_, _, _, path, _, _) in observer.files)
+        relative = {pid for (pid, _, root, _, root_path, resolved) in observer.files if root and root_path and resolved == expected}
         result["fixture"] = {"expected_path": str(args.expect_path.resolve()), "observed_pids": pids,
                              "observed_apis": apis, "counted_unicode_correct": counted_unicode,
+                             "relative_path_observed_pids": sorted(relative),
                              "passed": len(pids) >= 2 and apis == ["NtCreateFile", "NtOpenFile"] and counted_unicode
-                                       and all(pid in observer.armed for pid in pids)}
+                                       and relative == set(pids) and all(pid in observer.armed for pid in pids)}
     base_verified = (not timed_out and process.returncode == 0 and not result["debugger_errors"]
                      and result["file_open_calls"] > 0 and observer.processes == set(observer.armed)
-                     and result["relative_root_calls"] == 0)
+                     and result["relative_root_unresolved_calls"] == 0)
     core = result["core_observations"]
     live_verified = (len(observer.armed) >= 2 and core["full_observed"]
                      and core["run_complete_signon"] == 6 and core["event_counts"].get("run_complete", 0) == 1
