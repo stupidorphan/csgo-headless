@@ -8,6 +8,8 @@ The supplied metadata profile covers `151.243.93.16:27015`, `cs_italy`, and its 
 
 Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.24 or newer. The current helper uses the locally available 32-bit Steamworks SDK, so configure Win32.
 
+The validated toolchain is CMake 3.31.6-msvc6, MSVC 19.44.35228.0 (v143, tools directory 14.44.35207), and Windows SDK 10.0.26100.0. `dependencies.lock.json` pins the JSON header/license, Steam SDK headers/import library, and generic Steam runtime by SHA256. Configuration rejects changed dependency contents. MSVC compilation and linking use `/Brepro`, with incremental linking disabled; binary reproducibility was checked by clean rebuilds in the same source/build location.
+
 ```powershell
 cmake --preset windows -DSTEAM_SDK_DIR="E:/archives/csgo/csgo_partner/src" -DSTEAM_API_DLL="D:/SteamLibrary/steamapps/common/Counter-Strike Global Offensive/bin/steam_api.dll"
 cmake --build --preset debug
@@ -45,7 +47,7 @@ quit
 
 `weapon` takes an entity index from the server-confirmed inventory. Purchase success depends on the server's game mode, team, money, and buy zone. `team` accepts `T`, `CT`, or `spectator`.
 
-`input` accepts `forward`, `side`, and `up` in [-1,1], `pitch` and `yaw` in degrees, a `buttons` array, and `duration_ticks`. Axes and buttons return to zero after the requested number of outgoing server ticks; view angles persist. Button names include `attack`, `attack2`, `jump`, `duck`, `use`, `reload`, and `walk`. Server fixes may replace the view angles. `aim PITCH YAW` and `move FORWARD SIDE TICKS` are interactive shortcuts.
+`input` accepts `forward`, `side`, and `up` in [-1,1], `pitch` and `yaw` in degrees, a `buttons` array, and `duration_ticks`. Axes and buttons return to zero after the requested number of server ticks; view angles persist. A new `input` replaces pending movement and buttons. Button names include `attack`, `attack2`, `jump`, `duck`, `use`, `reload`, and `walk`. Server fixes may replace the view angles. `aim PITCH YAW` and `move FORWARD SIDE TICKS` are interactive shortcuts. View-only input does not wait for local prediction; inspect `status` for the confirmed result.
 
 ## JSON stdio
 
@@ -64,6 +66,8 @@ One request per line:
 ```
 
 Responses echo `id` and contain `ok` plus `result` or `error`. Asynchronous events include `type` and server `tick`. Protocol diagnostics go to stderr; `--trace` enables message summaries without authentication tickets. `status` exposes signon state, packet counts, map/ticks, local player, players, inventory, and round information. Positions come from decoded server snapshots. A missing delta history sends tick -1 until a full snapshot restores state.
+
+Gameplay responses acknowledge queuing the request. A subsequent snapshot or game event confirms its effect. Inventory `clip` values are magazine counts (`-1` means no magazine); `fields` retains the original network properties. `server_command` events surface commands sent by the server, such as `buymenu` in response to use in a buy zone. They are informational and do not execute terminal commands. Leave at least 0.66 seconds between chat requests to satisfy the game's shared public/team chat cooldown. Allow a drawn weapon to finish deploying before sending a short firing input.
 
 ## Development bootstrap
 
@@ -94,3 +98,20 @@ The extractor checks the actual outgoing `clc_ClientInfo` checksum, demo entity 
 No rendering, voice, matchmaking, CS2, autonomous decision making, collision prediction, or multiple accounts. Timing and controls use the server tick interval; gameplay state remains server-authoritative. Authentication failures, unsupported connection features, profile mismatches, server rejection, and timeouts are reported explicitly. Disconnect clears session state and pending input, and cancels the Steam ticket.
 
 See `VALIDATION.md` for the measured validation results.
+
+## Validation and packages
+
+The live harness only accepts the authorized endpoint. It checks stock processes, loaded modules, server-confirmed controls, and continuous `FULL` with tick and packet progress:
+
+```powershell
+python tools/validate_live.py build/Release/headless-csgo.exe --seconds 1800
+```
+
+`tests/fixtures` retains sanitized stock user commands; `validation` contains derived reports. Build outputs, raw captures, demos, and credentials are excluded from Git.
+
+```powershell
+python tools/package_release.py --configuration Release
+python tools/package_release.py --configuration Debug
+```
+
+Packages include the client, helper, permitted generic Steam runtime, exact profile/descriptors, instructions, Python example, dependency notices, validation reports, and a SHA256 manifest. Packaging uses fixed archive timestamps and an explicit file allowlist. Extract a package into its own directory, keep Steam signed in, and run the interactive or JSON commands above there.
