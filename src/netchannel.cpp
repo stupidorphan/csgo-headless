@@ -10,7 +10,7 @@ constexpr std::uint32_t split_magic = 0xfffffffeu;
 constexpr std::uint32_t compressed_magic = 0xfffffffdu;
 constexpr std::uint32_t connectionless_magic = 0xffffffffu;
 constexpr std::size_t fragment_size = 256;
-constexpr unsigned normal_size_bits = 19;
+constexpr unsigned normal_size_bits = 20; // Legacy 13881; 2019 source used 19.
 constexpr unsigned file_size_bits = 26;
 std::uint32_t word(std::span<const std::uint8_t> bytes) {
     if (bytes.size() < 4) throw WireError("truncated packet marker");
@@ -36,7 +36,7 @@ std::vector<Message> decode_messages(BitReader& reader, bool reliable) {
     while (!reader.empty()) {
         const auto type = reader.varuint32();
         const auto size = reader.varuint32();
-        if (size > 524284 || size > reader.remaining() / 8) throw WireError("invalid protobuf frame length");
+        if (size > 524284 || size > reader.remaining() / 8) throw WireError("invalid protobuf frame length: type=" + std::to_string(type) + " size=" + std::to_string(size) + " remaining_bits=" + std::to_string(reader.remaining()) + " position=" + std::to_string(reader.position()));
         auto data = reader.bytes(size);
         if (type != 0) result.push_back(Message{type, std::move(data), reliable});
         else if (size != 0) throw WireError("NOP frame has a payload");

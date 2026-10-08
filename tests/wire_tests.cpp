@@ -4,9 +4,11 @@
 #include <algorithm>
 #include <array>
 #include <functional>
+#include <fstream>
 #include <iostream>
 #include <random>
 #include <string>
+#include <nlohmann/json.hpp>
 
 namespace {
 void require(bool condition, const char* message) {
@@ -106,6 +108,12 @@ void framing() {
 }
 void transport() {
     hc::ChannelConfig plain; plain.encryption = false;
+    // Installed 13881 capture proves the single-block size is 20 bits. This
+    // fixed unaligned body decodes as type 6 / length 4 only at that width.
+    hc::Netchannel legacy(plain);
+    const hc::Bytes legacy_body{0x88,0x01,0x00,0x18,0x10,0x28,0x08,0x20,0x04,0xf8};
+    const auto legacy_packet = legacy.receive(packet(1,0,0,legacy_body,75,true));
+    require(legacy_packet.valid && legacy_packet.messages.size() == 1 && legacy_packet.messages[0].type == 6 && legacy_packet.messages[0].bytes == hc::Bytes({10,2,8,1}), "13881 single-block 20-bit size fixture");
     hc::Netchannel golden(plain);
     require(golden.send().front() == hc::Bytes({1,0,0,0,0,0,0,0,0,0x3f,0x31,0,0,0,0,0}), "unreliable header/checksum golden vector");
     for (const bool encrypted : {false, true}) {
@@ -180,7 +188,7 @@ void malformed_transfer() {
     const auto frame = hc::encode_message(hc::Message{8,hc::Bytes{7,8},true});
     hc::BitWriter reliable;
     reliable.bits(0,3); reliable.bit(true); reliable.bit(false); reliable.bit(false);
-    reliable.bits(static_cast<std::uint32_t>(frame.size()),19); reliable.bytes(frame); reliable.bit(false);
+    reliable.bits(static_cast<std::uint32_t>(frame.size()),20); reliable.bytes(frame); reliable.bit(false);
     const auto good_bits = reliable.position();
     const auto good_body = reliable.data();
     reliable.bits(0x80,8);
@@ -196,8 +204,31 @@ void malformed_transfer() {
     require(receiver.receive(compressed).valid, "compressed netchannel packet");
 }
 }
-int main() {
+int main(int argc, char** argv) {
     try {
+        if (argc == 3 && std::string(argv[1]) == "--capture") {
+            std::ifstream input(argv[2]);
+            if (!input) throw std::runtime_error("cannot open capture");
+            hc::ChannelConfig config; config.passive = true;
+            hc::Netchannel c2s(config), s2c(config);
+            std::string line; std::size_t row = 0, valid = 0, errors = 0;
+            while (std::getline(input,line)) {
+                ++row;
+                const auto record = nlohmann::json::parse(line);
+                const auto hex = record.at("hex").get<std::string>();
+                hc::Bytes data;
+                for (std::size_t i = 0; i < hex.size(); i += 2) data.push_back(static_cast<std::uint8_t>(std::stoul(hex.substr(i,2),nullptr,16)));
+                const auto direction = record.at("direction").get<std::string>();
+                auto& channel = direction == "client_to_server" ? c2s : s2c;
+                const auto result = channel.receive(data);
+                if (!result.valid && !result.pending && result.error != "stale_packet") {
+                    ++errors;
+                    if (errors <= 5) std::cout << "row=" << row << " direction=" << direction << " error=" << result.error << '\n';
+                } else if (result.valid) ++valid;
+            }
+            std::cout << "rows=" << row << " valid=" << valid << " errors=" << errors << '\n';
+            return errors ? 1 : 0;
+        }
         bitstreams(); encryption(); compression(); framing(); transport(); malformed_transfer();
         std::cout << "wire tests passed: bitstreams, certified ICE-2, CRC, LZSS, framing, reliable loss recovery, UDP splitting, malformed input\n";
         return 0;
