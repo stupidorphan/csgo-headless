@@ -1,4 +1,6 @@
-* text=auto
+* text=auto eol=lf
 third_party/nlohmann/json.hpp -text
 third_party/nlohmann/LICENSE.MIT -text
 profiles/descriptors/*.bin -text
+# Preserve the exact bootstrap bytes referenced by runtime validation hashes.
+profiles/*.json -text
