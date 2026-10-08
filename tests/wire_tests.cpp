@@ -1,9 +1,12 @@
 #include "hc/netchannel.hpp"
 #include "hc/wire.hpp"
+#include "hc/proto.hpp"
+#include "hc/usercmd.hpp"
 
 #include <algorithm>
 #include <array>
 #include <functional>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <random>
@@ -203,6 +206,94 @@ void malformed_transfer() {
     auto encoded = hc::lzss_compress(raw); compressed.insert(compressed.end(),encoded.begin(),encoded.end());
     require(receiver.receive(compressed).valid, "compressed netchannel packet");
 }
+hc::Bytes fixture_bytes(const std::string& hex) {
+    require(hex.size() % 2 == 0, "fixture hex has odd length");
+    const auto nibble = [](char value) -> unsigned {
+        if (value >= '0' && value <= '9') return value - '0';
+        if (value >= 'a' && value <= 'f') return value - 'a' + 10;
+        if (value >= 'A' && value <= 'F') return value - 'A' + 10;
+        throw std::runtime_error("fixture hex contains an invalid digit");
+    };
+    hc::Bytes result;
+    for (std::size_t i = 0; i < hex.size(); i += 2) result.push_back(static_cast<std::uint8_t>(nibble(hex[i]) * 16 + nibble(hex[i + 1])));
+    return result;
+}
+hc::UserCmd expected_command(const nlohmann::json& fixture) {
+    hc::UserCmd command;
+    command.command_number = fixture.at("command_number").get<std::int32_t>();
+    command.tick_count = fixture.at("tick_count").get<std::int32_t>();
+    command.viewangles = fixture.at("viewangles").get<std::array<float, 3>>();
+    command.aimdirection = fixture.at("aimdirection").get<std::array<float, 3>>();
+    command.forwardmove = fixture.at("forwardmove").get<float>();
+    command.sidemove = fixture.at("sidemove").get<float>();
+    command.upmove = fixture.at("upmove").get<float>();
+    command.buttons = fixture.at("buttons").get<std::uint32_t>();
+    command.impulse = fixture.at("impulse").get<std::uint8_t>();
+    command.weaponselect = fixture.at("weaponselect").get<std::uint16_t>();
+    command.weaponsubtype = fixture.at("weaponsubtype").get<std::uint8_t>();
+    command.mousedx = fixture.at("mousedx").get<std::int16_t>();
+    command.mousedy = fixture.at("mousedy").get<std::int16_t>();
+    command.headangles = fixture.at("headangles").get<std::array<float, 3>>();
+    command.headoffset = fixture.at("headoffset").get<std::uint32_t>();
+    return command;
+}
+void captured_user_commands() {
+    // CTest normally runs inside build/, while standalone execution commonly
+    // starts at the repository root. Locate the committed fixture in an ancestor.
+    auto root = std::filesystem::current_path();
+    std::filesystem::path path;
+    for (unsigned depth = 0; depth < 5; ++depth) {
+        const auto candidate = root / "tests" / "fixtures" / "legacy_13881_usercmd.json";
+        if (std::filesystem::is_regular_file(candidate)) { path = candidate; break; }
+        if (root.parent_path() == root) break;
+        root = root.parent_path();
+    }
+    require(!path.empty(), "committed sanitized user-command fixtures are missing");
+    std::ifstream input(path);
+    nlohmann::json document;
+    input >> document;
+    require(document.at("host_version") == 13881 && document.at("format_version") == 1, "captured fixture profile mismatch");
+    require(document.at("fixtures").size() >= 2, "captured fixtures do not cover multiple stock moves");
+    for (const auto& fixture : document.at("fixtures")) {
+        require(fixture.at("message_type") == 9, "fixture contains a non-Move message");
+        const auto payload = fixture_bytes(fixture.at("protobuf_hex").get<std::string>());
+        const hc::Proto move(payload);
+        for (const auto& field : move.all_fields())
+            require(field.number >= 1 && field.number <= 3 && (field.number == 3 ? field.wire_type == 2 : field.wire_type == 0),
+                    "sanitized fixture contains a field outside the installed CLC_Move schema");
+        const unsigned backups = move.get_u32(1), fresh = move.get_u32(2);
+        require(backups <= 7 && fresh >= 1 && fresh <= 15 && backups == fixture.at("backup_commands") && fresh == fixture.at("new_commands"),
+                "captured backup/new command framing changed");
+        require(fixture.at("commands").size() == backups + fresh, "captured fixture command count mismatch");
+        const auto data = move.get_bytes(3);
+        hc::BitReader reader(data);
+        hc::BitWriter encoded;
+        hc::UserCmd previous;
+        for (const auto& expected : fixture.at("commands")) {
+            const auto command = hc::read_usercmd_delta(reader, previous);
+            require(command == expected_command(expected), "stock user-command fixture semantic decode changed");
+            hc::write_usercmd_delta(encoded, command, previous);
+            previous = command;
+        }
+        require(reader.position() == fixture.at("encoded_bits") && reader.remaining() == fixture.at("padding_bits") && reader.remaining() <= 7,
+                "stock user-command fixture leaves undecoded non-padding bits");
+        require(reader.position() == encoded.position(), "stock user-command reencoding changed bit count");
+        for (std::size_t bit = 0; bit < encoded.position(); ++bit)
+            require(((data[bit / 8] >> (bit % 8)) & 1) == ((encoded.data()[bit / 8] >> (bit % 8)) & 1),
+                    "stock user-command reencoding changed captured wire bits");
+        rejects([&] {
+            const hc::Bytes truncated(data.begin(), data.end() - 1);
+            hc::BitReader malformed(truncated);
+            hc::UserCmd command;
+            for (unsigned i = 0; i < backups + fresh; ++i) command = hc::read_usercmd_delta(malformed, command);
+        }, "truncated captured command data accepted");
+        rejects([&] {
+            hc::BitReader malformed(data);
+            hc::UserCmd command;
+            for (unsigned i = 0; i <= backups + fresh; ++i) command = hc::read_usercmd_delta(malformed, command);
+        }, "extra command claimed beyond captured data accepted");
+    }
+}
 }
 int main(int argc, char** argv) {
     try {
@@ -229,8 +320,8 @@ int main(int argc, char** argv) {
             std::cout << "rows=" << row << " valid=" << valid << " errors=" << errors << '\n';
             return errors ? 1 : 0;
         }
-        bitstreams(); encryption(); compression(); framing(); transport(); malformed_transfer();
-        std::cout << "wire tests passed: bitstreams, certified ICE-2, CRC, LZSS, framing, reliable loss recovery, UDP splitting, malformed input\n";
+        bitstreams(); encryption(); compression(); framing(); transport(); malformed_transfer(); captured_user_commands();
+        std::cout << "wire tests passed: bitstreams, certified ICE-2, CRC, LZSS, framing, reliable loss recovery, UDP splitting, captured stock user commands, malformed input\n";
         return 0;
     } catch (const std::exception& error) {
         std::cerr << "wire test failure: " << error.what() << '\n';

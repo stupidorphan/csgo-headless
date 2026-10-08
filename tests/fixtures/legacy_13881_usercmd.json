@@ -1,0 +1,406 @@
+{
+  "fixtures": [
+    {
+      "backup_commands": 2,
+      "commands": [
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 0,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 0,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 0,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 0,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 12,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 441217,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        }
+      ],
+      "encoded_bits": 252,
+      "message_type": 9,
+      "new_commands": 1,
+      "padding_bits": 4,
+      "pattern": "2:1:0:0:0",
+      "protobuf_hex": "080210011a200100000002000000000010000000200000000000001900000006ee1a00000000",
+      "source_sha256": "00381cf87d6cea74d99986a0a7bed66f0645c02202169cdb4cddcf60cfe59dff"
+    },
+    {
+      "backup_commands": 2,
+      "commands": [
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 0,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 0,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 12,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 441217,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 13,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 441218,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 14,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 441219,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        }
+      ],
+      "encoded_bits": 208,
+      "message_type": 9,
+      "new_commands": 2,
+      "padding_bits": 0,
+      "pattern": "2:2:0:0:0",
+      "protobuf_hex": "080210021a1a010000000200000000009001000060e0ae010000000000000000",
+      "source_sha256": "00381cf87d6cea74d99986a0a7bed66f0645c02202169cdb4cddcf60cfe59dff"
+    },
+    {
+      "backup_commands": 2,
+      "commands": [
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 709,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 531874,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 710,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 531875,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 711,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 531876,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 712,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 531877,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        },
+        {
+          "aimdirection": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "buttons": 0,
+          "command_number": 713,
+          "forwardmove": 0.0,
+          "headangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "headoffset": 0,
+          "impulse": 0,
+          "mousedx": 0,
+          "mousedy": 0,
+          "sidemove": 0.0,
+          "tick_count": 531878,
+          "upmove": 0.0,
+          "viewangles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "weaponselect": 0,
+          "weaponsubtype": 0
+        }
+      ],
+      "encoded_bits": 164,
+      "message_type": 9,
+      "new_commands": 3,
+      "padding_bits": 4,
+      "pattern": "2:3:0:0:0",
+      "protobuf_hex": "080210031a158b0500008a76200000000000000000000000000040",
+      "source_sha256": "d0572a96251fe03dacc8702d8ba83c7f3624a966a2ce88e9d6ea5abe96379770"
+    }
+  ],
+  "format_version": 1,
+  "host_version": 13881,
+  "patch_version": "1.38.8.1",
+  "provenance": {
+    "client_dll_sha256": "183d42fac8a4ecc24dc02edf5f09122f37fe9e7533ca093a867718b25cfdeb03",
+    "method": "Decoded stock-client CLC_Move messages from development relay captures; only message type9 protobuf payloads retained",
+    "netmessages_descriptor_sha256": "6aad46911185fa6aa40ba5dfe1c78d3aa5f1ec7310a3a29492daa030c8ba8e22",
+    "sanitization": "No packet headers, connectionless packets, other message types, tickets, userinfo, account names or account IDs retained",
+    "source_captures": [
+      {
+        "sha256": "00381cf87d6cea74d99986a0a7bed66f0645c02202169cdb4cddcf60cfe59dff"
+      },
+      {
+        "sha256": "d0572a96251fe03dacc8702d8ba83c7f3624a966a2ce88e9d6ea5abe96379770"
+      }
+    ],
+    "source_move_messages": 1469
+  }
+}
