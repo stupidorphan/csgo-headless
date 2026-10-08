@@ -1,0 +1,4 @@
+* text=auto
+third_party/nlohmann/json.hpp -text
+third_party/nlohmann/LICENSE.MIT -text
+profiles/descriptors/*.bin -text
