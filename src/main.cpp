@@ -79,7 +79,7 @@ int main(int argc,char**argv){try{
     auto emit=[&](const Json&e){
         Json output=e;const auto type=output.value("type",std::string{});if(active_account)output["account"]=active_account;
         if(!json&&(type=="auth_qr"||type=="auth_qr_refresh")){
-            std::cout<<output.value("terminal",std::string{})<<"\nScan this URL in Steam: "<<output.value("url",std::string{})<<"\n";std::cout.flush();return;
+            std::cout<<output.value("terminal_ascii",output.value("terminal",std::string{}))<<"\nScan this URL in Steam: "<<output.value("url",std::string{})<<"\n";std::cout.flush();return;
         }
         if(!json&&type=="auth_prompt"){
             const auto kind=output.value("kind",std::string{"steam_guard"});std::cout<<"Steam authentication prompt ["<<output.value("prompt_id",std::string{})<<"] "<<kind<<": "<<output.value("message",std::string{})<<"\n";std::cout.flush();

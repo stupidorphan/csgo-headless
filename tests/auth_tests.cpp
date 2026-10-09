@@ -17,6 +17,9 @@ int main() {
     const auto qr = hc::render_qr("steam://challenge/0123456789");
     assert(qr.find("\xE2\x96\x88") != std::string::npos);
     assert(qr.find('\n') != std::string::npos);
+    const auto ascii = hc::render_qr_ascii("steam://challenge/0123456789");
+    assert(ascii.find("##") != std::string::npos);
+    assert(ascii.find('\xE2') == std::string::npos);
     auth.close();
     assert(auth.status().at("state") == "signed_out");
     std::error_code error;

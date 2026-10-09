@@ -300,7 +300,7 @@ struct SteamAuth::Impl {
         poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, json_number(response, "interval", 5.0)) * 1000));
         if (!client_id || request_id.empty() || challenge_url.empty()) throw std::runtime_error("Steam did not return a QR challenge");
         next_poll = Clock::now() + poll_interval;
-        emit("auth_qr", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"interval_ms", poll_interval.count()}});
+        emit("auth_qr", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"terminal_ascii", render_qr_ascii(challenge_url)}, {"interval_ms", poll_interval.count()}});
     }
 
     void begin_password() {
@@ -343,7 +343,7 @@ struct SteamAuth::Impl {
         const auto refreshed_url = response.value("new_challenge_url", std::string{});
         if (!refreshed_url.empty() && refreshed_url != challenge_url) {
             challenge_url = refreshed_url;
-            emit("auth_qr_refresh", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"interval_ms", poll_interval.count()}});
+            emit("auth_qr_refresh", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"terminal_ascii", render_qr_ascii(challenge_url)}, {"interval_ms", poll_interval.count()}});
         }
         if (!response.contains("refresh_token")) { next_poll = Clock::now() + poll_interval; return; }
         refresh_token = response.value("refresh_token", std::string{});
