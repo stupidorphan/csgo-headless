@@ -72,14 +72,14 @@ int main(int argc,char**argv){try{
         else if(option=="--help"){std::cout<<"headless-csgo [--interactive|--json] [--server IP:PORT] [--profile FILE]\n  [--name NAME] [--accounts-file FILE] [--steam-token-file FILE] [--connect] [--trace] [--run-seconds N]\n  --decode-capture CAPTURE_JSONL METADATA_JSON\nCommands: login [ACCOUNT] qr|password, list, use ACCOUNT, logout, connect [IP:PORT], status,\n  auth qr|password|status|logout, auth_input PROMPT_ID VALUE, team T|CT|spectator,\n  input JSON, weapon ENTITY, buy ITEM, say TEXT, say_team TEXT, aim PITCH YAW,\n  move FORWARD SIDE TICKS, disconnect, quit\n";return 0;}
         else throw std::runtime_error("Unknown option: "+option);
     }
-    SetConsoleCtrlHandler(stop_handler,TRUE);Reader reader;hc::AccountRegistry accounts(accounts_file);std::uint32_t active_account=0;
+    SetConsoleCtrlHandler(stop_handler,TRUE);if(!json)SetConsoleOutputCP(CP_UTF8);Reader reader;hc::AccountRegistry accounts(accounts_file);std::uint32_t active_account=0;
     if(!config.auth_token_file.empty()){
         // An explicit token file remains supported for single-account scripts.
     }else if(!accounts.empty()){active_account=accounts.accounts().front().id;config.auth_token_file=accounts.get(active_account).token_file;}
     auto emit=[&](const Json&e){
         Json output=e;const auto type=output.value("type",std::string{});if(active_account)output["account"]=active_account;
         if(!json&&(type=="auth_qr"||type=="auth_qr_refresh")){
-            std::cout<<output.value("terminal_ascii",output.value("terminal",std::string{}))<<"\nScan this URL in Steam: "<<output.value("url",std::string{})<<"\n";std::cout.flush();return;
+            std::cout<<output.value("terminal_squares",output.value("terminal_ascii",output.value("terminal",std::string{})))<<"\nScan this URL in Steam: "<<output.value("url",std::string{})<<"\n";std::cout.flush();return;
         }
         if(!json&&type=="auth_prompt"){
             const auto kind=output.value("kind",std::string{"steam_guard"});std::cout<<"Steam authentication prompt ["<<output.value("prompt_id",std::string{})<<"] "<<kind<<": "<<output.value("message",std::string{})<<"\n";std::cout.flush();
