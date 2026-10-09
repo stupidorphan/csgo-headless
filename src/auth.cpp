@@ -188,6 +188,34 @@ std::string prompt_kind(std::uint32_t type) {
     }
 }
 
+void restrict_token_file(const std::filesystem::path& path) {
+    HANDLE token = nullptr;
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token)) throw std::runtime_error("Cannot inspect the current Windows account for token-file ACL");
+    DWORD size = 0;
+    GetTokenInformation(token, TokenUser, nullptr, 0, &size);
+    std::vector<std::uint8_t> user_buffer(size);
+    if (!GetTokenInformation(token, TokenUser, user_buffer.data(), size, &size)) {
+        CloseHandle(token); throw std::runtime_error("Cannot inspect the current Windows account for token-file ACL");
+    }
+    const auto user = reinterpret_cast<TOKEN_USER*>(user_buffer.data());
+    EXPLICIT_ACCESSW access{};
+    access.grfAccessPermissions = GENERIC_READ | GENERIC_WRITE | DELETE;
+    access.grfAccessMode = SET_ACCESS;
+    access.grfInheritance = NO_INHERITANCE;
+    access.Trustee.TrusteeForm = TRUSTEE_IS_SID;
+    access.Trustee.TrusteeType = TRUSTEE_IS_USER;
+    access.Trustee.ptstrName = reinterpret_cast<LPWSTR>(user->User.Sid);
+    PACL acl = nullptr;
+    const auto acl_result = SetEntriesInAclW(1, &access, nullptr, &acl);
+    CloseHandle(token);
+    if (acl_result != ERROR_SUCCESS) throw std::runtime_error("Cannot construct token-file ACL");
+    auto name = path.wstring();
+    const auto security_result = SetNamedSecurityInfoW(name.data(), SE_FILE_OBJECT,
+        DACL_SECURITY_INFORMATION | PROTECTED_DACL_SECURITY_INFORMATION, nullptr, nullptr, acl, nullptr);
+    LocalFree(acl);
+    if (security_result != ERROR_SUCCESS) throw std::runtime_error("Cannot restrict steam-auth.json to the current Windows account");
+}
+
 } // namespace
 
 struct SteamAuth::Impl {
@@ -252,34 +280,11 @@ struct SteamAuth::Impl {
                    {"access_token", access_token}, {"access_expires_unix", access_expiry}};
         const auto temporary = token_file.wstring() + L".tmp";
         { std::ofstream file(temporary, std::ios::binary | std::ios::trunc); if (!file) throw std::runtime_error("Cannot create steam-auth.json"); file << value.dump(2) << '\n'; }
+        try { restrict_token_file(temporary); }
+        catch (...) { DeleteFileW(temporary.c_str()); throw; }
         if (!MoveFileExW(temporary.c_str(), token_file.wstring().c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH)) {
             DeleteFileW(temporary.c_str()); throw std::runtime_error("Cannot replace steam-auth.json");
         }
-        HANDLE token = nullptr;
-        if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token)) throw std::runtime_error("Cannot inspect the current Windows account for token-file ACL");
-        DWORD size = 0;
-        GetTokenInformation(token, TokenUser, nullptr, 0, &size);
-        std::vector<std::uint8_t> user_buffer(size);
-        if (!GetTokenInformation(token, TokenUser, user_buffer.data(), size, &size)) {
-            CloseHandle(token); throw std::runtime_error("Cannot inspect the current Windows account for token-file ACL");
-        }
-        const auto user = reinterpret_cast<TOKEN_USER*>(user_buffer.data());
-        EXPLICIT_ACCESSW access{};
-        access.grfAccessPermissions = GENERIC_READ | GENERIC_WRITE | DELETE;
-        access.grfAccessMode = SET_ACCESS;
-        access.grfInheritance = NO_INHERITANCE;
-        access.Trustee.TrusteeForm = TRUSTEE_IS_SID;
-        access.Trustee.TrusteeType = TRUSTEE_IS_USER;
-        access.Trustee.ptstrName = reinterpret_cast<LPWSTR>(user->User.Sid);
-        PACL acl = nullptr;
-        const auto acl_result = SetEntriesInAclW(1, &access, nullptr, &acl);
-        CloseHandle(token);
-        if (acl_result != ERROR_SUCCESS) throw std::runtime_error("Cannot construct token-file ACL");
-        auto name = token_file.wstring();
-        const auto security_result = SetNamedSecurityInfoW(name.data(), SE_FILE_OBJECT,
-            DACL_SECURITY_INFORMATION | PROTECTED_DACL_SECURITY_INFORMATION, nullptr, nullptr, acl, nullptr);
-        LocalFree(acl);
-        if (security_result != ERROR_SUCCESS) throw std::runtime_error("Cannot restrict steam-auth.json to the current Windows account");
     }
 
     void begin_qr() {
