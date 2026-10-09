@@ -17,23 +17,28 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/release")
     args = parser.parse_args()
     files = {}
-    for name in ("headless-csgo.exe", "steam_auth_helper.exe", "steam_api.dll", "steam_appid.txt"):
+    for name in ("headless-csgo.exe",):
         files[name] = args.build / args.configuration / name
     for name in ("README.md", "VALIDATION.md", "THIRD_PARTY_NOTICES.md", "dependencies.lock.json",
-                 "third_party/nlohmann/LICENSE.MIT", "examples/control.py", "profiles/legacy_13881.json"):
+                 "third_party/nlohmann/LICENSE.MIT", "third_party/qrcodegen/LICENSE.MIT",
+                 "examples/control.py", "profiles/legacy_13881.json"):
         files[name] = ROOT / name
     for path in sorted((ROOT / "profiles/descriptors").glob("*")):
         if path.is_file():
             files[path.relative_to(ROOT).as_posix()] = path
-    for path in sorted((ROOT / "validation").glob("*.json")):
-        files[path.relative_to(ROOT).as_posix()] = path
+    for name in ("offline_replay.json", "runtime_file_audit_fixture.json"):
+        path = ROOT / "validation" / name
+        if path.is_file():
+            files[path.relative_to(ROOT).as_posix()] = path
     for name, path in files.items():
         if not path.is_file():
             raise FileNotFoundError(f"Required package input is missing: {name}")
     lock = json.loads(files["dependencies.lock.json"].read_text(encoding="utf-8"))
-    expected_dll = lock["components"]["steamworks"]["runtime"]["sha256"]
-    if hashlib.sha256(files["steam_api.dll"].read_bytes()).hexdigest() != expected_dll:
-        raise ValueError("Steam runtime differs from the pinned dependency")
+    for component in ("nlohmann", "qrcodegen"):
+        for entry in lock["components"][component]["files"]:
+            path = ROOT / entry["path"]
+            if hashlib.sha256(path.read_bytes()).hexdigest() != entry["sha256"]:
+                raise ValueError(f"Pinned dependency differs from the lock: {path}")
     payload = {name: path.read_bytes() for name, path in sorted(files.items())}
     manifest = {
         "format": 1, "host_version": 13881, "architecture": "x86", "configuration": args.configuration,

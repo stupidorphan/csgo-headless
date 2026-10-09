@@ -75,6 +75,7 @@ struct Session::Impl {
         if(!profile.contains("send_table_crc")||!profile["send_table_crc"].is_number_unsigned()||profile["send_table_crc"].get<uint32_t>()==0||!profile.contains("entity_schema")||profile["entity_schema"].value("classes",Json::array()).empty()||!profile.value("bootstrap",Json::object()).value("stock_signon_verified",false)||!profile.value("bootstrap",Json::object()).value("send_table_crc_verified",false))throw std::runtime_error("Bootstrap incomplete: extract a matching demo schema and captured client-info checksum first");
         if(!profile.value("integrity",Json::object()).value("requirements_verified",false))throw std::runtime_error("Bootstrap incomplete: integrity requirements are not verified");
         if(profile["integrity"].value("coverage",Json::object()).value("server",std::string{})!=config.server)throw std::runtime_error("Server differs from verified metadata coverage");
+        auth.poll();
         if(!auth.ready())throw std::runtime_error("Steam authentication required: run auth qr or auth password first");
         state.load_profile(profile);credentials=auth.acquire_ticket();
         auto colon=config.server.rfind(':');if(colon==std::string::npos)throw std::runtime_error("Server must be a numeric IPv4 address:port");

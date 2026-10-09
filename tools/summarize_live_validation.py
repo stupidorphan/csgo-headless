@@ -132,7 +132,7 @@ def runtime(value, module_hashes):
         if not isinstance(process, dict):
             continue
         name = process.get("name")
-        if name not in ("headless-csgo", "steam_auth_helper"):
+        if name not in ("headless-csgo",):
             name = "other"
         modules = {}
         for path in process.get("modules", []) if isinstance(process.get("modules"), list) else []:

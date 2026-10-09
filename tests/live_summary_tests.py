@@ -36,7 +36,7 @@ class SummaryTests(unittest.TestCase):
                          "activity": [{"elapsed_seconds": 30, "input": {"forward": 0.35, "yaw": 90,
                                       "buttons": ["jump", secret], "ticket": secret}, "accepted_response": secret}]}, "full_signon": state,
                 "runtime_full": {"verified": True, "processes": [{"name": "headless-csgo", "id": 123,
-                                 "modules": ["C:\\Users\\" + secret + "\\steam_api.dll"]}], "stock": [],
+                                 "modules": ["C:\\Users\\" + secret + "\\headless-csgo.exe"]}], "stock": [],
                                  "forbidden_modules": [], "reason": secret}, "error": secret, "cleanup_error": secret}
 
     def test_evidence_and_privacy(self):
@@ -51,7 +51,7 @@ class SummaryTests(unittest.TestCase):
         self.assertEqual(result["controls"]["fire"]["after"]["local"]["inventory"][0]["clip"], 19)
         self.assertEqual(result["controls"]["fire"]["server_event"]["values"], {"weapon": "glock", "silenced": False})
         self.assertTrue(result["controls"]["say"]["echo_verified"])
-        self.assertEqual(result["runtime_full"]["processes"][0]["modules"], [{"name": "steam_api.dll", "sha256": "c" * 64}])
+        self.assertEqual(result["runtime_full"]["processes"][0]["modules"], [{"name": "headless-csgo.exe", "sha256": "c" * 64}])
         self.assertIn("reload", result["unverified_controls"])
         self.assertEqual(result["soak"]["measurements"][0]["local"]["eye_angles"], [12, 37])
         self.assertEqual(result["soak"]["measurements"][0]["round"],

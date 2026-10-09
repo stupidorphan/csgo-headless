@@ -2,8 +2,11 @@
 #include <winhttp.h>
 #include <bcrypt.h>
 #include <ncrypt.h>
+#include <aclapi.h>
 
 #include "hc/auth.hpp"
+#include "hc/qr.hpp"
+#include "hc/steam_cm.hpp"
 
 #include <algorithm>
 #include <array>
@@ -152,9 +155,12 @@ std::vector<std::uint8_t> rsa_encrypt(std::string_view password, std::string_vie
 
 std::string prompt_kind(std::uint32_t type) {
     switch (type) {
+    case 1: return "none";
     case 2: return "email_code";
     case 3: return "totp";
     case 4: return "mobile_confirmation";
+    case 5: return "email_confirmation";
+    case 6: return "machine_token";
     default: return "steam_guard";
     }
 }
@@ -186,6 +192,13 @@ struct SteamAuth::Impl {
     std::chrono::milliseconds poll_interval{5000};
     Clock::time_point next_poll{};
     std::uint64_t sequence = 0;
+    std::unique_ptr<SteamCM> cm;
+    bool cm_attempted = false;
+
+    static std::uint64_t unix_now() {
+        return static_cast<std::uint64_t>(std::chrono::duration_cast<std::chrono::seconds>(
+            std::chrono::system_clock::now().time_since_epoch()).count());
+    }
 
     void emit(std::string_view type, Json payload = Json::object()) {
         if (!sink) return;
@@ -203,6 +216,7 @@ struct SteamAuth::Impl {
             refresh_token = value.at("refresh_token").get<std::string>();
             access_token = value.value("access_token", std::string{});
             access_expiry = value.value("access_expires_unix", std::uint64_t{});
+            account = value.value("account_name", std::string{});
             if (steam_id && !refresh_token.empty()) state = "token_loaded";
         } catch (...) {
             state = "token_invalid";
@@ -211,13 +225,38 @@ struct SteamAuth::Impl {
 
     void save_token() {
         if (!steam_id || refresh_token.empty()) throw std::runtime_error("Steam authentication did not return a usable refresh token");
-        Json value{{"version", 1}, {"appid", 730}, {"steam_id", steam_id}, {"refresh_token", refresh_token},
+        Json value{{"version", 1}, {"appid", 730}, {"steam_id", steam_id}, {"account_name", account}, {"refresh_token", refresh_token},
                    {"access_token", access_token}, {"access_expires_unix", access_expiry}};
         const auto temporary = token_file.wstring() + L".tmp";
         { std::ofstream file(temporary, std::ios::binary | std::ios::trunc); if (!file) throw std::runtime_error("Cannot create steam-auth.json"); file << value.dump(2) << '\n'; }
         if (!MoveFileExW(temporary.c_str(), token_file.wstring().c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH)) {
             DeleteFileW(temporary.c_str()); throw std::runtime_error("Cannot replace steam-auth.json");
         }
+        HANDLE token = nullptr;
+        if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token)) throw std::runtime_error("Cannot inspect the current Windows account for token-file ACL");
+        DWORD size = 0;
+        GetTokenInformation(token, TokenUser, nullptr, 0, &size);
+        std::vector<std::uint8_t> user_buffer(size);
+        if (!GetTokenInformation(token, TokenUser, user_buffer.data(), size, &size)) {
+            CloseHandle(token); throw std::runtime_error("Cannot inspect the current Windows account for token-file ACL");
+        }
+        const auto user = reinterpret_cast<TOKEN_USER*>(user_buffer.data());
+        EXPLICIT_ACCESSW access{};
+        access.grfAccessPermissions = GENERIC_READ | GENERIC_WRITE | DELETE;
+        access.grfAccessMode = SET_ACCESS;
+        access.grfInheritance = NO_INHERITANCE;
+        access.Trustee.TrusteeForm = TRUSTEE_IS_SID;
+        access.Trustee.TrusteeType = TRUSTEE_IS_USER;
+        access.Trustee.ptstrName = reinterpret_cast<LPWSTR>(user->User.Sid);
+        PACL acl = nullptr;
+        const auto acl_result = SetEntriesInAclW(1, &access, nullptr, &acl);
+        CloseHandle(token);
+        if (acl_result != ERROR_SUCCESS) throw std::runtime_error("Cannot construct token-file ACL");
+        auto name = token_file.wstring();
+        const auto security_result = SetNamedSecurityInfoW(name.data(), SE_FILE_OBJECT,
+            DACL_SECURITY_INFORMATION | PROTECTED_DACL_SECURITY_INFORMATION, nullptr, nullptr, acl, nullptr);
+        LocalFree(acl);
+        if (security_result != ERROR_SUCCESS) throw std::runtime_error("Cannot restrict steam-auth.json to the current Windows account");
     }
 
     void begin_qr() {
@@ -232,7 +271,7 @@ struct SteamAuth::Impl {
         poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, static_cast<double>(response.value("interval", 5.0f))) * 1000));
         if (!client_id || request_id.empty() || challenge_url.empty()) throw std::runtime_error("Steam did not return a QR challenge");
         next_poll = Clock::now() + poll_interval;
-        emit("auth_qr", {{"url", challenge_url}, {"interval_ms", poll_interval.count()}});
+        emit("auth_qr", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"interval_ms", poll_interval.count()}});
     }
 
     void begin_password() {
@@ -258,6 +297,9 @@ struct SteamAuth::Impl {
         if (allowed.empty()) throw std::runtime_error("Steam returned no authentication confirmation methods");
         guard_type = allowed.front().value("confirmation_type", 0u);
         state = "guard_pending";
+        if (guard_type == 1) { prompt.clear(); next_poll = Clock::now(); return; }
+        if (guard_type != 2 && guard_type != 3 && guard_type != 4 && guard_type != 5)
+            throw std::runtime_error("Steam returned an unsupported authentication confirmation method");
         prompt = "guard_" + std::to_string(++sequence);
         if (guard_type == 4) emit("auth_prompt", {{"prompt_id", prompt}, {"kind", "mobile_confirmation"}});
         else emit("auth_prompt", {{"prompt_id", prompt}, {"kind", prompt_kind(guard_type)}, {"message", allowed.front().value("associated_message", "")}});
@@ -268,15 +310,50 @@ struct SteamAuth::Impl {
     void poll_auth() {
         const auto response = http_post("/IAuthenticationService/PollAuthSessionStatus/v1/", Json{{"client_id", client_id}, {"request_id", request_id}});
         if (response.contains("new_client_id")) client_id = response.value("new_client_id", client_id);
+        const auto refreshed_url = response.value("new_challenge_url", std::string{});
+        if (!refreshed_url.empty() && refreshed_url != challenge_url) {
+            challenge_url = refreshed_url;
+            emit("auth_qr_refresh", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"interval_ms", poll_interval.count()}});
+        }
         if (!response.contains("refresh_token")) { next_poll = Clock::now() + poll_interval; return; }
         refresh_token = response.value("refresh_token", std::string{});
         access_token = response.value("access_token", std::string{});
         steam_id = response.value("steamid", 0ull);
+        account = response.value("account_name", account);
         if (!steam_id || refresh_token.empty() || access_token.empty()) throw std::runtime_error("Steam returned incomplete authentication tokens");
-        access_expiry = static_cast<std::uint64_t>(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count()) + 86400;
+        access_expiry = unix_now() + 86400;
         save_token();
-        state = "authenticated"; prompt.clear(); request_id.clear(); challenge_url.clear(); client_id = 0;
+        state = "cm_connecting"; prompt.clear(); request_id.clear(); challenge_url.clear(); client_id = 0;
+        ensure_cm();
         emit("auth_completed", {{"steam_id", steam_id}});
+    }
+
+    void ensure_cm() {
+        if (!steam_id || access_token.empty()) throw std::runtime_error("Steam access token is missing; authenticate again");
+        if (cm && cm->logged_in()) { state = "authenticated"; return; }
+        if (account.empty()) throw std::runtime_error("Steam account name is unavailable; authenticate with password login again");
+        cm_attempted = true;
+        cm = std::make_unique<SteamCM>();
+        try {
+            cm->connect(account, access_token, steam_id);
+            state = "authenticated";
+            emit("auth_state", {{"state", state}, {"steam_id", steam_id}});
+        } catch (...) {
+            cm.reset();
+            throw;
+        }
+    }
+
+    void refresh_access_token() {
+        if (refresh_token.empty() || !steam_id) throw std::runtime_error("Steam refresh token is missing; authenticate again");
+        const auto response = http_post("/IAuthenticationService/GenerateAccessTokenForApp/v1/",
+            Json{{"refresh_token", refresh_token}, {"steamid", steam_id}, {"renewal_type", 1}});
+        access_token = response.value("access_token", std::string{});
+        const auto rotated = response.value("refresh_token", std::string{});
+        if (!rotated.empty()) refresh_token = rotated;
+        if (access_token.empty()) throw std::runtime_error("Steam did not return a refreshed access token");
+        access_expiry = unix_now() + 86400;
+        save_token();
     }
 
     void start(SteamAuthMode selected) {
@@ -296,22 +373,40 @@ struct SteamAuth::Impl {
     }
 
     void poll() {
+        if (state == "token_loaded" && !cm_attempted) {
+            try {
+                if (access_token.empty() || (access_expiry && access_expiry <= unix_now() + 60)) refresh_access_token();
+                ensure_cm();
+            }
+            catch (const std::exception& e) { state = "token_error"; emit("auth_error", {{"message", e.what()}}); }
+        }
+        if (state == "authenticated" && (!cm || !cm->logged_in())) {
+            cm_attempted = false;
+            try {
+                if (access_token.empty() || (access_expiry && access_expiry <= unix_now() + 60)) refresh_access_token();
+                ensure_cm();
+            }
+            catch (const std::exception& e) { state = "cm_error"; emit("auth_error", {{"message", e.what()}}); }
+        }
         if (state == "qr_pending" || state == "guard_pending") {
             if (Clock::now() >= next_poll) poll_auth();
         }
     }
 
-    bool ready() const noexcept { return state == "authenticated" && steam_id != 0 && !access_token.empty(); }
+    bool ready() const noexcept { return state == "authenticated" && steam_id != 0 && !access_token.empty() && cm && cm->logged_in(); }
 
     Json status() const {
         return {{"state", state}, {"steam_id", steam_id}, {"token_file", token_file.string()}, {"qr_url", challenge_url}};
     }
 
-    SteamCredentials acquire_ticket(std::chrono::milliseconds) {
-        throw std::runtime_error("Steam CM game-ticket transport is not available yet; authentication completed but no AppID 730 ticket was issued");
+    SteamCredentials acquire_ticket(std::chrono::milliseconds timeout) {
+        if (!ready()) throw std::runtime_error("Steam authentication is not ready");
+        return cm->issue_ticket(730, timeout);
     }
 
     void close() noexcept {
+        if (cm) cm->close();
+        cm.reset(); cm_attempted = false;
         clear(password); clear(access_token); clear(refresh_token); clear(account); request_id.clear(); challenge_url.clear(); prompt.clear();
         client_id = 0; steam_id = 0; access_expiry = 0; state = "signed_out";
     }

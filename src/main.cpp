@@ -40,12 +40,18 @@ int decode_capture(const std::string& path,const std::string& output){
 }
 class Reader {
 public:
-    Reader(){worker=std::thread([this]{std::string line;while(!stop&&std::getline(std::cin,line)){std::unique_lock lock(mutex);space.wait(lock,[this]{return stop||queue.size()<1024;});if(stop)break;queue.push_back(std::move(line));}ended=true;});}
+    Reader(){worker=std::thread([this]{std::string line;while(!stop&&std::getline(std::cin,line)){std::unique_lock lock(mutex);space.wait(lock,[this]{return stop||queue.size()<1024;});if(stop)break;if(!hidden_prompt.empty()){const auto prompt=std::move(hidden_prompt);hidden_prompt.clear();if(console_mode_valid){SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE),console_mode);console_mode_valid=false;}line=std::string("\x01")+"AUTH_INPUT\t"+prompt+"\t"+line;}queue.push_back(std::move(line));}ended=true;});}
     ~Reader(){stop=true;space.notify_all();if(worker.joinable()){CancelSynchronousIo(worker.native_handle());worker.join();}}
+    void arm_hidden_prompt(std::string prompt_id){
+        std::lock_guard lock(mutex); hidden_prompt=std::move(prompt_id);
+        HANDLE input=GetStdHandle(STD_INPUT_HANDLE); DWORD mode=0;
+        if(input!=INVALID_HANDLE_VALUE&&GetConsoleMode(input,&mode)){console_mode=mode;console_mode_valid=true;SetConsoleMode(input,mode&~ENABLE_ECHO_INPUT);}
+    }
     bool pop(std::string&line){std::lock_guard lock(mutex);if(queue.empty())return false;line=std::move(queue.front());queue.pop_front();space.notify_one();return true;}
     bool eof(){std::lock_guard lock(mutex);return ended&&queue.empty();}
 private:
     std::mutex mutex;std::condition_variable space;std::deque<std::string>queue;std::atomic<bool>stop=false,ended=false;std::thread worker;
+    std::string hidden_prompt; DWORD console_mode=0; bool console_mode_valid=false;
 };
 }
 int main(int argc,char**argv){try{
@@ -64,13 +70,25 @@ int main(int argc,char**argv){try{
         else if(option=="--help"){std::cout<<"headless-csgo [--interactive|--json] [--server IP:PORT] [--profile FILE]\n  [--name NAME] [--steam-token-file FILE] [--connect] [--trace] [--run-seconds N]\n  --decode-capture CAPTURE_JSONL METADATA_JSON\nCommands: auth qr|password|status|logout, auth_input PROMPT_ID VALUE, connect, status,\n  team T|CT|spectator, input JSON, weapon ENTITY, buy ITEM, say TEXT, say_team TEXT,\n  aim PITCH YAW, move FORWARD SIDE TICKS, disconnect, quit\n";return 0;}
         else throw std::runtime_error("Unknown option: "+option);
     }
-    auto emit=[&](const Json&e){if(json)std::cout<<e.dump()<<'\n';else std::cout<<e.dump(2)<<'\n';std::cout.flush();};
-    hc::Session session(config,emit);SetConsoleCtrlHandler(stop_handler,TRUE);Reader reader;
+    SetConsoleCtrlHandler(stop_handler,TRUE);Reader reader;
+    auto emit=[&](const Json&e){
+        const auto type=e.value("type",std::string{});
+        if(!json&&(type=="auth_qr"||type=="auth_qr_refresh")){
+            std::cout<<e.value("terminal",std::string{})<<"\nScan this URL in Steam: "<<e.value("url",std::string{})<<"\n";std::cout.flush();return;
+        }
+        if(!json&&type=="auth_prompt"){
+            const auto kind=e.value("kind",std::string{"steam_guard"});std::cout<<"Steam authentication prompt ["<<e.value("prompt_id",std::string{})<<"] "<<kind<<": "<<e.value("message",std::string{})<<"\n";std::cout.flush();
+            if(kind=="password"||kind=="email_code"||kind=="totp")reader.arm_hidden_prompt(e.value("prompt_id",std::string{}));
+            return;
+        }
+        if(json)std::cout<<e.dump()<<'\n';else std::cout<<e.dump(2)<<'\n';std::cout.flush();
+    };
+    hc::Session session(config,emit);
     if(!json)std::cout<<"CS:GO Legacy 1.38.8.1 headless client. Type connect or status.\n";
     if(autoconnect){auto result=session.command("connect");emit({{"type","response"},{"ok",true},{"result",result}});}
     auto started=std::chrono::steady_clock::now();bool quit=false;
     while(!quit&&!interrupted){std::string line;for(unsigned count=0;!quit&&count<64&&reader.pop(line);++count){if(line.empty())continue;Json id=nullptr;
-        try{Json request=json?Json::parse(line):hc::parse_interactive(line);if(!request.is_object())throw std::runtime_error("Request must be an object");id=request.value("id",Json(nullptr));auto op=request.at("op").get<std::string>();auto args=request.value("args",Json::object());auto result=session.command(op,args);emit({{"type","response"},{"id",id},{"ok",true},{"result",result}});if(op=="quit")quit=true;}
+        try{Json request; if(!json&&line.rfind(std::string("\x01")+"AUTH_INPUT\t",0)==0){const auto rest=line.substr(12);const auto tab=rest.find('\t');if(tab==std::string::npos)throw std::runtime_error("Hidden authentication input is malformed");request={{"op","auth_input"},{"args",{{"prompt_id",rest.substr(0,tab)},{"value",rest.substr(tab+1)}}}};}else request=json?Json::parse(line):hc::parse_interactive(line);if(!request.is_object())throw std::runtime_error("Request must be an object");id=request.value("id",Json(nullptr));auto op=request.at("op").get<std::string>();auto args=request.value("args",Json::object());auto result=session.command(op,args);emit({{"type","response"},{"id",id},{"ok",true},{"result",result}});if(op=="quit")quit=true;}
         catch(const std::exception&e){emit({{"type","response"},{"id",id},{"ok",false},{"error",{{"message",e.what()}}}});}
     }
         session.poll();

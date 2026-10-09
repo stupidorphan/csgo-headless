@@ -1,19 +1,19 @@
 # Standalone CS:GO Legacy client
 
-C++20 Windows implementation for Legacy 1.38.8.1, host version 13881. A genuine logged-in Steam account supplies AppID 730 session tickets through a separate Steamworks helper. The protocol core does not load CS:GO engine DLLs, maps, models, or other assets.
+C++20 Windows implementation for Legacy 1.38.8.1, host version 13881. A genuine Steam account supplies AppID 730 session tickets through an in-process Steam CM/authentication implementation. The client does not require `steam.exe`, `steam_api.dll`, CS:GO engine DLLs, maps, models, or other game assets.
 
 The supplied metadata profile covers `151.243.93.16:27015`, `cs_italy`, and its observed pure whitelist. Changed maps, checksums, or integrity requirements require another verified profile. Server settings are not changed by this client.
 
 ## Build
 
-Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.25 or newer. The current helper uses the locally available 32-bit Steamworks SDK, so configure Win32.
+Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.25 or newer. Configure Win32 for the Legacy protocol ABI.
 
-The validated toolchain is CMake 3.31.6-msvc6, MSVC 19.44.35228.0 (v143, tools directory 14.44.35207), and Windows SDK 10.0.26100.0. `dependencies.lock.json` pins the JSON header/license, Steam SDK headers/import library, and generic Steam runtime by SHA256. Configuration rejects changed dependency contents. MSVC compilation and linking use `/Brepro`, with incremental linking disabled; binary reproducibility was checked by clean rebuilds in the same source/build location.
+The validated toolchain is CMake 3.31.6-msvc6, MSVC 19.44.35228.0 (v143, tools directory 14.44.35207), and Windows SDK 10.0.26100.0. `dependencies.lock.json` pins the JSON and QR encoder sources/licenses by SHA256. Configuration rejects changed dependency contents. MSVC compilation and linking use `/Brepro`, with incremental linking disabled; binary reproducibility was checked by clean rebuilds in the same source/build location.
 
 Git attributes fix source line endings and preserve the exact verified profile and pinned dependency bytes. The source archive therefore retains the same profile SHA256 as the tested runtime package.
 
 ```powershell
-cmake --preset windows -DSTEAM_SDK_DIR="E:/archives/csgo/csgo_partner/src" -DSTEAM_API_DLL="D:/SteamLibrary/steamapps/common/Counter-Strike Global Offensive/bin/steam_api.dll"
+cmake --preset windows
 cmake --build --preset debug
 ctest --preset debug
 cmake --build --preset release
@@ -21,7 +21,7 @@ ctest --preset release
 python tests/metadata_tests.py
 ```
 
-JSON for Modern C++ 3.12.0 is vendored with its exact SHA256 in `THIRD_PARTY_NOTICES.md`. The helper alone links the locally supplied Steamworks SDK. Build output includes `steam_auth_helper.exe`, the generic `steam_api.dll` redistributable, and `steam_appid.txt`; keep these beside `headless-csgo.exe`. Runtime needs Steam running and signed in, with the stock game closed.
+JSON for Modern C++ 3.12.0 and Nayuki's MIT QR encoder are vendored with exact SHA256 entries in `dependencies.lock.json`. Release output contains only the client, derived metadata, documentation, and examples. The first login creates `steam-auth.json` beside the executable; it is written atomically and restricted to the current Windows account. Keep that file private and back it up only through a protected user-managed location.
 
 ## Interactive control
 
@@ -34,6 +34,9 @@ From an extracted package directory:
 From the source checkout, use `.\build\Release\headless-csgo.exe --interactive --profile profiles/legacy_13881.json` instead.
 
 ```text
+auth qr
+# scan the URL/matrix with the Steam mobile app, then wait for auth_completed
+auth status
 connect
 status
 team T
@@ -48,6 +51,8 @@ say_team ready
 disconnect
 quit
 ```
+
+`auth password` emits ephemeral prompts for the Steam account name, password, email code, TOTP, or mobile confirmation. In interactive mode, enter the account name at the account prompt and then enter each secret on its own hidden line. JSON clients submit `auth_input` with the prompt ID and value; secrets are never echoed by the client or included in status events. `auth logout` closes the CM session and clears in-memory tokens while leaving the user-managed token file in place. A token file is reused on the next start when its access token is still valid; an expired access token is renewed with the stored refresh token.
 
 `weapon` takes an entity index from the server-confirmed inventory. Purchase success depends on the server's game mode, team, money, and buy zone. `team` accepts `T`, `CT`, or `spectator`.
 
@@ -65,13 +70,16 @@ From the source checkout, the corresponding executable is `.\build\Release\headl
 One request per line:
 
 ```json
-{"id":1,"op":"connect","args":{}}
-{"id":2,"op":"team","args":{"team":"T"}}
-{"id":3,"op":"input","args":{"forward":1,"yaw":90,"duration_ticks":32}}
-{"id":4,"op":"status","args":{}}
+{"id":1,"op":"auth","args":{"mode":"qr"}}
+{"id":2,"op":"auth_status","args":{}}
+{"id":3,"op":"auth_input","args":{"prompt_id":"password","value":"..."}}
+{"id":4,"op":"connect","args":{}}
+{"id":5,"op":"team","args":{"team":"T"}}
+{"id":6,"op":"input","args":{"forward":1,"yaw":90,"duration_ticks":32}}
+{"id":7,"op":"status","args":{}}
 ```
 
-Responses echo `id` and contain `ok` plus `result` or `error`. Asynchronous events include `type` and server `tick`. Protocol diagnostics go to stderr; `--trace` enables message summaries without authentication tickets. `status` exposes signon state, packet counts, map/ticks, local player, players, inventory, and round information. Positions come from decoded server snapshots. A missing delta history sends tick -1 until a full snapshot restores state.
+Responses echo `id` and contain `ok` plus `result` or `error`. Auth events are `auth_qr`, `auth_qr_refresh`, `auth_prompt`, `auth_state`, `auth_completed`, and `auth_error`; QR events include both the URL and a Unicode matrix. Asynchronous gameplay events include `type` and server `tick`. Protocol diagnostics go to stderr; `--trace` enables message summaries without authentication tickets. `status` exposes signon state, packet counts, map/ticks, local player, players, inventory, and round information. Positions come from decoded server snapshots. A missing delta history sends tick -1 until a full snapshot restores state.
 
 Gameplay responses acknowledge queuing the request. A subsequent snapshot or game event confirms its effect. Inventory `clip` values are magazine counts (`-1` means no magazine); `fields` retains the original network properties. `server_command` events surface commands sent by the server, such as `buymenu` in response to use in a buy zone. They are informational and do not execute terminal commands. Leave at least 0.66 seconds between chat requests to satisfy the game's shared public/team chat cooldown. Allow a drawn weapon to finish deploying before sending a short firing input.
 
@@ -146,4 +154,4 @@ The separate source ZIP contains the C++ implementation, metadata-generation too
 git archive --format=zip --output=artifacts/release/headless-csgo-13881-source.zip HEAD
 ```
 
-Building from source requires matching Steamworks SDK headers/import libraries and the pinned generic Steam runtime, supplied through the CMake paths above. These development inputs are separate from the standalone runtime packages.
+Building from source requires only the Windows toolchain and the vendored pinned sources. Steam authentication contacts Steam's authentication service and CM at runtime; no Steam client or installed game files are build or runtime inputs.
