@@ -24,6 +24,7 @@ Live Steam QR/password authentication and the 30-minute gameplay soak have not b
 
 ```powershell
 python tools/validate_live.py build/Release/headless-csgo.exe --seconds 1800
+python tools/validate_live.py build/Release/headless-csgo.exe --auth-qr --seconds 1800
 ```
 
 The live run must reach `FULL`, join/spawn, verify server-confirmed movement, aiming, firing, reloading, buying, chat, reconnect with a renewed ticket, and complete 1,800 seconds without opening the stock game or Steam client. Until that run is performed, the native-auth implementation is build- and offline-validated but not live-certified.

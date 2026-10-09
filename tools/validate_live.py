@@ -266,6 +266,18 @@ class Driver:
             self.wait(0.1)
         raise TimeoutError(f"No server-confirmed {label}; latest={json.dumps(compact(latest))}")
 
+    def wait_auth(self, seconds=300):
+        deadline = time.monotonic() + seconds
+        latest = {}
+        while time.monotonic() < deadline:
+            latest = self.request("auth_status", timeout=45)
+            if latest.get("state") == "authenticated":
+                return latest
+            if latest.get("state") in {"token_error", "cm_error", "signed_out"}:
+                raise RuntimeError("Steam authentication failed: " + latest.get("state", "unknown"))
+            self.wait(1)
+        raise TimeoutError(f"Steam authentication did not complete; latest={json.dumps(latest)}")
+
     def event(self, after, names, user_id=None):
         for number, value in reversed(self.events):
             if number <= after:
@@ -496,6 +508,7 @@ def main():
     parser.add_argument("--spawn-timeout", type=int, default=180)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--trace", action="store_true")
+    parser.add_argument("--auth-qr", action="store_true", help="Start an in-process QR login and wait for the operator to approve it")
     parser.add_argument("--skip-module-check", action="store_true", help="Report DLL/stock process verification as unverified")
     parser.add_argument("--self-test", action="store_true", help="Run offline harness checks without launching the client")
     args = parser.parse_args()
@@ -525,6 +538,10 @@ def main():
             if report["runtime_before"].get("stock"):
                 raise RuntimeError("Stock CS:GO/CS2 is running; close it before standalone validation")
         driver = Driver(executable, profile, directory, args.trace)
+        if args.auth_qr:
+            driver.request("auth", timeout=30, mode="qr")
+            emit("auth_wait", message="Approve the QR challenge shown in the auth_qr event")
+            driver.wait_auth(300)
         driver.request("connect", timeout=45)
         status = driver.wait_status(lambda value: value.get("connection", {}).get("signon") == 6,
                                    args.connect_timeout, "FULL signon")
