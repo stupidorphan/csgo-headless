@@ -11,6 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("executable", type=Path)
     parser.add_argument("--profile", type=Path, default=Path("profiles/legacy_13881.json"))
+    parser.add_argument("--no-auth", action="store_true", help="Use only when a test harness has already authenticated the client")
     args = parser.parse_args()
     process = subprocess.Popen([str(args.executable.resolve()), "--json", "--profile", str(args.profile.resolve())],
                                stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True, bufsize=1)
@@ -54,7 +55,22 @@ def main():
                 raise RuntimeError(status["connection"].get("last_error") or "Disconnected")
             time.sleep(0.25)
         raise TimeoutError(description + " timed out")
+
+    def wait_auth(timeout=180):
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            status = request("auth_status")
+            if status.get("state") == "authenticated":
+                return status
+            if status.get("state") in {"token_error", "cm_error", "signed_out"}:
+                raise RuntimeError("Authentication failed: " + status.get("state", "unknown"))
+            time.sleep(1)
+        raise TimeoutError("Steam authentication timed out")
     try:
+        if not args.no_auth:
+            request("auth", mode="qr")
+            print("Scan the auth_qr URL/matrix printed above, then wait for authentication.")
+            wait_auth()
         request("connect")
         wait_status(lambda state: state["connection"]["signon"] == 6, 120, "FULL signon")
         request("team", team="T")
