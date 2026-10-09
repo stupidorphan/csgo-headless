@@ -360,10 +360,7 @@ struct SteamAuth::Impl {
         access_expiry = unix_now() + 86400;
         state = "cm_connecting"; prompt.clear(); request_id.clear(); challenge_url.clear(); client_id = 0;
         emit("auth_state", {{"state", state}, {"had_remote_interaction", had_remote_interaction}});
-        ensure_cm();
-        if (!steam_id) steam_id = cm->steam_id();
-        save_token();
-        emit("auth_completed", {{"steam_id", steam_id}});
+        establish_cm();
     }
 
     void ensure_cm() {
@@ -381,6 +378,20 @@ struct SteamAuth::Impl {
         } catch (...) {
             cm.reset();
             throw;
+        }
+    }
+
+    void establish_cm() {
+        try {
+            ensure_cm();
+            if (!steam_id) throw std::runtime_error("Steam CM did not return an account ID");
+            save_token();
+            emit("auth_completed", {{"steam_id", steam_id}});
+        } catch (const std::exception& error) {
+            cm_attempted = false;
+            state = "cm_connecting";
+            next_poll = Clock::now() + poll_interval;
+            emit("auth_error", {{"message", error.what()}, {"retry_in_ms", poll_interval.count()}});
         }
     }
 
@@ -418,15 +429,16 @@ struct SteamAuth::Impl {
                 if (access_token.empty() || (access_expiry && access_expiry <= unix_now() + 60)) refresh_access_token();
                 ensure_cm();
             }
-            catch (const std::exception& e) { state = "token_error"; emit("auth_error", {{"message", e.what()}}); }
+            catch (const std::exception& e) { state = "cm_connecting"; cm_attempted = false; next_poll = Clock::now() + poll_interval; emit("auth_error", {{"message", e.what()}, {"retry_in_ms", poll_interval.count()}}); }
         }
+        if (state == "cm_connecting" && !ready() && Clock::now() >= next_poll) establish_cm();
         if (state == "authenticated" && (!cm || !cm->logged_in())) {
             cm_attempted = false;
             try {
                 if (access_token.empty() || (access_expiry && access_expiry <= unix_now() + 60)) refresh_access_token();
                 ensure_cm();
             }
-            catch (const std::exception& e) { state = "cm_error"; emit("auth_error", {{"message", e.what()}}); }
+            catch (const std::exception& e) { state = "cm_connecting"; next_poll = Clock::now() + poll_interval; emit("auth_error", {{"message", e.what()}, {"retry_in_ms", poll_interval.count()}}); }
         }
         if (state == "qr_pending" || state == "guard_pending") {
             if (Clock::now() >= next_poll) poll_auth();

@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <winhttp.h>
 #include <bcrypt.h>
+#include <nlohmann/json.hpp>
 
 #include <algorithm>
 #include <array>
@@ -16,6 +17,7 @@
 #include <random>
 #include <stdexcept>
 #include <thread>
+#include <string_view>
 
 #pragma comment(lib, "winhttp.lib")
 
@@ -48,6 +50,92 @@ std::uint32_t ticket_crc32(std::span<const std::uint8_t> data) {
     }
     return ~crc;
 }
+struct CmEndpoint {
+    std::wstring host;
+    INTERNET_PORT port{};
+    std::string label;
+};
+
+std::string winhttp_failure(std::string_view stage) {
+    return std::string(stage) + " (WinHTTP error " + std::to_string(GetLastError()) + ")";
+}
+
+bool parse_endpoint(std::string value, CmEndpoint& result) {
+    const auto colon = value.rfind(':');
+    if (colon == std::string::npos || colon == 0 || colon + 1 >= value.size()) return false;
+    int port = 0;
+    try { port = std::stoi(value.substr(colon + 1)); }
+    catch (...) { return false; }
+    if (port < 1 || port > 65535) return false;
+    const auto host = value.substr(0, colon);
+    if (host.empty()) return false;
+    result.host = std::wstring(host.begin(), host.end());
+    result.port = static_cast<INTERNET_PORT>(port);
+    result.label = std::move(value);
+    return true;
+}
+
+std::vector<CmEndpoint> fallback_endpoints() {
+    std::vector<CmEndpoint> result;
+    for (const auto* host : {"cm0.steampowered.com", "cm1.steampowered.com", "cm2.steampowered.com", "cm3.steampowered.com"}) {
+        CmEndpoint endpoint; endpoint.host = std::wstring(host, host + std::strlen(host)); endpoint.port = INTERNET_DEFAULT_HTTPS_PORT;
+        endpoint.label = std::string(host) + ":443"; result.push_back(std::move(endpoint));
+    }
+    return result;
+}
+
+std::vector<CmEndpoint> discover_endpoints() {
+    std::vector<CmEndpoint> fallback = fallback_endpoints();
+    HINTERNET http = WinHttpOpen(L"headless-csgo/1.0", WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY,
+                                  WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
+    if (!http) return fallback;
+    HINTERNET connection = WinHttpConnect(http, L"api.steampowered.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
+    if (!connection) { WinHttpCloseHandle(http); return fallback; }
+    HINTERNET request = WinHttpOpenRequest(connection, L"GET",
+        L"/ISteamDirectory/GetCMListForConnect/v1/?cellid=0&cmtype=websockets&format=json", nullptr,
+        WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
+    if (!request) { WinHttpCloseHandle(connection); WinHttpCloseHandle(http); return fallback; }
+    WinHttpSetTimeouts(request, 5000, 5000, 5000, 5000);
+    std::vector<CmEndpoint> result;
+    const bool sent = WinHttpSendRequest(request, WINHTTP_NO_ADDITIONAL_HEADERS, 0,
+                                         WINHTTP_NO_REQUEST_DATA, 0, 0, 0) != FALSE &&
+                      WinHttpReceiveResponse(request, nullptr) != FALSE;
+    if (sent) {
+        DWORD status = 0, status_size = sizeof(status);
+        if (WinHttpQueryHeaders(request, WINHTTP_QUERY_STATUS_CODE | WINHTTP_QUERY_FLAG_NUMBER,
+                                WINHTTP_HEADER_NAME_BY_INDEX, &status, &status_size,
+                                WINHTTP_NO_HEADER_INDEX) && status == 200) {
+            std::string body;
+            for (;;) {
+                DWORD available = 0;
+                if (!WinHttpQueryDataAvailable(request, &available) || !available) break;
+                if (body.size() + available > 2 * 1024 * 1024) break;
+                std::string chunk(available, '\0'); DWORD read = 0;
+                if (!WinHttpReadData(request, chunk.data(), available, &read)) { body.clear(); break; }
+                body.append(chunk.data(), read);
+            }
+            try {
+                const auto server_list = nlohmann::json::parse(body).at("response").at("serverlist");
+                if (server_list.is_array()) {
+                    for (const auto& entry : server_list) {
+                        if (!entry.is_object() || entry.value("type", std::string{}) != "websockets" ||
+                            entry.value("realm", std::string{}) != "steamglobal") continue;
+                        CmEndpoint endpoint;
+                        if (parse_endpoint(entry.value("endpoint", std::string{}), endpoint)) result.push_back(std::move(endpoint));
+                    }
+                }
+            } catch (...) { result.clear(); }
+        }
+    }
+    WinHttpCloseHandle(request); WinHttpCloseHandle(connection); WinHttpCloseHandle(http);
+    if (result.empty()) return fallback;
+    std::stable_sort(result.begin(), result.end(), [](const auto& left, const auto& right) {
+        return (left.port == INTERNET_DEFAULT_HTTPS_PORT) > (right.port == INTERNET_DEFAULT_HTTPS_PORT);
+    });
+    result.resize(std::min<std::size_t>(result.size(), 8));
+    return result;
+}
+
 void wipe(Bytes& data) noexcept {
     if (!data.empty()) SecureZeroMemory(data.data(), data.size());
     data.clear();
@@ -201,21 +289,21 @@ struct SteamCM::Impl {
         }
     }
 
-    void connect(std::string account, std::string access_token, std::uint64_t expected, std::chrono::milliseconds timeout) {
-        close();
+    void connect_candidate(std::string_view account, std::string_view access_token, std::uint64_t expected,
+                           const CmEndpoint& endpoint, std::chrono::milliseconds timeout) {
         session = WinHttpOpen(L"headless-csgo/1.0", WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
-        if (!session) throw std::runtime_error("Steam CM WinHTTP session failed");
-        connection = WinHttpConnect(session, L"cm0.steampowered.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
-        if (!connection) throw std::runtime_error("Steam CM DNS lookup failed");
+        if (!session) throw std::runtime_error(winhttp_failure("Steam CM WinHTTP session failed"));
+        connection = WinHttpConnect(session, endpoint.host.c_str(), endpoint.port, 0);
+        if (!connection) throw std::runtime_error(winhttp_failure("Steam CM DNS lookup failed"));
         request = WinHttpOpenRequest(connection, L"GET", L"/cmsocket/", nullptr, WINHTTP_NO_REFERER,
                                      WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
-        if (!request) throw std::runtime_error("Steam CM WebSocket request failed");
-        if (!WinHttpSetOption(request, WINHTTP_OPTION_UPGRADE_TO_WEB_SOCKET, nullptr, 0)) throw std::runtime_error("Steam CM WebSocket upgrade setup failed");
+        if (!request) throw std::runtime_error(winhttp_failure("Steam CM WebSocket request failed"));
+        if (!WinHttpSetOption(request, WINHTTP_OPTION_UPGRADE_TO_WEB_SOCKET, nullptr, 0)) throw std::runtime_error(winhttp_failure("Steam CM WebSocket upgrade setup failed"));
         WinHttpSetTimeouts(request, 10000, 10000, 10000, 10000);
         if (!WinHttpSendRequest(request, WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA, 0, 0, 0) ||
-            !WinHttpReceiveResponse(request, nullptr)) throw std::runtime_error("Steam CM WebSocket connection failed");
+            !WinHttpReceiveResponse(request, nullptr)) throw std::runtime_error(winhttp_failure("Steam CM WebSocket connection failed"));
         socket = WinHttpWebSocketCompleteUpgrade(request, 0);
-        if (!socket) throw std::runtime_error("Steam CM WebSocket upgrade was rejected");
+        if (!socket) throw std::runtime_error(winhttp_failure("Steam CM WebSocket upgrade was rejected"));
         WinHttpCloseHandle(request); request = nullptr;
         { std::lock_guard lock(mutex); stopping = false; logged = false; error.clear(); steam_id = expected; session_id = 0; next_job.store(1, std::memory_order_relaxed); }
         reader = std::thread([this] { reader_loop(); });
@@ -226,6 +314,25 @@ struct SteamCM::Impl {
         if (!changed.wait_for(lock, timeout, [this] { return logged || !error.empty() || stopping; })) throw std::runtime_error("Steam CM login timed out");
         if (!error.empty()) throw std::runtime_error(error);
         if (!logged) throw std::runtime_error("Steam CM disconnected during login");
+    }
+
+    void connect(std::string account, std::string access_token, std::uint64_t expected, std::chrono::milliseconds timeout) {
+        close();
+        const auto endpoints = discover_endpoints();
+        std::string failures;
+        const auto attempts = std::min<std::size_t>(endpoints.size(), 3);
+        for (std::size_t index = 0; index < attempts; ++index) {
+            try {
+                close();
+                connect_candidate(account, access_token, expected, endpoints[index], timeout);
+                return;
+            } catch (const std::exception& error) {
+                if (!failures.empty()) failures += "; ";
+                failures += endpoints[index].label + ": " + error.what();
+                close();
+            }
+        }
+        throw std::runtime_error("Steam CM connection failed after endpoint discovery: " + failures);
     }
 
     SteamCredentials issue_ticket(std::uint32_t appid, std::chrono::milliseconds timeout) {
