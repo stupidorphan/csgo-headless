@@ -310,7 +310,7 @@ struct SteamAuth::Impl {
         const auto encrypted = rsa_encrypt(password, key.value("publickey_mod", std::string{}), key.value("publickey_exp", std::string{}));
         const auto response = http_post("/IAuthenticationService/BeginAuthSessionViaCredentials/v1/",
             Json{{"device_friendly_name", "headless-csgo"}, {"account_name", account},
-                 {"encrypted_password", base64(encrypted)}, {"encryption_timestamp", key.value("timestamp", 0ull)},
+                 {"encrypted_password", base64(encrypted)}, {"encryption_timestamp", json_u64(key, "timestamp")},
                  {"remember_login", true}, {"platform_type", 3}, {"persistence", 1}, {"website_id", "Unknown"},
                  {"device_details", {{"device_friendly_name", "headless-csgo"}, {"platform_type", 3}, {"os_type", 20}}}});
         client_id = json_u64(response, "client_id");
