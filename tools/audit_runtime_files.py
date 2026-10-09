@@ -1,4 +1,4 @@
-"""Audit x86 core/helper file-open paths with an existing private CDB debugger.
+"""Audit x86 standalone-client file-open paths with an existing private CDB debugger.
 
 Example (run only after other live validation has finished):
   python tools/audit_runtime_files.py --output artifacts/file-audit --game-root GAME -- \
@@ -281,7 +281,7 @@ class Observations:
                                 "RootDirectory names are queried synchronously for each call while CDB keeps the target stopped; unresolved relative calls prevent verification.",
                                 "Only positively identified pipe/character handles with empty relative names are classified as non-filesystem; missing disk/unknown names remain unresolved.",
                                 "This observes native API arguments, not successful read lengths or direct system calls that bypass ntdll exports.",
-                                "Steam client's separate process is outside the core/helper audit."]
+                                "Steam client's separate process is outside the standalone-client audit."]
             }
         }
 
@@ -300,7 +300,7 @@ def write_scripts(directory: Path):
             f'.printf "HC_FILE|%x|{api}|%x|%msu\\n", '
             '@$tpid, poi(poi(@esp+0xc)+4), poi(poi(@esp+0xc)+8)\ngc\n', encoding="ascii")
         install += f'bu ntdll!{api} "$$<audit_call_{api}.cdb"\n'
-    # Keep .shell on its own uncondensed script line. The fixed helper receives
+    # Keep .shell on its own uncondensed script line. The root-query subprocess receives
     # only PID/handle numbers, and CDB waits for it before continuing the target.
     # A relative script name also avoids CDB .shell's quoting of a source path
     # containing spaces. This artifact is only a copy of our development tool.
@@ -328,7 +328,7 @@ def main():
     parser.add_argument("--game-root", type=Path, required=True)
     parser.add_argument("--timeout", type=float, default=90)
     parser.add_argument("--expect-path", type=Path, help="Offline fixture must observe this exact file in both parent and child.")
-    parser.add_argument("--require-full", action="store_true", help="Require a live FULL/run_complete result and two armed core/helper processes.")
+    parser.add_argument("--require-full", action="store_true", help="Require a live FULL/run_complete result and the audited client plus root-query subprocess.")
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     if os.name != "nt":

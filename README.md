@@ -115,10 +115,11 @@ See `VALIDATION.md` for the measured validation results.
 
 ## Validation and packages
 
-The live harness only accepts the authorized endpoint. It checks stock processes, loaded modules, server-confirmed controls, and continuous `FULL` with tick and packet progress:
+The live harness only accepts the authorized endpoint. With an existing `steam-auth.json`, it checks stock processes, loaded modules, server-confirmed controls, and continuous `FULL` with tick and packet progress:
 
 ```powershell
 python tools/validate_live.py build/Release/headless-csgo.exe --seconds 1800
+python tools/validate_live.py build/Release/headless-csgo.exe --auth-qr --seconds 1800
 ```
 
 During the soak, the harness sends a fixed four-direction movement/view script every 30 seconds. This keeps a normal player active under the server's AFK policy; it makes no autonomous gameplay decisions. Use `--activity-seconds 0` for an idle soak. This server rejected the earlier idle attempt under its existing AFK policy.
@@ -133,7 +134,7 @@ The summary keeps measured state, counters, control effects, and module hashes w
 
 `tests/fixtures` retains sanitized stock user commands; `validation` contains derived reports. Build outputs, raw captures, demos, and credentials are excluded from Git.
 
-`tools/audit_runtime_files.py` uses an existing x86 Windows SDK CDB debugger to follow native file opens and DLLs in the client and helper. It retains paths and verification counters, with no packet or ticket contents. Run it separately from other live clients. Supply absolute executable/profile paths because its working directory is the audit output folder:
+`tools/audit_runtime_files.py` uses an existing x86 Windows SDK CDB debugger to follow native file opens and DLLs in the client. It retains paths and verification counters, with no packet or ticket contents. Run it separately from other live clients after authenticating the client. Supply absolute executable/profile paths because its working directory is the audit output folder:
 
 ```powershell
 python tools/audit_runtime_files.py --output artifacts/file-audit --game-root "D:/SteamLibrary/steamapps/common/Counter-Strike Global Offensive" --require-full -- C:/absolute/package/headless-csgo.exe --json --connect --run-seconds 45 --profile C:/absolute/package/profiles/legacy_13881.json
@@ -146,7 +147,7 @@ python tools/package_release.py --configuration Release
 python tools/package_release.py --configuration Debug
 ```
 
-Packages include the client, helper, permitted generic Steam runtime, exact profile/descriptors, instructions, Python example, dependency notices, validation reports, and a SHA256 manifest. Packaging uses fixed archive timestamps and an explicit file allowlist. Extract a package into its own directory, keep Steam signed in, and run the interactive or JSON commands above there.
+Packages include the client, exact profile/descriptors, instructions, Python example, dependency notices, derived offline validation metadata, and a SHA256 manifest. Packaging uses fixed archive timestamps and an explicit file allowlist. Extract a package into its own directory, authenticate with `auth qr` or `auth password`, and run the interactive or JSON commands above there.
 
 The separate source ZIP contains the C++ implementation, metadata-generation tools, tests, and sanitized fixtures. Create it from the committed checkout after recording the validation results:
 

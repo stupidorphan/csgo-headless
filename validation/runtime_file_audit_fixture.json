@@ -60,7 +60,7 @@
       "RootDirectory names are queried synchronously for each call while CDB keeps the target stopped; unresolved relative calls prevent verification.",
       "Only positively identified pipe/character handles with empty relative names are classified as non-filesystem; missing disk/unknown names remain unresolved.",
       "This observes native API arguments, not successful read lengths or direct system calls that bypass ntdll exports.",
-      "Steam client's separate process is outside the core/helper audit."
+      "Steam client's separate process is outside the standalone-client audit."
     ]
   }
 }

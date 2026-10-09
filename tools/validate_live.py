@@ -124,7 +124,7 @@ def contains_text(value, needle):
 
 
 def inspect_processes(pid=None):
-    """Read stock process names and client/helper DLLs. This is not a file-I/O audit."""
+    """Read stock process names and standalone-client DLLs. This is not a file-I/O audit."""
     if os.name != "nt":
         return {"verified": False, "reason": "Windows process inspection unavailable", "asset_file_reads_checked": False}
     script = "$stock=@(Get-Process csgo,cs2 -ErrorAction SilentlyContinue | Select-Object Id,ProcessName);"

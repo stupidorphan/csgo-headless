@@ -10,17 +10,17 @@ Replay sessions remain offline-only and cannot acquire a Steam ticket or open a 
 
 ## Native authentication checks
 
-The client no longer links Steamworks or launches a helper. CNG RSA PKCS#1 encryption, bounded WinHTTP authentication responses, atomic token-file replacement, current-user-only ACL application, QR refresh rendering, prompt routing, WebSocket CM framing, heartbeats, reconnect state, AppID 730 ownership-ticket requests, game-connect-token consumption, SteamKit-compatible type-2 ticket layout, CRC acknowledgement correlation, ticket combination, and ticket zeroization paths are covered by code review and offline fixtures. The CM and authentication code requires a real Steam account for end-to-end validation; no credentials or token file are committed.
+The client no longer links Steamworks or launches another process for authentication. CNG RSA PKCS#1 encryption, bounded WinHTTP authentication responses, atomic token-file replacement, current-user-only ACL application, QR refresh rendering, prompt routing, WebSocket CM framing, heartbeats, reconnect state, AppID 730 ownership-ticket requests, game-connect-token consumption, SteamKit-compatible type-2 ticket layout, CRC acknowledgement correlation, ticket combination, and ticket zeroization paths are covered by code review and offline fixtures. The CM and authentication code requires a real Steam account for end-to-end validation; no credentials or token file are committed.
 
 ## Build and runtime checks
 
-The Win32 Debug build succeeds with the Visual Studio 2022 toolchain and no Steam SDK inputs. CMake validates only the pinned nlohmann/json and Nayuki QR encoder files. The release package contains the client, profile, derived descriptors, documentation, examples, and licenses. It contains no `steam.exe`, `steam_api.dll`, Steamworks import library, helper executable, CS:GO engine DLL, or installed asset.
+The Win32 Debug build succeeds with the Visual Studio 2022 toolchain and no Steam SDK inputs. CMake validates only the pinned nlohmann/json and Nayuki QR encoder files. The release package contains the client, profile, derived descriptors, documentation, examples, and licenses. It contains no `steam.exe`, `steam_api.dll`, Steamworks import library, second authentication executable, CS:GO engine DLL, or installed asset.
 
 The existing native file-open audit remains available for the standalone executable. A new live audit should be run after native authentication is exercised; it must confirm that the stock game and Steam client remain closed and that no game-directory modules are loaded.
 
 ## Live acceptance
 
-Live Steam QR/password authentication and the 30-minute gameplay soak have not been rerun after replacing the Steamworks helper. They require the account owner to complete a QR or password/Steam Guard prompt. Once authenticated, run the existing live harness exclusively against `151.243.93.16:27015` and retain only its sanitized derived report:
+Live Steam QR/password authentication and the 30-minute gameplay soak have not been rerun after introducing native authentication. They require the account owner to complete a QR or password/Steam Guard prompt. Once authenticated, run the existing live harness exclusively against `151.243.93.16:27015` and retain only its sanitized derived report:
 
 ```powershell
 python tools/validate_live.py build/Release/headless-csgo.exe --seconds 1800
