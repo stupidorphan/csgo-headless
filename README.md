@@ -34,11 +34,9 @@ From an extracted package directory:
 From the source checkout, use `.\build\Release\headless-csgo.exe --interactive --profile profiles/legacy_13881.json` instead.
 
 ```text
-auth qr
+login qr
 # scan the URL/matrix with the Steam mobile app, then wait for auth_completed
-auth status
 list
-login 2 qr
 use 1
 connect
 status
@@ -75,13 +73,12 @@ From the source checkout, the corresponding executable is `.\build\Release\headl
 One request per line:
 
 ```json
-{"id":1,"op":"auth","args":{"mode":"qr"}}
+{"id":1,"op":"login","args":{"mode":"qr"}}
 {"id":2,"op":"list","args":{}}
-{"id":3,"op":"login","args":{"account":1,"mode":"qr"}}
-{"id":4,"op":"use","args":{"account":1}}
-{"id":5,"op":"connect","args":{"server":"151.243.93.16:27015"}}
-{"id":6,"op":"say","args":{"text":"hello"}}
-{"id":7,"op":"status","args":{}}
+{"id":3,"op":"use","args":{"account":1}}
+{"id":4,"op":"connect","args":{"server":"151.243.93.16:27015"}}
+{"id":5,"op":"say","args":{"text":"hello"}}
+{"id":6,"op":"status","args":{}}
 ```
 
 Responses echo `id` and contain `ok` plus `result` or `error`. Auth events are `auth_qr`, `auth_qr_refresh`, `auth_prompt`, `auth_state`, `auth_completed`, and `auth_error`; QR events include both the URL and a Unicode matrix. Asynchronous gameplay events include `type` and server `tick`. Protocol diagnostics go to stderr; `--trace` enables message summaries without authentication tickets. `status` exposes signon state, packet counts, map/ticks, local player, players, inventory, and round information. Positions come from decoded server snapshots. A missing delta history sends tick -1 until a full snapshot restores state.
