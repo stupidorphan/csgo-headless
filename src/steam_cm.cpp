@@ -231,7 +231,9 @@ struct SteamCM::Impl {
         // CM clusters when accepting access-token logons.  127.0.0.1 is a
         // deterministic private address; the obfuscation mask is the value
         // used by Steam's NetHelpers implementation for this legacy field.
-        constexpr std::uint32_t obfuscated_private_ip = 0xBAADF00Du ^ 0x0100007Fu;
+        // SteamKit serializes IPv4 addresses in network order; 127.0.0.1 is
+        // therefore 0x7f000001 before applying the legacy obfuscation mask.
+        constexpr std::uint32_t obfuscated_private_ip = 0xBAADF00Du ^ 0x7f000001u;
         ProtoWriter ip; ip.fixed32(1, obfuscated_private_ip);
         body.u32(1, 65581).u32(2, obfuscated_private_ip).u32(3, 0).u32(5, 1771).string(6, "english").u32(7, 20)
             .u32(8, 1).message(11, ip)
