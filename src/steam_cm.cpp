@@ -254,7 +254,7 @@ struct SteamCM::Impl {
         if (!QueryPerformanceCounter(&counter)) throw std::runtime_error("Steam ticket timestamp is unavailable");
         store_u32(auth, static_cast<std::uint32_t>(counter.QuadPart)); store_u32(auth, next_sequence++);
         const auto crc = ticket_crc32(auth);
-        ProtoWriter ticket; ticket.u64(4, appid).u32(6, crc).bytes(7, auth);
+        ProtoWriter ticket; ticket.fixed64(4, appid).u32(6, crc).bytes(7, auth);
         ProtoWriter list; list.u32(1, static_cast<std::uint32_t>(game_tokens.size())).message(4, ticket).u32(5, appid);
         waiting_crc = crc; acknowledged = false;
         lock.unlock();
