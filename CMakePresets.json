@@ -1,6 +1,19 @@
 {
   "version": 3,
-  "configurePresets": [{"name":"windows","generator":"Visual Studio 17 2022","architecture":"Win32","binaryDir":"${sourceDir}/build","cacheVariables":{"BUILD_TESTING":"ON"}}],
-  "buildPresets": [{"name":"debug","configurePreset":"windows","configuration":"Debug"},{"name":"release","configurePreset":"windows","configuration":"Release"}],
-  "testPresets": [{"name":"debug","configurePreset":"windows","configuration":"Debug","output":{"outputOnFailure":true}},{"name":"release","configurePreset":"windows","configuration":"Release","output":{"outputOnFailure":true}}]
+  "configurePresets": [
+    {"name":"windows","generator":"Visual Studio 17 2022","architecture":"Win32","binaryDir":"${sourceDir}/build","cacheVariables":{"BUILD_TESTING":"ON"}},
+    {"name":"windows-x64","generator":"Visual Studio 17 2022","architecture":"x64","binaryDir":"${sourceDir}/build-x64","cacheVariables":{"BUILD_TESTING":"ON"}}
+  ],
+  "buildPresets": [
+    {"name":"debug","configurePreset":"windows","configuration":"Debug"},
+    {"name":"release","configurePreset":"windows","configuration":"Release"},
+    {"name":"debug-x64","configurePreset":"windows-x64","configuration":"Debug"},
+    {"name":"release-x64","configurePreset":"windows-x64","configuration":"Release"}
+  ],
+  "testPresets": [
+    {"name":"debug","configurePreset":"windows","configuration":"Debug","output":{"outputOnFailure":true}},
+    {"name":"release","configurePreset":"windows","configuration":"Release","output":{"outputOnFailure":true}},
+    {"name":"debug-x64","configurePreset":"windows-x64","configuration":"Debug","output":{"outputOnFailure":true}},
+    {"name":"release-x64","configurePreset":"windows-x64","configuration":"Release","output":{"outputOnFailure":true}}
+  ]
 }

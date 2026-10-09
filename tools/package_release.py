@@ -13,6 +13,7 @@ FIXED_TIME = (2026, 1, 1, 0, 0, 0)
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--configuration", choices=("Debug", "Release"), default="Release")
+    parser.add_argument("--architecture", choices=("x86", "x64"), default="x86")
     parser.add_argument("--build", type=Path, default=ROOT / "build")
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/release")
     args = parser.parse_args()
@@ -41,13 +42,13 @@ def main():
                 raise ValueError(f"Pinned dependency differs from the lock: {path}")
     payload = {name: path.read_bytes() for name, path in sorted(files.items())}
     manifest = {
-        "format": 1, "host_version": 13881, "architecture": "x86", "configuration": args.configuration,
+        "format": 1, "host_version": 13881, "architecture": args.architecture, "configuration": args.configuration,
         "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "files": {name: {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()} for name, data in payload.items()},
     }
     payload["manifest.json"] = (json.dumps(manifest, indent=2) + "\n").encode()
     args.output.mkdir(parents=True, exist_ok=True)
-    output = args.output / f"headless-csgo-13881-win32-{args.configuration.lower()}.zip"
+    output = args.output / f"headless-csgo-13881-{('win32' if args.architecture == 'x86' else 'win64')}-{args.configuration.lower()}.zip"
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for name, data in sorted(payload.items()):
             info = zipfile.ZipInfo(name, FIXED_TIME)

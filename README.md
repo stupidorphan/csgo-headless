@@ -6,7 +6,7 @@ The supplied metadata profile covers `151.243.93.16:27015`, `cs_italy`, and its 
 
 ## Build
 
-Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.25 or newer. Configure Win32 for the Legacy protocol ABI.
+Use Visual Studio 2022 with C++ desktop tools, Windows SDK, and CMake 3.25 or newer. The client builds for Win32 and x64; the Legacy wire protocol is independent of the host pointer width.
 
 The validated toolchain is CMake 3.31.6-msvc6, MSVC 19.44.35228.0 (v143, tools directory 14.44.35207), and Windows SDK 10.0.26100.0. `dependencies.lock.json` pins the JSON and QR encoder sources/licenses by SHA256. Configuration rejects changed dependency contents. MSVC compilation and linking use `/Brepro`, with incremental linking disabled; binary reproducibility was checked by clean rebuilds in the same source/build location.
 
@@ -18,8 +18,12 @@ cmake --build --preset debug
 ctest --preset debug
 cmake --build --preset release
 ctest --preset release
+cmake --build --preset release-x64
+ctest --preset release-x64
 python tests/metadata_tests.py
 ```
+
+The x64 preset configures `build-x64` and produces `build-x64/Release/headless-csgo.exe`. The native file-open audit remains an x86-only diagnostic because it uses the installed x86 CDB debugger; it is not part of the x64 CTest target set.
 
 JSON for Modern C++ 3.12.0 and Nayuki's MIT QR encoder are vendored with exact SHA256 entries in `dependencies.lock.json`. Release output contains only the client, derived metadata, documentation, and examples. The first login creates `steam-accounts.json` plus one current-user-only token file per account beside the executable. Token files are written atomically; keep them private and back them up only through a protected user-managed location.
 

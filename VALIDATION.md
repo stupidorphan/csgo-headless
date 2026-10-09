@@ -14,7 +14,7 @@ The client no longer links Steamworks or launches another process for authentica
 
 ## Build and runtime checks
 
-The Win32 Debug build succeeds with the Visual Studio 2022 toolchain and no Steam SDK inputs. CMake validates only the pinned nlohmann/json and Nayuki QR encoder files. The release package contains the client, profile, derived descriptors, documentation, examples, and licenses. It contains no `steam.exe`, `steam_api.dll`, Steamworks import library, second authentication executable, CS:GO engine DLL, or installed asset.
+The Win32 and x64 Debug builds succeed with the Visual Studio 2022 toolchain and no Steam SDK inputs. CMake validates only the pinned nlohmann/json and Nayuki QR encoder files. The release package contains the client, profile, derived descriptors, documentation, examples, and licenses. It contains no `steam.exe`, `steam_api.dll`, Steamworks import library, second authentication executable, CS:GO engine DLL, or installed asset.
 
 The existing native file-open audit remains available for the standalone executable. A new live audit should be run after native authentication is exercised; it must confirm that the stock game and Steam client remain closed and that no game-directory modules are loaded.
 
