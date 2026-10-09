@@ -27,6 +27,29 @@ namespace {
 using Clock = std::chrono::steady_clock;
 using Json = nlohmann::json;
 
+std::uint64_t json_u64(const Json& value, std::string_view key, std::uint64_t fallback = 0) {
+    if (!value.contains(key)) return fallback;
+    const auto& item = value.at(key);
+    if (item.is_number_unsigned()) return item.get<std::uint64_t>();
+    if (item.is_number_integer()) return static_cast<std::uint64_t>(item.get<std::int64_t>());
+    if (item.is_string()) {
+        try { return std::stoull(item.get<std::string>()); }
+        catch (...) { return fallback; }
+    }
+    return fallback;
+}
+
+double json_number(const Json& value, std::string_view key, double fallback) {
+    if (!value.contains(key)) return fallback;
+    const auto& item = value.at(key);
+    if (item.is_number()) return item.get<double>();
+    if (item.is_string()) {
+        try { return std::stod(item.get<std::string>()); }
+        catch (...) { return fallback; }
+    }
+    return fallback;
+}
+
 void clear(std::string& value) noexcept {
     if (!value.empty()) SecureZeroMemory(value.data(), value.size());
     value.clear();
@@ -265,10 +288,10 @@ struct SteamAuth::Impl {
             Json{{"device_friendly_name", "headless-csgo"}, {"platform_type", 3},
                  {"device_details", {{"device_friendly_name", "headless-csgo"}, {"platform_type", 3}, {"os_type", 20}}},
                  {"website_id", "Unknown"}});
-        client_id = response.value("client_id", 0ull);
+        client_id = json_u64(response, "client_id");
         request_id = response.value("request_id", std::string{});
         challenge_url = response.value("challenge_url", std::string{});
-        poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, static_cast<double>(response.value("interval", 5.0f))) * 1000));
+        poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, json_number(response, "interval", 5.0)) * 1000));
         if (!client_id || request_id.empty() || challenge_url.empty()) throw std::runtime_error("Steam did not return a QR challenge");
         next_poll = Clock::now() + poll_interval;
         emit("auth_qr", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"interval_ms", poll_interval.count()}});
@@ -289,9 +312,9 @@ struct SteamAuth::Impl {
                  {"encrypted_password", base64(encrypted)}, {"encryption_timestamp", key.value("timestamp", 0ull)},
                  {"remember_login", true}, {"platform_type", 3}, {"persistence", 1}, {"website_id", "Unknown"},
                  {"device_details", {{"device_friendly_name", "headless-csgo"}, {"platform_type", 3}, {"os_type", 20}}}});
-        client_id = response.value("client_id", 0ull);
+        client_id = json_u64(response, "client_id");
         request_id = response.value("request_id", std::string{});
-        poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, static_cast<double>(response.value("interval", 5.0f))) * 1000));
+        poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, json_number(response, "interval", 5.0)) * 1000));
         if (!client_id || request_id.empty()) throw std::runtime_error(response.value("extended_error_message", "Steam rejected the credentials"));
         const auto allowed = response.value("allowed_confirmations", Json::array());
         if (allowed.empty()) throw std::runtime_error("Steam returned no authentication confirmation methods");
@@ -309,7 +332,7 @@ struct SteamAuth::Impl {
 
     void poll_auth() {
         const auto response = http_post("/IAuthenticationService/PollAuthSessionStatus/v1/", Json{{"client_id", client_id}, {"request_id", request_id}});
-        if (response.contains("new_client_id")) client_id = response.value("new_client_id", client_id);
+        if (response.contains("new_client_id")) client_id = json_u64(response, "new_client_id", client_id);
         const auto refreshed_url = response.value("new_challenge_url", std::string{});
         if (!refreshed_url.empty() && refreshed_url != challenge_url) {
             challenge_url = refreshed_url;
@@ -318,7 +341,7 @@ struct SteamAuth::Impl {
         if (!response.contains("refresh_token")) { next_poll = Clock::now() + poll_interval; return; }
         refresh_token = response.value("refresh_token", std::string{});
         access_token = response.value("access_token", std::string{});
-        steam_id = response.value("steamid", 0ull);
+        steam_id = json_u64(response, "steamid");
         account = response.value("account_name", account);
         if (!steam_id || refresh_token.empty() || access_token.empty()) throw std::runtime_error("Steam returned incomplete authentication tokens");
         access_expiry = unix_now() + 86400;
