@@ -237,6 +237,7 @@ struct SteamAuth::Impl {
     std::uint64_t steam_id = 0;
     std::uint64_t access_expiry = 0;
     std::uint64_t client_id = 0;
+    bool had_remote_interaction = false;
     std::string request_id;
     std::string challenge_url;
     std::uint32_t guard_type = 0;
@@ -300,6 +301,7 @@ struct SteamAuth::Impl {
         poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, json_number(response, "interval", 5.0)) * 1000));
         if (!client_id || request_id.empty() || challenge_url.empty()) throw std::runtime_error("Steam did not return a QR challenge");
         next_poll = Clock::now() + poll_interval;
+        emit("auth_state", {{"state", state}, {"interval_ms", poll_interval.count()}});
         emit("auth_qr", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"terminal_ascii", render_qr_ascii(challenge_url)}, {"terminal_squares", render_qr_squares(challenge_url)}, {"interval_ms", poll_interval.count()}});
     }
 
@@ -338,20 +340,26 @@ struct SteamAuth::Impl {
     }
 
     void poll_auth() {
+        // Keep retries bounded even when Steam is temporarily unavailable or
+        // returns a transient HTTP error. The outer session loop runs at 1 ms.
+        next_poll = Clock::now() + poll_interval;
         const auto response = http_post("/IAuthenticationService/PollAuthSessionStatus/v1/", Json{{"client_id", client_id}, {"request_id", request_id}});
         if (response.contains("new_client_id")) client_id = json_u64(response, "new_client_id", client_id);
+        had_remote_interaction = response.value("had_remote_interaction", false);
+        emit("auth_state", {{"state", state}, {"had_remote_interaction", had_remote_interaction}, {"interval_ms", poll_interval.count()}});
         const auto refreshed_url = response.value("new_challenge_url", std::string{});
         if (!refreshed_url.empty() && refreshed_url != challenge_url) {
             challenge_url = refreshed_url;
             emit("auth_qr_refresh", {{"url", challenge_url}, {"terminal", render_qr(challenge_url)}, {"terminal_ascii", render_qr_ascii(challenge_url)}, {"terminal_squares", render_qr_squares(challenge_url)}, {"interval_ms", poll_interval.count()}});
         }
-        if (!response.contains("refresh_token")) { next_poll = Clock::now() + poll_interval; return; }
+        if (!response.contains("refresh_token")) return;
         refresh_token = response.value("refresh_token", std::string{});
         access_token = response.value("access_token", std::string{});
         account = response.value("account_name", account);
         if (refresh_token.empty() || access_token.empty()) throw std::runtime_error("Steam returned incomplete authentication tokens");
         access_expiry = unix_now() + 86400;
         state = "cm_connecting"; prompt.clear(); request_id.clear(); challenge_url.clear(); client_id = 0;
+        emit("auth_state", {{"state", state}, {"had_remote_interaction", had_remote_interaction}});
         ensure_cm();
         if (!steam_id) steam_id = cm->steam_id();
         save_token();
@@ -428,7 +436,7 @@ struct SteamAuth::Impl {
     bool ready() const noexcept { return state == "authenticated" && steam_id != 0 && !access_token.empty() && cm && cm->logged_in(); }
 
     Json status() const {
-        return {{"state", state}, {"steam_id", steam_id}, {"token_file", token_file.string()}, {"qr_url", challenge_url}};
+        return {{"state", state}, {"steam_id", steam_id}, {"token_file", token_file.string()}, {"qr_url", challenge_url}, {"had_remote_interaction", had_remote_interaction}};
     }
 
     SteamCredentials acquire_ticket(std::chrono::milliseconds timeout) {
@@ -440,7 +448,7 @@ struct SteamAuth::Impl {
         if (cm) cm->close();
         cm.reset(); cm_attempted = false;
         clear(password); clear(access_token); clear(refresh_token); clear(account); request_id.clear(); challenge_url.clear(); prompt.clear();
-        client_id = 0; steam_id = 0; access_expiry = 0; state = "signed_out";
+        client_id = 0; steam_id = 0; access_expiry = 0; had_remote_interaction = false; state = "signed_out";
     }
 };
 
