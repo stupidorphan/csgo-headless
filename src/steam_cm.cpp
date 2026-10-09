@@ -291,6 +291,7 @@ SteamCM::SteamCM() : impl_(std::make_unique<Impl>()) {}
 SteamCM::~SteamCM() = default;
 void SteamCM::connect(std::string account_name, std::string access_token, std::uint64_t expected_steam_id, std::chrono::milliseconds timeout) { impl_->connect(std::move(account_name), std::move(access_token), expected_steam_id, timeout); }
 bool SteamCM::logged_in() const noexcept { std::lock_guard lock(impl_->mutex); return impl_->logged; }
+std::uint64_t SteamCM::steam_id() const noexcept { std::lock_guard lock(impl_->mutex); return impl_->steam_id; }
 SteamCredentials SteamCM::issue_ticket(std::uint32_t appid, std::chrono::milliseconds timeout) { return impl_->issue_ticket(appid, timeout); }
 void SteamCM::close() noexcept { impl_->close(); }
 

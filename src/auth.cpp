@@ -290,6 +290,7 @@ struct SteamAuth::Impl {
                  {"website_id", "Unknown"}});
         client_id = json_u64(response, "client_id");
         request_id = response.value("request_id", std::string{});
+        steam_id = json_u64(response, "steamid");
         challenge_url = response.value("challenge_url", std::string{});
         poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, json_number(response, "interval", 5.0)) * 1000));
         if (!client_id || request_id.empty() || challenge_url.empty()) throw std::runtime_error("Steam did not return a QR challenge");
@@ -314,6 +315,7 @@ struct SteamAuth::Impl {
                  {"device_details", {{"device_friendly_name", "headless-csgo"}, {"platform_type", 3}, {"os_type", 20}}}});
         client_id = json_u64(response, "client_id");
         request_id = response.value("request_id", std::string{});
+        steam_id = json_u64(response, "steamid", steam_id);
         poll_interval = std::chrono::milliseconds(static_cast<int>(std::max(1.0, json_number(response, "interval", 5.0)) * 1000));
         if (!client_id || request_id.empty()) throw std::runtime_error(response.value("extended_error_message", "Steam rejected the credentials"));
         const auto allowed = response.value("allowed_confirmations", Json::array());
@@ -341,24 +343,26 @@ struct SteamAuth::Impl {
         if (!response.contains("refresh_token")) { next_poll = Clock::now() + poll_interval; return; }
         refresh_token = response.value("refresh_token", std::string{});
         access_token = response.value("access_token", std::string{});
-        steam_id = json_u64(response, "steamid");
         account = response.value("account_name", account);
-        if (!steam_id || refresh_token.empty() || access_token.empty()) throw std::runtime_error("Steam returned incomplete authentication tokens");
+        if (refresh_token.empty() || access_token.empty()) throw std::runtime_error("Steam returned incomplete authentication tokens");
         access_expiry = unix_now() + 86400;
-        save_token();
         state = "cm_connecting"; prompt.clear(); request_id.clear(); challenge_url.clear(); client_id = 0;
         ensure_cm();
+        if (!steam_id) steam_id = cm->steam_id();
+        save_token();
         emit("auth_completed", {{"steam_id", steam_id}});
     }
 
     void ensure_cm() {
-        if (!steam_id || access_token.empty()) throw std::runtime_error("Steam access token is missing; authenticate again");
+        if (access_token.empty()) throw std::runtime_error("Steam access token is missing; authenticate again");
         if (cm && cm->logged_in()) { state = "authenticated"; return; }
         if (account.empty()) throw std::runtime_error("Steam account name is unavailable; authenticate with password login again");
         cm_attempted = true;
         cm = std::make_unique<SteamCM>();
         try {
             cm->connect(account, access_token, steam_id);
+            if (!steam_id) steam_id = cm->steam_id();
+            if (!steam_id) throw std::runtime_error("Steam CM did not return an account ID");
             state = "authenticated";
             emit("auth_state", {{"state", state}, {"steam_id", steam_id}});
         } catch (...) {

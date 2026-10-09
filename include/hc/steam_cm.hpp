@@ -20,6 +20,7 @@ public:
     void connect(std::string account_name, std::string access_token, std::uint64_t expected_steam_id,
                  std::chrono::milliseconds timeout = std::chrono::seconds(20));
     bool logged_in() const noexcept;
+    std::uint64_t steam_id() const noexcept;
     SteamCredentials issue_ticket(std::uint32_t appid,
                                    std::chrono::milliseconds timeout = std::chrono::seconds(15));
     void close() noexcept;
