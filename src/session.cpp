@@ -1,5 +1,6 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <windows.h>
 #include "hc/session.hpp"
 #include "hc/auth.hpp"
 #include "hc/netchannel.hpp"
@@ -28,6 +29,14 @@ std::string command_quote(std::string_view s,size_t limit=200){
     return out+'"';
 }
 Bytes unhex(std::string_view s){if(s.size()%2)throw WireError("invalid metadata hex");Bytes b;for(size_t i=0;i<s.size();i+=2){unsigned n{};std::istringstream in(std::string(s.substr(i,2)));in>>std::hex>>n;if(in.fail()||n>255)throw WireError("invalid metadata hex");b.push_back(uint8_t(n));}return b;}
+std::filesystem::path locate_profile(const std::filesystem::path& configured){
+    if(configured.is_absolute()||std::filesystem::exists(configured))return configured;
+    std::vector<wchar_t> buffer(32768);const auto size=GetModuleFileNameW(nullptr,buffer.data(),static_cast<DWORD>(buffer.size()));
+    if(!size||size==buffer.size())return configured;
+    auto directory=std::filesystem::path(std::wstring(buffer.data(),size)).parent_path();
+    for(unsigned depth=0;depth<3;++depth){const auto candidate=directory/configured;if(std::filesystem::exists(candidate))return candidate;if(directory==directory.root_path())break;directory=directory.parent_path();}
+    return configured;
+}
 }
 Proto make_userinfo(std::string_view name,uint32_t rate){
     if(name.empty()||name.size()>63||std::any_of(name.begin(),name.end(),[](unsigned char c){return c<32;}))throw std::runtime_error("Invalid player name");
@@ -51,7 +60,7 @@ struct Session::Impl {
     std::deque<UserCmd> backups;bool paused=false,awaiting_full_update=false;uint64_t rx=0,tx=0;std::string last_error;size_t integrity_cursor=0;Clock::time_point next_integrity{};
     Impl(ClientConfig c,EventSink e):config(std::move(c)),sink(std::move(e)),auth(config.auth_token_file) {
         if(!config.replay_only){WSADATA d{};if(WSAStartup(MAKEWORD(2,2),&d))throw std::runtime_error("Winsock initialization failed");wsa=true;}
-        std::ifstream f(config.profile);if(!f)throw std::runtime_error("Cannot open metadata profile: "+config.profile.string());f>>profile;
+        const auto profile_path=locate_profile(config.profile);std::ifstream f(profile_path);if(!f)throw std::runtime_error("Cannot open metadata profile: "+config.profile.string());f>>profile;
         if(profile.value("host_version",0u)!=host_version)throw std::runtime_error("Profile must match Legacy host version 13881");
         state.load_profile(profile);
         auth.set_event_sink([this](const Json& event) { if (sink) sink(event); });
