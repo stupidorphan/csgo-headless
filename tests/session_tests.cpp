@@ -146,6 +146,12 @@ void framing_tests() {
     check(request["args"]["text"] == "hello world", "chat command parser");
     request = parse_interactive("move 1 -0.5 64");
     check(request["args"]["duration_ticks"] == 64, "duration command parser");
+    request = parse_interactive("login 2 password");
+    check(request["op"] == "login" && request["args"]["account"] == 2 && request["args"]["mode"] == "password", "account login parser");
+    request = parse_interactive("use 2");
+    check(request["op"] == "use" && request["args"]["account"] == 2, "account selection parser");
+    request = parse_interactive("connect 1.1.1.1:27015");
+    check(request["op"] == "connect" && request["args"]["server"] == "1.1.1.1:27015", "endpoint parser");
     const auto info = make_userinfo("test");
     check(info.get_messages(1).at(0).get_messages(1).at(0).get_string(1) == "name", "nested userinfo framing");
     const auto variables = info.get_messages(1).at(0).get_messages(1);

@@ -21,7 +21,7 @@ ctest --preset release
 python tests/metadata_tests.py
 ```
 
-JSON for Modern C++ 3.12.0 and Nayuki's MIT QR encoder are vendored with exact SHA256 entries in `dependencies.lock.json`. Release output contains only the client, derived metadata, documentation, and examples. The first login creates `steam-auth.json` beside the executable; it is written atomically and restricted to the current Windows account. Keep that file private and back it up only through a protected user-managed location.
+JSON for Modern C++ 3.12.0 and Nayuki's MIT QR encoder are vendored with exact SHA256 entries in `dependencies.lock.json`. Release output contains only the client, derived metadata, documentation, and examples. The first login creates `steam-accounts.json` plus one current-user-only token file per account beside the executable. Token files are written atomically; keep them private and back them up only through a protected user-managed location.
 
 ## Interactive control
 
@@ -37,6 +37,9 @@ From the source checkout, use `.\build\Release\headless-csgo.exe --interactive -
 auth qr
 # scan the URL/matrix with the Steam mobile app, then wait for auth_completed
 auth status
+list
+login 2 qr
+use 1
 connect
 status
 team T
@@ -52,7 +55,9 @@ disconnect
 quit
 ```
 
-`auth password` emits ephemeral prompts for the Steam account name, password, email code, TOTP, or mobile confirmation. In interactive mode, enter the account name at the account prompt and then enter each secret on its own hidden line. JSON clients submit `auth_input` with the prompt ID and value; secrets are never echoed by the client or included in status events. `auth logout` closes the CM session and clears in-memory tokens while leaving the user-managed token file in place. A token file is reused on the next start when its access token is still valid; an expired access token is renewed with the stored refresh token.
+`login` creates or selects an account and starts QR or password authentication (`login 2 password` selects an existing account; `login qr` creates the next account). `list` reports account IDs, labels, token availability, Steam IDs, and the active account. `use ACCOUNT` switches the active account while disconnected. One process owns one active gameplay connection; switching while connected is rejected so tickets and server state cannot be mixed. `connect [IP:PORT]` accepts an endpoint argument, subject to the verified metadata profile and its authorized server coverage. `say hello` and the other gameplay commands use the active account.
+
+`auth password` remains an alias for authenticating the active account and emits ephemeral prompts for the Steam account name, password, email code, TOTP, or mobile confirmation. In interactive mode, enter the account name at the account prompt and then enter each secret on its own hidden line. JSON clients submit `auth_input` with the prompt ID and value; secrets are never echoed by the client or included in status events. `auth logout` closes the CM session and clears in-memory tokens while leaving the user-managed token file in place. A token file is reused on the next start when its access token is still valid; an expired access token is renewed with the stored refresh token.
 
 `weapon` takes an entity index from the server-confirmed inventory. Purchase success depends on the server's game mode, team, money, and buy zone. `team` accepts `T`, `CT`, or `spectator`.
 
@@ -71,11 +76,11 @@ One request per line:
 
 ```json
 {"id":1,"op":"auth","args":{"mode":"qr"}}
-{"id":2,"op":"auth_status","args":{}}
-{"id":3,"op":"auth_input","args":{"prompt_id":"password","value":"..."}}
-{"id":4,"op":"connect","args":{}}
-{"id":5,"op":"team","args":{"team":"T"}}
-{"id":6,"op":"input","args":{"forward":1,"yaw":90,"duration_ticks":32}}
+{"id":2,"op":"list","args":{}}
+{"id":3,"op":"login","args":{"account":1,"mode":"qr"}}
+{"id":4,"op":"use","args":{"account":1}}
+{"id":5,"op":"connect","args":{"server":"151.243.93.16:27015"}}
+{"id":6,"op":"say","args":{"text":"hello"}}
 {"id":7,"op":"status","args":{}}
 ```
 
@@ -109,7 +114,7 @@ The extractor checks the actual outgoing `clc_ClientInfo` checksum, demo entity 
 
 ## Scope
 
-No rendering, voice, matchmaking, CS2, autonomous decision making, collision prediction, or multiple accounts. Timing and controls use the server tick interval; gameplay state remains server-authoritative. Authentication failures, unsupported connection features, profile mismatches, server rejection, and timeouts are reported explicitly. Disconnect clears session state and pending input, and cancels the Steam ticket.
+No rendering, voice, matchmaking, CS2, autonomous decision making, or collision prediction. Multiple stored accounts are supported, with one active gameplay connection per process. Timing and controls use the server tick interval; gameplay state remains server-authoritative. Authentication failures, unsupported connection features, profile mismatches, server rejection, and timeouts are reported explicitly. Disconnect clears session state and pending input, and cancels the Steam ticket.
 
 See `VALIDATION.md` for the measured validation results.
 

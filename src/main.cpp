@@ -1,4 +1,5 @@
 #include <windows.h>
+#include "hc/accounts.hpp"
 #include "hc/session.hpp"
 #include "hc/netchannel.hpp"
 #include "hc/state.hpp"
@@ -55,7 +56,7 @@ private:
 };
 }
 int main(int argc,char**argv){try{
-    hc::ClientConfig config;bool json=false,autoconnect=false;int run_seconds=0;
+    hc::ClientConfig config;bool json=false,autoconnect=false;int run_seconds=0;std::filesystem::path accounts_file;
     for(int i=1;i<argc;++i){std::string option=argv[i];auto value=[&]{if(++i>=argc)throw std::runtime_error("Missing value for "+option);return std::string(argv[i]);};
         if(option=="--json")json=true;
         else if(option=="--interactive")json=false;
@@ -63,38 +64,84 @@ int main(int argc,char**argv){try{
         else if(option=="--profile")config.profile=value();
         else if(option=="--name")config.name=value();
         else if(option=="--steam-token-file")config.auth_token_file=value();
+        else if(option=="--accounts-file")accounts_file=value();
         else if(option=="--trace")config.trace=true;
         else if(option=="--connect")autoconnect=true;
         else if(option=="--run-seconds"){run_seconds=std::stoi(value());if(run_seconds<1||run_seconds>86400)throw std::runtime_error("Run duration must be 1..86400 seconds");}
         else if(option=="--decode-capture"){auto file=value();auto out=value();return decode_capture(file,out);}
-        else if(option=="--help"){std::cout<<"headless-csgo [--interactive|--json] [--server IP:PORT] [--profile FILE]\n  [--name NAME] [--steam-token-file FILE] [--connect] [--trace] [--run-seconds N]\n  --decode-capture CAPTURE_JSONL METADATA_JSON\nCommands: auth qr|password|status|logout, auth_input PROMPT_ID VALUE, connect, status,\n  team T|CT|spectator, input JSON, weapon ENTITY, buy ITEM, say TEXT, say_team TEXT,\n  aim PITCH YAW, move FORWARD SIDE TICKS, disconnect, quit\n";return 0;}
+        else if(option=="--help"){std::cout<<"headless-csgo [--interactive|--json] [--server IP:PORT] [--profile FILE]\n  [--name NAME] [--accounts-file FILE] [--steam-token-file FILE] [--connect] [--trace] [--run-seconds N]\n  --decode-capture CAPTURE_JSONL METADATA_JSON\nCommands: login [ACCOUNT] qr|password, list, use ACCOUNT, logout, connect [IP:PORT], status,\n  auth qr|password|status|logout, auth_input PROMPT_ID VALUE, team T|CT|spectator,\n  input JSON, weapon ENTITY, buy ITEM, say TEXT, say_team TEXT, aim PITCH YAW,\n  move FORWARD SIDE TICKS, disconnect, quit\n";return 0;}
         else throw std::runtime_error("Unknown option: "+option);
     }
-    SetConsoleCtrlHandler(stop_handler,TRUE);Reader reader;
+    SetConsoleCtrlHandler(stop_handler,TRUE);Reader reader;hc::AccountRegistry accounts(accounts_file);std::uint32_t active_account=0;
+    if(!config.auth_token_file.empty()){
+        // An explicit token file remains supported for single-account scripts.
+    }else if(!accounts.empty()){active_account=accounts.accounts().front().id;config.auth_token_file=accounts.get(active_account).token_file;}
     auto emit=[&](const Json&e){
-        const auto type=e.value("type",std::string{});
+        Json output=e;const auto type=output.value("type",std::string{});if(active_account)output["account"]=active_account;
         if(!json&&(type=="auth_qr"||type=="auth_qr_refresh")){
-            std::cout<<e.value("terminal",std::string{})<<"\nScan this URL in Steam: "<<e.value("url",std::string{})<<"\n";std::cout.flush();return;
+            std::cout<<output.value("terminal",std::string{})<<"\nScan this URL in Steam: "<<output.value("url",std::string{})<<"\n";std::cout.flush();return;
         }
         if(!json&&type=="auth_prompt"){
-            const auto kind=e.value("kind",std::string{"steam_guard"});std::cout<<"Steam authentication prompt ["<<e.value("prompt_id",std::string{})<<"] "<<kind<<": "<<e.value("message",std::string{})<<"\n";std::cout.flush();
-            if(kind=="password"||kind=="email_code"||kind=="totp")reader.arm_hidden_prompt(e.value("prompt_id",std::string{}));
+            const auto kind=output.value("kind",std::string{"steam_guard"});std::cout<<"Steam authentication prompt ["<<output.value("prompt_id",std::string{})<<"] "<<kind<<": "<<output.value("message",std::string{})<<"\n";std::cout.flush();
+            if(kind=="password"||kind=="email_code"||kind=="totp")reader.arm_hidden_prompt(output.value("prompt_id",std::string{}));
             return;
         }
-        if(json)std::cout<<e.dump()<<'\n';else std::cout<<e.dump(2)<<'\n';std::cout.flush();
+        if(json)std::cout<<output.dump()<<'\n';else std::cout<<output.dump(2)<<'\n';std::cout.flush();
     };
-    hc::Session session(config,emit);
+    std::unique_ptr<hc::Session> session;
+    auto make_session=[&]{session=std::make_unique<hc::Session>(config,emit);};
+    make_session();
+    auto switch_account=[&](std::uint32_t id){
+        if(!accounts.contains(id))throw std::runtime_error("Unknown account id: "+std::to_string(id));
+        if(active_account==id)return;
+        if(session&&session->status()["connection"].value("signon",0)!=0)throw std::runtime_error("Disconnect before switching accounts");
+        if(session)session->disconnect("account switch");
+        active_account=id;config.auth_token_file=accounts.get(id).token_file;session.reset();make_session();
+    };
+    auto ensure_account=[&](const Json& args){
+        if(active_account)return;
+        if(!config.auth_token_file.empty())return;
+        if(!accounts.empty()){switch_account(accounts.accounts().front().id);return;}
+        const auto label=args.value("label",std::string{});switch_account(accounts.create(label));
+    };
+    auto dispatch=[&](std::string op,Json args)->Json{
+        if(op=="list"){
+            auto result=Json{{"active_account",active_account},{"accounts",accounts.describe(active_account)}};
+            if(active_account&&session){const auto auth=session->status()["auth"];for(auto& item:result["accounts"])if(item["id"]==active_account){item["state"]=auth.value("state",std::string{"signed_out"});if(auth.value("steam_id",std::uint64_t{}))item["steam_id"]=auth["steam_id"];}}
+            return result;
+        }
+        if(op=="login"){
+            const auto mode=args.value("mode",std::string{"qr"});if(mode!="qr"&&mode!="password")throw std::runtime_error("Login mode must be qr or password");
+            if(args.contains("account"))switch_account(args.at("account").get<std::uint32_t>());else ensure_account(args);
+            auto result=session->command("auth",{{"mode",mode}});result["account"]=active_account;return result;
+        }
+        if(op=="use"){
+            switch_account(args.at("account").get<std::uint32_t>());return {{"active_account",active_account}};
+        }
+        if(op=="logout"){
+            if(args.contains("account")){const auto id=args.at("account").get<std::uint32_t>();if(!active_account||active_account!=id)switch_account(id);}
+            if(!active_account&&!config.auth_token_file.empty())return session->command("auth_logout",args);
+            if(!active_account)throw std::runtime_error("No account selected; use login first");
+            return session->command("auth_logout",args);
+        }
+        if(op=="auth"||op=="auth_input"||op=="auth_status"||op=="auth_logout")ensure_account(args);
+        if(op=="connect"&&!active_account&&config.auth_token_file.empty())throw std::runtime_error("No account selected; use login first");
+        if(op=="status"){
+            auto result=session->command(op,args);result["active_account"]=active_account;return result;
+        }
+        return session->command(op,args);
+    };
     if(!json)std::cout<<"CS:GO Legacy 1.38.8.1 headless client. Type connect or status.\n";
-    if(autoconnect){auto result=session.command("connect");emit({{"type","response"},{"ok",true},{"result",result}});}
+    if(autoconnect){auto result=dispatch("connect",Json::object());emit({{"type","response"},{"ok",true},{"result",result}});}
     auto started=std::chrono::steady_clock::now();bool quit=false;
     while(!quit&&!interrupted){std::string line;for(unsigned count=0;!quit&&count<64&&reader.pop(line);++count){if(line.empty())continue;Json id=nullptr;
-        try{Json request; if(!json&&line.rfind(std::string("\x01")+"AUTH_INPUT\t",0)==0){const auto rest=line.substr(12);const auto tab=rest.find('\t');if(tab==std::string::npos)throw std::runtime_error("Hidden authentication input is malformed");request={{"op","auth_input"},{"args",{{"prompt_id",rest.substr(0,tab)},{"value",rest.substr(tab+1)}}}};}else request=json?Json::parse(line):hc::parse_interactive(line);if(!request.is_object())throw std::runtime_error("Request must be an object");id=request.value("id",Json(nullptr));auto op=request.at("op").get<std::string>();auto args=request.value("args",Json::object());auto result=session.command(op,args);emit({{"type","response"},{"id",id},{"ok",true},{"result",result}});if(op=="quit")quit=true;}
+        try{Json request; if(!json&&line.rfind(std::string("\x01")+"AUTH_INPUT\t",0)==0){const auto rest=line.substr(12);const auto tab=rest.find('\t');if(tab==std::string::npos)throw std::runtime_error("Hidden authentication input is malformed");request={{"op","auth_input"},{"args",{{"prompt_id",rest.substr(0,tab)},{"value",rest.substr(tab+1)}}}};}else request=json?Json::parse(line):hc::parse_interactive(line);if(!request.is_object())throw std::runtime_error("Request must be an object");id=request.value("id",Json(nullptr));auto op=request.at("op").get<std::string>();auto args=request.value("args",Json::object());auto result=dispatch(op,args);emit({{"type","response"},{"id",id},{"ok",true},{"result",result}});if(op=="quit")quit=true;}
         catch(const std::exception&e){emit({{"type","response"},{"id",id},{"ok",false},{"error",{{"message",e.what()}}}});}
     }
-        session.poll();
-        if(run_seconds&&std::chrono::steady_clock::now()-started>std::chrono::seconds(run_seconds)){emit({{"type","run_complete"},{"status",session.status()}});quit=true;}
+        session->poll();
+        if(run_seconds&&std::chrono::steady_clock::now()-started>std::chrono::seconds(run_seconds)){emit({{"type","run_complete"},{"status",session->status()}});quit=true;}
         if(reader.eof()&&!run_seconds)quit=true;
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
-    session.disconnect("client exit");return 0;
+    session->disconnect("client exit");return 0;
 }catch(const std::exception&e){std::cerr<<"headless-csgo: "<<e.what()<<'\n';return 1;}}

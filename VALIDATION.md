@@ -4,7 +4,7 @@ The gameplay metadata is restricted to `151.243.93.16:27015`; no SSH connection 
 
 ## Offline checks
 
-The Debug CTest suite passes six tests: wire transport, state/user commands, protobuf parsing, session lifecycle, native-auth/QR behavior, and the JSON frontend. The Python metadata, bootstrap, privacy, and summary tests pass. Checks cover malformed bitstreams/protobuf, ICE-2, CRC/LZSS, splitting, reliable retransmission and fragmentation, entity deltas, timed inputs, user-command encoding, complete signon, snapshot recovery, disconnect/reconnect clearing, map transitions, auth prompt routing, QR rendering, invalid token-file handling, and package privacy.
+The Debug CTest suite passes seven tests: wire transport, state/user commands, protobuf parsing, session lifecycle, native-auth/QR behavior, account registry persistence, and the JSON frontend. The Python metadata, bootstrap, privacy, and summary tests pass. Checks cover malformed bitstreams/protobuf, ICE-2, CRC/LZSS, splitting, reliable retransmission and fragmentation, entity deltas, timed inputs, user-command encoding, complete signon, snapshot recovery, disconnect/reconnect clearing, map transitions, auth prompt routing, QR rendering, invalid token-file handling, account isolation, and package privacy.
 
 Replay sessions remain offline-only and cannot acquire a Steam ticket or open a live socket. The existing sanitized replay fixtures still re-encode captured move messages bit for bit against the verified profile.
 

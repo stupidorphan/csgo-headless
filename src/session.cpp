@@ -187,7 +187,14 @@ std::vector<Bytes> Session::replay_step(int32_t command_tick){
 }
 Json Session::command(std::string_view op,const Json&a){
     if(!a.is_object())throw std::runtime_error("args must be an object");
-    if(op=="connect"){try{impl_->begin();}catch(...){impl_->close("connection initialization failed");throw;}return {{"state","connecting"}};}
+    if(op=="connect"){
+        if(a.contains("server")){
+            const auto server=a.at("server").get<std::string>();
+            if(server.empty()||server.size()>64)throw std::runtime_error("Server endpoint must contain 1..64 bytes");
+            impl_->config.server=server;
+        }
+        try{impl_->begin();}catch(...){impl_->close("connection initialization failed");throw;}return {{"state","connecting"},{"server",impl_->config.server}};
+    }
     if(op=="status")return status();
     if(op=="auth"){
         const auto mode=a.value("mode",std::string{});
@@ -216,6 +223,25 @@ Json parse_interactive(std::string_view line){
     std::istringstream in{std::string(line)};std::string op;in>>op;Json args=Json::object();
     if(op=="auth"){std::string mode;in>>mode;if(mode.empty())throw std::runtime_error("Usage: auth qr|password|status|logout");if(mode=="status"){op="auth_status";}else if(mode=="logout"){op="auth_logout";}else if(mode=="qr"||mode=="password"){args["mode"]=mode;}else throw std::runtime_error("Usage: auth qr|password|status|logout");}
     else if(op=="auth_input"){std::string id;in>>id;std::string value;std::getline(in>>std::ws,value);if(id.empty()||value.empty())throw std::runtime_error("Usage: auth_input PROMPT_ID VALUE");args={{"prompt_id",id},{"value",value}};}
+    else if(op=="login"){
+        std::string first;in>>first;
+        if(first=="qr"||first=="password"){args["mode"]=first;}
+        else if(!first.empty()){
+            try{args["account"]=std::stoul(first);}catch(...){args["label"]=first;}
+            std::string mode;in>>mode;if(!mode.empty())args["mode"]=mode;
+        }
+        if(!args.contains("mode"))args["mode"]="qr";
+    }
+    else if(op=="use"){
+        unsigned id{};if(!(in>>id))throw std::runtime_error("Usage: use ACCOUNT");args["account"]=id;
+    }
+    else if(op=="connect"){
+        std::string endpoint;in>>endpoint;if(!endpoint.empty())args["server"]=endpoint;
+    }
+    else if(op=="logout"){
+        unsigned id{};if(in>>id)args["account"]=id;op="logout";
+    }
+    else if(op=="list"){}
     else if(op=="team"){std::string v;in>>v;args["team"]=v;}
     else if(op=="weapon"){unsigned id{};if(!(in>>id))throw std::runtime_error("Usage: weapon ENTITY");args["entity"]=id;}
     else if(op=="buy"){std::string v;in>>v;args["item"]=v;}

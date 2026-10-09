@@ -12,3 +12,7 @@ __pycache__/
 .vs/
 *.user
 *.log
+steam-accounts.json
+steam-accounts.json.tmp
+steam-auth*.json
+steam-auth*.json.tmp
