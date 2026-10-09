@@ -364,13 +364,16 @@ struct SteamAuth::Impl {
     }
 
     void ensure_cm() {
-        if (access_token.empty()) throw std::runtime_error("Steam access token is missing; authenticate again");
+        // Steam CM logon uses the refresh token returned by the modern auth
+        // service.  The subordinate access token is for Web API/app scopes;
+        // sending it to ClientLogon is rejected as EResult 5 (InvalidPassword).
+        if (refresh_token.empty()) throw std::runtime_error("Steam refresh token is missing; authenticate again");
         if (cm && cm->logged_in()) { state = "authenticated"; return; }
         if (account.empty()) throw std::runtime_error("Steam account name is unavailable; authenticate with password login again");
         cm_attempted = true;
         cm = std::make_unique<SteamCM>();
         try {
-            cm->connect(account, access_token, steam_id);
+            cm->connect(account, refresh_token, steam_id);
             if (!steam_id) steam_id = cm->steam_id();
             if (!steam_id) throw std::runtime_error("Steam CM did not return an account ID");
             state = "authenticated";

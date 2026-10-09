@@ -17,7 +17,7 @@ public:
     SteamCM(const SteamCM&) = delete;
     SteamCM& operator=(const SteamCM&) = delete;
 
-    void connect(std::string account_name, std::string access_token, std::uint64_t expected_steam_id,
+    void connect(std::string account_name, std::string refresh_token, std::uint64_t expected_steam_id,
                  std::chrono::milliseconds timeout = std::chrono::seconds(20));
     bool logged_in() const noexcept;
     std::uint64_t steam_id() const noexcept;
