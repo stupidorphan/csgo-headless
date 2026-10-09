@@ -170,7 +170,7 @@ void lifecycle_tests(const std::filesystem::path& path) {
     ClientConfig config;
     config.profile = path;
     config.replay_only = true;
-    config.auth_helper = path.parent_path() / "must-never-be-launched.exe";
+    config.auth_token_file = path.parent_path() / "must-never-be-written.json";
     std::vector<Json> events;
     Session session(config, [&](const Json& event) { events.push_back(event); });
     rejects([&] { session.command("connect"); }, "offline replay must reject live connect before acquiring a ticket or socket");

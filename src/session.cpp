@@ -49,13 +49,14 @@ struct Session::Impl {
     Netchannel channel;SOCKET socket=INVALID_SOCKET;bool wsa=false;int signon=0;int32_t spawn_count=-1,tick=0;float interval=1.0f/64;
     uint32_t challenge=0;Bytes connect_packet;Clock::time_point started{},last_received{},last_challenge{},next_send{},last_tick_time{};
     std::deque<UserCmd> backups;bool paused=false,awaiting_full_update=false;uint64_t rx=0,tx=0;std::string last_error;size_t integrity_cursor=0;Clock::time_point next_integrity{};
-    Impl(ClientConfig c,EventSink e):config(std::move(c)),sink(std::move(e)),auth(config.auth_helper) {
+    Impl(ClientConfig c,EventSink e):config(std::move(c)),sink(std::move(e)),auth(config.auth_token_file) {
         if(!config.replay_only){WSADATA d{};if(WSAStartup(MAKEWORD(2,2),&d))throw std::runtime_error("Winsock initialization failed");wsa=true;}
         std::ifstream f(config.profile);if(!f)throw std::runtime_error("Cannot open metadata profile: "+config.profile.string());f>>profile;
         if(profile.value("host_version",0u)!=host_version)throw std::runtime_error("Profile must match Legacy host version 13881");
         state.load_profile(profile);
+        auth.set_event_sink([this](const Json& event) { if (sink) sink(event); });
     }
-    ~Impl(){close("client exit");if(wsa)WSACleanup();}
+    ~Impl(){close("client exit");auth.close();if(wsa)WSACleanup();}
     void emit(std::string_view type,Json payload=Json::object()){if(sink){payload["type"]=type;payload["tick"]=tick;sink(payload);}}
     void send_bytes(std::span<const uint8_t> b){if(socket==INVALID_SOCKET)return;int n=::send(socket,reinterpret_cast<const char*>(b.data()),int(b.size()),0);if(n<0&&WSAGetLastError()!=WSAEWOULDBLOCK)throw std::runtime_error("UDP send failed: "+std::to_string(WSAGetLastError()));if(n>=0)++tx;}
     void queue(uint32_t type,const Proto& p){channel.queue(Message{type,p.data()},true);}
@@ -63,7 +64,7 @@ struct Session::Impl {
     void confirm(int value){ProtoWriter w;w.u32(1,uint32_t(value)).u32(2,uint32_t(spawn_count));queue(7,Proto(w.data()));}
     void close(std::string reason){
         if(socket!=INVALID_SOCKET){if(signon>=2){try{ProtoWriter w;w.string(1,reason);queue(1,Proto(w.data()));for(auto&d:channel.send())send_bytes(d);}catch(...) {}}closesocket(socket);socket=INVALID_SOCKET;}
-        auth.close();if(!credentials.ticket.empty())SecureZeroMemory(credentials.ticket.data(),credentials.ticket.size());credentials={};
+        if(!credentials.ticket.empty())SecureZeroMemory(credentials.ticket.data(),credentials.ticket.size());credentials={};
         bool was=signon!=0;signon=0;input.reset();backups.clear();channel.reset();state.reset();spawn_count=-1;paused=false;awaiting_full_update=false;integrity_cursor=0;if(!connect_packet.empty())SecureZeroMemory(connect_packet.data(),connect_packet.size());connect_packet.clear();
         if(was)emit("disconnected",{{"reason",reason}});
         tick=0;last_tick_time={};interval=1.0f/64;
@@ -74,7 +75,8 @@ struct Session::Impl {
         if(!profile.contains("send_table_crc")||!profile["send_table_crc"].is_number_unsigned()||profile["send_table_crc"].get<uint32_t>()==0||!profile.contains("entity_schema")||profile["entity_schema"].value("classes",Json::array()).empty()||!profile.value("bootstrap",Json::object()).value("stock_signon_verified",false)||!profile.value("bootstrap",Json::object()).value("send_table_crc_verified",false))throw std::runtime_error("Bootstrap incomplete: extract a matching demo schema and captured client-info checksum first");
         if(!profile.value("integrity",Json::object()).value("requirements_verified",false))throw std::runtime_error("Bootstrap incomplete: integrity requirements are not verified");
         if(profile["integrity"].value("coverage",Json::object()).value("server",std::string{})!=config.server)throw std::runtime_error("Server differs from verified metadata coverage");
-        state.load_profile(profile);credentials=auth.acquire();
+        if(!auth.ready())throw std::runtime_error("Steam authentication required: run auth qr or auth password first");
+        state.load_profile(profile);credentials=auth.acquire_ticket();
         auto colon=config.server.rfind(':');if(colon==std::string::npos)throw std::runtime_error("Server must be a numeric IPv4 address:port");
         sockaddr_in remote{};remote.sin_family=AF_INET;int port=std::stoi(config.server.substr(colon+1));if(port<1||port>65535||inet_pton(AF_INET,config.server.substr(0,colon).c_str(),&remote.sin_addr)!=1)throw std::runtime_error("Invalid IPv4 endpoint");remote.sin_port=htons(uint16_t(port));
         socket=::socket(AF_INET,SOCK_DGRAM,IPPROTO_UDP);if(socket==INVALID_SOCKET)throw std::runtime_error("Cannot open UDP socket");
@@ -138,6 +140,7 @@ struct Session::Impl {
         if(state.needs_full_update()){awaiting_full_update=true;state.clear_full_update_request();}
     }
     void poll(){
+        try { auth.poll(); } catch(const std::exception& e) { emit("auth_error",{{"message",e.what()}}); }
         if(socket==INVALID_SOCKET)return;
         try{
             std::array<uint8_t,65536> buffer{};
@@ -169,7 +172,7 @@ Session::Session(ClientConfig c,EventSink sink):impl_(std::make_unique<Impl>(std
 Session::~Session()=default;
 void Session::poll(){impl_->poll();}
 void Session::disconnect(std::string r){impl_->close(std::move(r));}
-Json Session::status()const{auto result=impl_->state.status();result["connection"]={{"state",signon_names[impl_->signon]},{"signon",impl_->signon},{"server",impl_->config.server},{"tick",impl_->tick},{"received_packets",impl_->rx},{"sent_packets",impl_->tx},{"last_error",impl_->last_error}};return result;}
+Json Session::status()const{auto result=impl_->state.status();result["connection"]={{"state",signon_names[impl_->signon]},{"signon",impl_->signon},{"server",impl_->config.server},{"tick",impl_->tick},{"received_packets",impl_->rx},{"sent_packets",impl_->tx},{"last_error",impl_->last_error}};result["auth"]=impl_->auth.status();return result;}
 void Session::replay_message(uint32_t type,const Proto& p){
     if(!impl_->config.replay_only)throw std::logic_error("Offline replay requires replay_only configuration");
     try{impl_->consume({type,p.data()});}catch(const std::exception&e){impl_->last_error=e.what();impl_->emit("error",{{"message",impl_->last_error}});impl_->close(impl_->last_error);}
@@ -185,6 +188,19 @@ Json Session::command(std::string_view op,const Json&a){
     if(!a.is_object())throw std::runtime_error("args must be an object");
     if(op=="connect"){try{impl_->begin();}catch(...){impl_->close("connection initialization failed");throw;}return {{"state","connecting"}};}
     if(op=="status")return status();
+    if(op=="auth"){
+        const auto mode=a.value("mode",std::string{});
+        if(mode=="qr")impl_->auth.start(SteamAuthMode::qr);
+        else if(mode=="password")impl_->auth.start(SteamAuthMode::password);
+        else throw std::runtime_error("Authentication mode must be qr or password");
+        return {{"state","authenticating"},{"mode",mode}};
+    }
+    if(op=="auth_input"){
+        impl_->auth.submit(a.at("prompt_id").get<std::string>(),a.at("value").get<std::string>());
+        return {{"accepted",true}};
+    }
+    if(op=="auth_status")return impl_->auth.status();
+    if(op=="auth_logout"){impl_->close("auth logout");impl_->auth.close();return {{"state","signed_out"}};}
     if(op=="disconnect"||op=="quit"){disconnect();return {{"state","disconnected"}};}
     if(impl_->signon!=6)throw std::runtime_error("Gameplay commands require full signon");
     if(op=="input")impl_->input.set(a);
@@ -197,7 +213,9 @@ Json Session::command(std::string_view op,const Json&a){
 }
 Json parse_interactive(std::string_view line){
     std::istringstream in{std::string(line)};std::string op;in>>op;Json args=Json::object();
-    if(op=="team"){std::string v;in>>v;args["team"]=v;}
+    if(op=="auth"){std::string mode;in>>mode;if(mode.empty())throw std::runtime_error("Usage: auth qr|password|status|logout");if(mode=="status"){op="auth_status";}else if(mode=="logout"){op="auth_logout";}else if(mode=="qr"||mode=="password"){args["mode"]=mode;}else throw std::runtime_error("Usage: auth qr|password|status|logout");}
+    else if(op=="auth_input"){std::string id;in>>id;std::string value;std::getline(in>>std::ws,value);if(id.empty()||value.empty())throw std::runtime_error("Usage: auth_input PROMPT_ID VALUE");args={{"prompt_id",id},{"value",value}};}
+    else if(op=="team"){std::string v;in>>v;args["team"]=v;}
     else if(op=="weapon"){unsigned id{};if(!(in>>id))throw std::runtime_error("Usage: weapon ENTITY");args["entity"]=id;}
     else if(op=="buy"){std::string v;in>>v;args["item"]=v;}
     else if(op=="say"||op=="say_team"){std::string v;std::getline(in>>std::ws,v);args["text"]=v;}

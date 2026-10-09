@@ -56,12 +56,12 @@ int main(int argc,char**argv){try{
         else if(option=="--server")config.server=value();
         else if(option=="--profile")config.profile=value();
         else if(option=="--name")config.name=value();
-        else if(option=="--auth-helper")config.auth_helper=value();
+        else if(option=="--steam-token-file")config.auth_token_file=value();
         else if(option=="--trace")config.trace=true;
         else if(option=="--connect")autoconnect=true;
         else if(option=="--run-seconds"){run_seconds=std::stoi(value());if(run_seconds<1||run_seconds>86400)throw std::runtime_error("Run duration must be 1..86400 seconds");}
         else if(option=="--decode-capture"){auto file=value();auto out=value();return decode_capture(file,out);}
-        else if(option=="--help"){std::cout<<"headless-csgo [--interactive|--json] [--server IP:PORT] [--profile FILE]\n  [--name NAME] [--connect] [--trace] [--run-seconds N]\n  --decode-capture CAPTURE_JSONL METADATA_JSON\nCommands: connect, status, team T|CT|spectator, input JSON, weapon ENTITY,\n  buy ITEM, say TEXT, say_team TEXT, aim PITCH YAW, move FORWARD SIDE TICKS, disconnect, quit\n";return 0;}
+        else if(option=="--help"){std::cout<<"headless-csgo [--interactive|--json] [--server IP:PORT] [--profile FILE]\n  [--name NAME] [--steam-token-file FILE] [--connect] [--trace] [--run-seconds N]\n  --decode-capture CAPTURE_JSONL METADATA_JSON\nCommands: auth qr|password|status|logout, auth_input PROMPT_ID VALUE, connect, status,\n  team T|CT|spectator, input JSON, weapon ENTITY, buy ITEM, say TEXT, say_team TEXT,\n  aim PITCH YAW, move FORWARD SIDE TICKS, disconnect, quit\n";return 0;}
         else throw std::runtime_error("Unknown option: "+option);
     }
     auto emit=[&](const Json&e){if(json)std::cout<<e.dump()<<'\n';else std::cout<<e.dump(2)<<'\n';std::cout.flush();};

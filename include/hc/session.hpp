@@ -12,7 +12,7 @@ struct ClientConfig {
     std::string server="151.243.93.16:27015";
     std::string name="headless";
     std::filesystem::path profile="profiles/legacy_13881.json";
-    std::filesystem::path auth_helper;
+    std::filesystem::path auth_token_file;
     bool trace=false;
     bool replay_only=false;
 };
