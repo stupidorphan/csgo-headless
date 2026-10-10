@@ -15,17 +15,16 @@ std::string render_qr(std::string_view url) {
     result.reserve(static_cast<std::size_t>((qr.getSize() + border * 2) * (qr.getSize() + border * 2) / 2));
     for (int y = -border; y < qr.getSize() + border; y += 2) {
         for (int x = -border; x < qr.getSize() + border; ++x) {
-            const bool top = x >= -border && x < qr.getSize() + border &&
-                             y >= -border && y < qr.getSize() + border &&
-                             (x < 0 || y < 0 || x >= qr.getSize() || y >= qr.getSize() || qr.getModule(x, y));
+            // In a terminal (dark background, light foreground):
+            // Dark modules are rendered as black (' ') and light modules/border as white ('█').
+            // qr.getModule(x, y) returns true if dark, false if light or out-of-bounds (border).
+            const bool top_white = !qr.getModule(x, y);
             const int bottom_y = y + 1;
-            const bool bottom = x >= -border && x < qr.getSize() + border &&
-                                bottom_y >= -border && bottom_y < qr.getSize() + border &&
-                                (x < 0 || bottom_y < 0 || x >= qr.getSize() || bottom_y >= qr.getSize() || qr.getModule(x, bottom_y));
-            if (top && bottom) result += "\xE2\x96\x88";       // full block
-            else if (top) result += "\xE2\x96\x80";           // upper half block
-            else if (bottom) result += "\xE2\x96\x84";        // lower half block
-            else result.push_back(' ');
+            const bool bottom_white = (bottom_y < qr.getSize() + border) ? !qr.getModule(x, bottom_y) : true;
+            if (top_white && bottom_white) result += "\xE2\x96\x88";       // full block (white)
+            else if (top_white) result += "\xE2\x96\x80";                  // upper half block (white top, black bottom)
+            else if (bottom_white) result += "\xE2\x96\x84";               // lower half block (black top, white bottom)
+            else result.push_back(' ');                                    // space (black)
         }
         result.push_back('\n');
     }
@@ -41,7 +40,7 @@ std::string render_qr_ascii(std::string_view url) {
     result.reserve(static_cast<std::size_t>((qr.getSize() + border * 2) * (qr.getSize() + border * 2) * 2));
     for (int y = -border; y < qr.getSize() + border; ++y) {
         for (int x = -border; x < qr.getSize() + border; ++x) {
-            const bool dark = x < 0 || y < 0 || x >= qr.getSize() || y >= qr.getSize() || qr.getModule(x, y);
+            const bool dark = qr.getModule(x, y);
             result += dark ? "##" : "  ";
         }
         result.push_back('\n');
@@ -58,7 +57,7 @@ std::string render_qr_squares(std::string_view url) {
     result.reserve(static_cast<std::size_t>((qr.getSize() + border * 2) * (qr.getSize() + border * 2) * 3));
     for (int y = -border; y < qr.getSize() + border; ++y) {
         for (int x = -border; x < qr.getSize() + border; ++x) {
-            const bool dark = x < 0 || y < 0 || x >= qr.getSize() || y >= qr.getSize() || qr.getModule(x, y);
+            const bool dark = qr.getModule(x, y);
             result += dark ? "\xE2\xAC\x9B" : "\xE2\xAC\x9C"; // ⬛ / ⬜
         }
         result.push_back('\n');

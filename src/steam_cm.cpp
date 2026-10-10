@@ -1,6 +1,7 @@
 #include "hc/steam_cm.hpp"
 
 #include "hc/proto.hpp"
+#include "hc/tinf.h"
 
 #include <windows.h>
 #include <winhttp.h>
@@ -26,20 +27,33 @@ namespace {
 using Clock = std::chrono::steady_clock;
 
 constexpr std::uint32_t kProtoFlag = 0x80000000u;
-constexpr std::uint32_t kClientHello = 9805;
-constexpr std::uint32_t kClientLogon = 5514;
+constexpr std::uint32_t kClientMulti = 1;
+constexpr std::uint32_t kClientHeartBeat = 703;
+constexpr std::uint32_t kClientLogOff = 706;
 constexpr std::uint32_t kClientLogonResponse = 751;
+constexpr std::uint32_t kClientLoggedOff = 757;
 constexpr std::uint32_t kClientGameConnectTokens = 779;
 constexpr std::uint32_t kClientGetAppOwnershipTicket = 857;
 constexpr std::uint32_t kClientGetAppOwnershipTicketResponse = 858;
 constexpr std::uint32_t kClientAuthList = 5432;
-constexpr std::uint32_t kClientHeartBeat = 703;
+constexpr std::uint32_t kClientLogon = 5514;
 constexpr std::uint32_t kClientAuthListAck = 5575;
+constexpr std::uint32_t kClientHello = 9805;
 // SteamKit's LogOnDetails constructs a public, desktop SteamID even when the
 // account id is not known yet (which is normal for a QR session).  The CM
 // expects that identity in the protobuf header; omitting it causes token
 // logons to be rejected as invalid credentials.
 constexpr std::uint64_t kUnknownDesktopSteamId = 0x0110000100000000ull;
+
+Bytes gzip_decompress(std::span<const std::uint8_t> compressed, std::size_t uncompressed_size) {
+    if (uncompressed_size > 64 * 1024 * 1024) throw std::runtime_error("Steam CM multi payload exceeds limit");
+    Bytes output(uncompressed_size);
+    unsigned int dest_len = static_cast<unsigned int>(uncompressed_size);
+    const auto res = tinf_gzip_uncompress(output.data(), &dest_len, compressed.data(), static_cast<unsigned int>(compressed.size()));
+    if (res != TINF_OK) throw std::runtime_error("Steam CM multi payload gzip decompression failed: " + std::to_string(res));
+    output.resize(dest_len);
+    return output;
+}
 
 std::uint32_t load_u32(const std::uint8_t* p) {
     return std::uint32_t(p[0]) | (std::uint32_t(p[1]) << 8) | (std::uint32_t(p[2]) << 16) | (std::uint32_t(p[3]) << 24);
@@ -165,6 +179,7 @@ struct SteamCM::Impl {
     bool logged = false;
     std::uint64_t steam_id = 0;
     std::uint64_t login_steam_id = 0;
+    std::uint64_t expected_steam_id = 0;
     std::int32_t session_id = 0;
     std::atomic<std::uint64_t> next_job{1};
     std::uint32_t next_sequence = 1;
@@ -184,13 +199,15 @@ struct SteamCM::Impl {
         changed.notify_all();
     }
 
-    Bytes header(std::uint64_t source, std::uint64_t target) {
+    Bytes header(std::uint64_t source, std::uint64_t target, bool include_identity = true) {
         ProtoWriter writer;
         writer.fixed64(10, source);
         if (target) writer.fixed64(11, target);
-        const auto identity = steam_id ? steam_id : login_steam_id;
-        if (identity) writer.fixed64(1, identity);
-        if (session_id) writer.i32(2, session_id);
+        if (include_identity) {
+            const auto identity = steam_id ? steam_id : login_steam_id;
+            if (identity) writer.fixed64(1, identity);
+            if (session_id) writer.i32(2, session_id);
+        }
         return writer.take();
     }
 
@@ -205,7 +222,8 @@ struct SteamCM::Impl {
     std::uint64_t allocate_job() { return next_job.fetch_add(1, std::memory_order_relaxed); }
 
     std::uint64_t send_proto_with_job(std::uint32_t message, const Proto& body, std::uint64_t target, std::uint64_t job) {
-        const auto proto_header = header(job, target);
+        const bool include_identity = (message != kClientHello);
+        const auto proto_header = header(job, target, include_identity);
         Bytes packet;
         store_u32(packet, message | kProtoFlag);
         store_u32(packet, static_cast<std::uint32_t>(proto_header.size()));
@@ -236,8 +254,14 @@ struct SteamCM::Impl {
         constexpr std::uint32_t obfuscated_private_ip = 0xBAADF00Du ^ 0x7f000001u;
         ProtoWriter ip; ip.fixed32(1, obfuscated_private_ip);
         body.u32(1, 65581).u32(2, obfuscated_private_ip).u32(3, 0).u32(5, 1771).string(6, "english").u32(7, 20)
-            .u32(8, 1).message(11, ip)
-            .string(50, account).u32(102, 1).string(96, "headless-csgo").string(108, refresh_token);
+            .u32(8, 1).message(11, ip);
+        if (!account.empty()) {
+            body.string(50, account);
+        }
+        if (!refresh_token.empty()) {
+            body.string(108, refresh_token);
+        }
+        body.u32(102, 1).string(96, "headless-csgo");
         send_proto(kClientLogon, Proto(body.data()));
     }
 
@@ -253,19 +277,51 @@ struct SteamCM::Impl {
         Proto body(data.subspan(body_offset));
         const auto source = hp.get_u64(10, UINT64_MAX);
         const auto target = hp.get_u64(11, 0);
+
+        if (message == kClientMulti) {
+            const auto size_unzipped = body.get_u32(1, 0);
+            const auto payload = body.get_bytes(2);
+            Bytes decompressed;
+            std::span<const std::uint8_t> stream;
+            if (size_unzipped > 0) {
+                decompressed = gzip_decompress(payload, size_unzipped);
+                stream = decompressed;
+            } else {
+                stream = payload;
+            }
+            std::size_t offset = 0;
+            while (offset + 4 <= stream.size()) {
+                const auto sub_size = load_u32(stream.data() + offset);
+                offset += 4;
+                if (offset + sub_size > stream.size()) throw std::runtime_error("Steam CM multi message is truncated");
+                handle(stream.subspan(offset, sub_size));
+                offset += sub_size;
+            }
+            return;
+        }
+
         std::lock_guard lock(mutex);
         if (message == kClientLogonResponse) {
             const auto result = body.get_u32(1, 2);
             if (result != 1) { error = "Steam CM login rejected with EResult " + std::to_string(result); }
             else {
-                // CMsgClientLogonResponse carries the authenticated account
-                // in its body (field 20).  The protobuf header's SteamID is
-                // the login identity we supplied and may still be the zero
-                // account placeholder for QR sessions.
-                steam_id = body.get_u64(20, hp.get_u64(1, steam_id));
+                const auto assigned_steam_id = body.get_u64(20, 0);
+                const auto header_steam_id = hp.get_u64(1, 0);
+                if (assigned_steam_id && assigned_steam_id != kUnknownDesktopSteamId) {
+                    steam_id = assigned_steam_id;
+                } else if (header_steam_id && header_steam_id != kUnknownDesktopSteamId) {
+                    steam_id = header_steam_id;
+                } else if (expected_steam_id) {
+                    steam_id = expected_steam_id;
+                }
                 session_id = hp.get_i32(2, 0);
                 logged = true;
             }
+            changed.notify_all();
+        } else if (message == kClientLoggedOff) {
+            const auto result = body.get_u32(1, 2);
+            logged = false;
+            error = "Steam CM logged off with EResult " + std::to_string(result);
             changed.notify_all();
         } else if (message == kClientGameConnectTokens) {
             token_limit = body.get_u32(1, 10);
@@ -289,7 +345,23 @@ struct SteamCM::Impl {
         while (true) {
             DWORD received = 0; WINHTTP_WEB_SOCKET_BUFFER_TYPE type{};
             const auto status = WinHttpWebSocketReceive(socket, buffer.data(), static_cast<DWORD>(buffer.size()), &received, &type);
-            if (status != NO_ERROR || type == WINHTTP_WEB_SOCKET_CLOSE_BUFFER_TYPE) break;
+            if (status != NO_ERROR) {
+                fail(winhttp_failure("Steam CM WebSocket receive failed"));
+                break;
+            }
+            if (type == WINHTTP_WEB_SOCKET_CLOSE_BUFFER_TYPE) {
+                USHORT close_status = 0;
+                char reason[256] = {};
+                DWORD reason_len = 0;
+                WinHttpWebSocketQueryCloseStatus(socket, &close_status, reason, sizeof(reason) - 1, &reason_len);
+                std::string close_msg = "Steam CM connection closed by server (status " + std::to_string(close_status);
+                if (reason_len > 0) {
+                    close_msg += ": " + std::string(reason, reason_len);
+                }
+                close_msg += ")";
+                fail(std::move(close_msg));
+                break;
+            }
             if (type != WINHTTP_WEB_SOCKET_BINARY_MESSAGE_BUFFER_TYPE && type != WINHTTP_WEB_SOCKET_BINARY_FRAGMENT_BUFFER_TYPE) continue;
             if (message.size() + received > 4 * 1024 * 1024) { fail("Steam CM message exceeds the safety limit"); break; }
             message.insert(message.end(), buffer.begin(), buffer.begin() + received);
@@ -299,6 +371,7 @@ struct SteamCM::Impl {
         }
         std::lock_guard lock(mutex); logged = false; stopping = true; changed.notify_all();
     }
+
 
     void heartbeat_loop() {
         while (true) {
@@ -326,7 +399,20 @@ struct SteamCM::Impl {
         socket = WinHttpWebSocketCompleteUpgrade(request, 0);
         if (!socket) throw std::runtime_error(winhttp_failure("Steam CM WebSocket upgrade was rejected"));
         WinHttpCloseHandle(request); request = nullptr;
-        { std::lock_guard lock(mutex); stopping = false; logged = false; error.clear(); steam_id = expected; login_steam_id = expected ? expected : kUnknownDesktopSteamId; session_id = 0; next_job.store(1, std::memory_order_relaxed); }
+        if (!expected && !refresh_token.empty()) {
+            expected = parse_jwt_steam_id(refresh_token);
+        }
+        {
+            std::lock_guard lock(mutex);
+            stopping = false;
+            logged = false;
+            error.clear();
+            steam_id = 0;
+            login_steam_id = kUnknownDesktopSteamId;
+            expected_steam_id = expected;
+            session_id = 0;
+            next_job.store(1, std::memory_order_relaxed);
+        }
         reader = std::thread([this] { reader_loop(); });
         heartbeat = std::thread([this] { heartbeat_loop(); });
         send_hello();
@@ -335,6 +421,7 @@ struct SteamCM::Impl {
         if (!changed.wait_for(lock, timeout, [this] { return logged || !error.empty() || stopping; })) throw std::runtime_error("Steam CM login timed out");
         if (!error.empty()) throw std::runtime_error(error);
         if (!logged) throw std::runtime_error("Steam CM disconnected during login");
+        if (!steam_id && expected_steam_id) steam_id = expected_steam_id;
     }
 
     void connect(std::string account, std::string refresh_token, std::uint64_t expected, std::chrono::milliseconds timeout) {
@@ -411,7 +498,7 @@ struct SteamCM::Impl {
         if (connection) WinHttpCloseHandle(connection); connection = nullptr;
         if (session) WinHttpCloseHandle(session); session = nullptr;
         for (auto& token : game_tokens) wipe(token);
-        game_tokens.clear(); wipe(ownership_ticket); error.clear(); login_steam_id = 0;
+        game_tokens.clear(); wipe(ownership_ticket); error.clear(); login_steam_id = 0; steam_id = 0; expected_steam_id = 0;
     }
 };
 

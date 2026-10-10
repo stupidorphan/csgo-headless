@@ -15,6 +15,7 @@ struct ClientConfig {
     std::filesystem::path auth_token_file;
     bool trace=false;
     bool replay_only=false;
+    bool strict_profile=false;
 };
 class Session {
 public:

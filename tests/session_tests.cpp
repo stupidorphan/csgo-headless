@@ -152,6 +152,22 @@ void framing_tests() {
     check(request["op"] == "use" && request["args"]["account"] == 2, "account selection parser");
     request = parse_interactive("connect 1.1.1.1:27015");
     check(request["op"] == "connect" && request["args"]["server"] == "1.1.1.1:27015", "endpoint parser");
+    request = parse_interactive("connect all 1.1.1.1:27015");
+    check(request["op"] == "connect_all" && request["args"]["server"] == "1.1.1.1:27015", "connect all parser");
+    request = parse_interactive("connect_all 1.1.1.1:27015");
+    check(request["op"] == "connect_all" && request["args"]["server"] == "1.1.1.1:27015", "connect_all parser");
+    request = parse_interactive("disconnect all");
+    check(request["op"] == "disconnect_all", "disconnect all parser");
+    request = parse_interactive("status all");
+    check(request["op"] == "status_all", "status all parser");
+    request = parse_interactive("swarm on");
+    check(request["op"] == "swarm" && request["args"]["enabled"] == true, "swarm on parser");
+    request = parse_interactive("swarm off");
+    check(request["op"] == "swarm" && request["args"]["enabled"] == false, "swarm off parser");
+    request = parse_interactive("broadcast team CT");
+    check(request["op"] == "broadcast" && request["args"]["command"] == "team" && request["args"]["command_args"]["team"] == "CT", "broadcast team parser");
+    request = parse_interactive("broadcast say Rush B!");
+    check(request["op"] == "broadcast" && request["args"]["command"] == "say" && request["args"]["command_args"]["text"] == "Rush B!", "broadcast say parser");
     const auto info = make_userinfo("test");
     check(info.get_messages(1).at(0).get_messages(1).at(0).get_string(1) == "name", "nested userinfo framing");
     const auto variables = info.get_messages(1).at(0).get_messages(1);
@@ -260,6 +276,10 @@ void lifecycle_tests(const std::filesystem::path& path) {
     check(status["connection"]["signon"] == 0 && status["local"].is_null() &&
           status["connection"]["last_error"].get<std::string>().find("synthetic server rejection") != std::string::npos,
           "server disconnect uses production error path and clears authoritative state");
+    auto swarm_res = session.command("swarm", {{"enabled", true}});
+    check(swarm_res["swarm_mode"] == true, "swarm mode command");
+    auto status_all_res = session.command("status_all");
+    check(status_all_res["connection"]["state"] == "disconnected", "status_all fallback on session");
 }
 void angle_fix_tests(const std::filesystem::path& path) {
     ClientConfig config;

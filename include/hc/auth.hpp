@@ -24,6 +24,8 @@ enum class SteamAuthMode {
     password,
 };
 
+std::uint64_t parse_jwt_steam_id(std::string_view jwt);
+
 // Steam authentication is independent from the gameplay UDP session. The
 // implementation owns its CM/HTTP state and emits only non-secret lifecycle
 // information to the caller.
@@ -37,7 +39,8 @@ public:
     SteamAuth& operator=(const SteamAuth&) = delete;
 
     void set_event_sink(EventSink sink);
-    void start(SteamAuthMode mode);
+    void start(SteamAuthMode mode, std::string initial_account = {}, std::string initial_password = {});
+    void import_token(std::string token_or_path, std::string account_name = {});
     void submit(std::string prompt_id, std::string value);
     void poll();
     bool ready() const noexcept;
